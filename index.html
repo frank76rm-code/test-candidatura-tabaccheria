@@ -16,11 +16,12 @@ header{position:sticky;top:0;z-index:10;background:rgba(255,253,248,.94);backdro
 <div class="notice" style="margin-top:12px"><strong>Primo step di preselezione.</strong> Il superamento del test non comporta assunzione automatica né promessa di assunzione. Il test serve solo come primo filtro conoscitivo e pratico. Dopo l’esame del risultato, la tabaccheria potrà contattare la candidata, tramite telefono, WhatsApp o email, per richiedere un curriculum se disponibile e/o fissare un piccolo colloquio conoscitivo direttamente in tabaccheria. L’eventuale prosecuzione della selezione resta a discrezione della tabaccheria.</div>
 <div class="notice security" style="margin-top:12px"><strong>Serietà del percorso lavorativo.</strong> La tabaccheria non propone lavoro in nero, prove gratuite non retribuite o accordi irregolari. Un eventuale inserimento avverrà esclusivamente con regolare contratto, comunicazioni obbligatorie, busta paga e trattamento economico secondo la normativa e il CCNL applicabile. L’obiettivo non è cercare una collaborazione improvvisata di pochi mesi, ma valutare un percorso serio di apprendistato e formazione, normalmente pensato su un periodo ampio e stabile quando ricorrono i requisiti previsti. Per questo è richiesto impegno reciproco: correttezza, puntualità, rispetto delle regole e reale disponibilità ad apprendere da parte della candidata; formazione, chiarezza e regolarità da parte della tabaccheria.</div>
 <div class="notice security" style="margin-top:12px"><strong>Privacy del risultato.</strong> Il file generato contiene domande, risposte ed esito in forma cifrata. Non è leggibile dal telefono della candidata: può essere aperto solo dal titolare con il lettore riservato e PIN.</div>
+<div class="notice security" style="margin-top:12px"><strong>Registro accessi del test.</strong> Per gestire correttamente la preselezione, l’apertura del test, l’inizio della compilazione, la conclusione e i pulsanti di invio possono essere registrati in un registro privato della tabaccheria, insieme ai dati inseriti dalla candidata e al codice test. La registrazione serve solo per organizzare la selezione e verificare i test iniziati o completati.</div>
 <div class="privacy-box" id="privacyInfo">
 <h2>Informativa privacy sintetica e avvertenze sul test</h2>
 <p><strong>Titolare del trattamento:</strong> Tabaccheria Petralia, contatto privacy e selezione: <strong>tabaccheriapetralia@gmail.com</strong>.</p>
 <p><strong>Finalità:</strong> i dati inseriti e le risposte al test sono utilizzati esclusivamente per valutare la candidatura ad apprendista di tabaccheria/ricevitoria, organizzare eventuale colloquio, prova pratica o contatto successivo.</p>
-<p><strong>Dati trattati:</strong> nome e cognome, email, telefono/WhatsApp, data di nascita, zona/comune, disponibilità, data del test, risposte selezionate, eventuali note facoltative e risultato generato dal sistema.</p>
+<p><strong>Dati trattati:</strong> nome e cognome, email, telefono/WhatsApp, data di nascita, zona/comune, disponibilità, data del test, risposte selezionate, eventuali note facoltative, risultato generato dal sistema, codice test, data e ora di apertura/inizio/conclusione, stato della compilazione e dati tecnici minimi del browser necessari al registro accessi.</p>
 <p><strong>Base giuridica:</strong> esecuzione di misure precontrattuali richieste dalla candidata e legittimo interesse del titolare a svolgere una selezione ordinata, proporzionata e documentabile. La presa visione qui sotto non sostituisce l’informativa completa: serve a confermare che la candidata ha letto queste informazioni prima di procedere.</p>
 <p><strong>Conservazione:</strong> i dati saranno conservati per il tempo necessario alla selezione e, salvo esigenze documentali o obblighi di legge, non oltre 6 mesi dalla conclusione della ricerca del personale.</p>
 <p><strong>Comunicazione e sicurezza:</strong> il file del test viene cifrato e può essere letto solo dal titolare tramite lettore riservato e PIN. I dati non sono pubblicati, diffusi o ceduti a terzi per finalità commerciali.</p>
@@ -51,6 +52,18 @@ header{position:sticky;top:0;z-index:10;background:rgba(255,253,248,.94);backdro
 const DEST_EMAIL = "tabaccheriapetralia@gmail.com";
 const DEST_WHATSAPP = "39069090211";
 const DEST_WHATSAPP_DISPLAY = "06 9090211";
+
+// REGISTRO PRIVATO ACCESSI / COMPILAZIONI
+// 1) Crea il Google Sheet e la Web App Apps Script con il file REGISTRO_APPS_SCRIPT.txt.
+// 2) Incolla qui sotto l’URL della Web App, lasciando la chiave uguale anche nello script.
+// 3) Finché l’URL resta vuoto o contiene "INCOLLA_QUI", il test funziona normalmente ma non registra nulla online.
+const TRACKING_ENDPOINT_URL = "https://script.google.com/macros/s/AKfycbxTzdElLG2JeEqwJIS9klRdMpg69JISngFlzk-UbwaQ7HGliw_VRqPU7d7T39oqUeHjPw/exec";
+const TRACKING_TOKEN = "PETRALIA-TRACKING-2026-CAMBIA-QUESTA-CHIAVE";
+const TRACKING_ENABLED = Boolean(TRACKING_ENDPOINT_URL && !TRACKING_ENDPOINT_URL.includes("INCOLLA_QUI"));
+let TRACKING_SESSION_ID = "";
+let TRACKING_STARTED_AT = Date.now();
+let TRACKING_FIRST_ANSWER_SENT = false;
+
 const MIN_AGE = 20;
 const MAX_AGE = 27;
 const PUBLIC_KEY_JWK = {"kty": "RSA", "n": "rcid0DM-73xH7vP1Gr0SrJfFJnHCIt0jAcwCT720gBAnufMDCYIbe8VhuxBAVu9NbhAxm_JdDo9J_S5pMFSGXeVIsTsW7nncmI2DGdswfa4DWAHlRLEs9cen-oKnoEkBDUXu-n-w0Az2o6ngwuSlCIFyQmyTT6aS1dViqOsUFpcAwgAYMcjSaQ-zYnrievKfJTJkYUJcXadefCJmiAI6DYy4EqnrXwisNfiwP82CHvnBe5klpyP4S13_bVdaTl7gQx5IBhrErSmsbVCE67PgzKjth8VBOy5eTbvkMv9bufvSRZ8s-WsDdgLAaxk9mpyYQDIdhUzJsavhjv6AyaXOAw", "e": "AQAB", "alg": "RSA-OAEP-256", "ext": true, "key_ops": ["encrypt"]};
@@ -2398,9 +2411,48 @@ function formatItalianDateFromISO(dateString){
   return `${String(p.day).padStart(2,'0')}/${String(p.month).padStart(2,'0')}/${p.year}`;
 }
 function getCandidateData(){const birth=document.getElementById('birthDate').value||'';const age=calcAge(birth);return {name:document.getElementById('candidateName').value.trim()||'Candidato non indicato',email:document.getElementById('candidateEmail').value.trim()||'',phone:document.getElementById('candidatePhone').value.trim()||'',birth,age,zone:document.getElementById('candidateZone').value.trim()||'',availability:document.getElementById('candidateAvailability').value.trim()||'',date:document.getElementById('testDate').value||todayISO(),notes:document.getElementById('candidateNotes').value.trim()||''};}
+function getTrackingAnswersDone(){try{return getAnswers().filter(Boolean).length;}catch(e){return 0;}}
+function sendTrackingEvent(eventName,extra={}){
+  if(!TRACKING_ENABLED)return;
+  try{
+    const data=(typeof getCandidateData==='function')?getCandidateData():{};
+    const payload={
+      token:TRACKING_TOKEN,
+      project:'TEST_CANDIDATURA_APPRENDISTATO_TABACCHERIA_PETRALIA',
+      bankVersion:(typeof BANK_VERSION!=='undefined')?BANK_VERSION:'',
+      event:eventName,
+      receivedFromPageAt:new Date().toISOString(),
+      sessionId:TRACKING_SESSION_ID||TEST_SEED||'',
+      testSeed:TEST_SEED||'',
+      pageUrl:location.href.split('#')[0],
+      browser:navigator.userAgent||'',
+      language:navigator.language||'',
+      timezone:(Intl.DateTimeFormat().resolvedOptions().timeZone)||'',
+      elapsedSeconds:Math.round((Date.now()-TRACKING_STARTED_AT)/1000),
+      candidateName:data.name||'',
+      candidateEmail:data.email||'',
+      candidatePhone:data.phone||'',
+      candidateBirth:data.birth||'',
+      candidateAge:(data.age===null||typeof data.age==='undefined')?'':data.age,
+      candidateZone:data.zone||'',
+      candidateAvailability:data.availability||'',
+      testDate:data.date||'',
+      answersDone:getTrackingAnswersDone(),
+      totalQuestions:(ACTIVE_QUESTIONS&&ACTIVE_QUESTIONS.length)?ACTIVE_QUESTIONS.length:0,
+      ...extra
+    };
+    const body=JSON.stringify(payload);
+    if(navigator.sendBeacon){
+      const blob=new Blob([body],{type:'text/plain;charset=utf-8'});
+      const ok=navigator.sendBeacon(TRACKING_ENDPOINT_URL,blob);
+      if(ok)return;
+    }
+    fetch(TRACKING_ENDPOINT_URL,{method:'POST',mode:'no-cors',keepalive:true,headers:{'Content-Type':'text/plain;charset=utf-8'},body});
+  }catch(e){console.warn('Registro test non raggiungibile:',e);}
+}
 function makeSeed(){const d=new Date(),p=n=>String(n).padStart(2,'0');return `${d.getFullYear()}${p(d.getMonth()+1)}${p(d.getDate())}-${p(d.getHours())}${p(d.getMinutes())}${p(d.getSeconds())}-${Math.random().toString(36).slice(2,8).toUpperCase()}`;}
 function shuffleArray(arr){const out=arr.slice();for(let i=out.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[out[i],out[j]]=[out[j],out[i]];}return out;}
-function prepareRandomTest(){TEST_SEED=makeSeed();const displayLetters=['A','B','C','D'];const selected=[];Object.entries(AREA_TARGETS_CODE).forEach(([groupCode,targetCount])=>{const pool=PUBLIC_QUESTION_BANK.map((q,bankIndex)=>({q,bankIndex})).filter(item=>item.q.g===groupCode);selected.push(...shuffleArray(pool).slice(0,targetCount));});ACTIVE_QUESTIONS=shuffleArray(selected).map(({q,bankIndex})=>{const shuffledOptions=shuffleArray(q.options).map((opt,optionIndex)=>({displayLetter:displayLetters[optionIndex],optionId:opt.id,text:opt.text}));return {bankId:q.id,bankNum:bankIndex+1,text:q.text,optionsArray:shuffledOptions};});}
+function prepareRandomTest(){TEST_SEED=makeSeed();TRACKING_SESSION_ID=TEST_SEED;const displayLetters=['A','B','C','D'];const selected=[];Object.entries(AREA_TARGETS_CODE).forEach(([groupCode,targetCount])=>{const pool=PUBLIC_QUESTION_BANK.map((q,bankIndex)=>({q,bankIndex})).filter(item=>item.q.g===groupCode);selected.push(...shuffleArray(pool).slice(0,targetCount));});ACTIVE_QUESTIONS=shuffleArray(selected).map(({q,bankIndex})=>{const shuffledOptions=shuffleArray(q.options).map((opt,optionIndex)=>({displayLetter:displayLetters[optionIndex],optionId:opt.id,text:opt.text}));return {bankId:q.id,bankNum:bankIndex+1,text:q.text,optionsArray:shuffledOptions};});}
 function renderQuestions(){form.innerHTML=ACTIVE_QUESTIONS.map((q,i)=>{const opts=q.optionsArray.map(opt=>`<label class="option"><input type="radio" name="q${i}" value="${opt.displayLetter}" aria-label="Domanda ${i+1} risposta ${opt.displayLetter}"><span><strong>${opt.displayLetter}</strong>${escapeHtml(opt.text)}</span></label>`).join('');return `<article class="question-card" id="card${i}"><div class="qtop"><div class="qnum">Domanda ${i+1}</div></div><p class="qtext">${escapeHtml(q.text)}</p><div class="options">${opts}</div></article>`;}).join('');}
 function findChosenOption(q,displayLetter){return q.optionsArray.find(o=>o.displayLetter===displayLetter)||null;}
 function getAnswers(){return ACTIVE_QUESTIONS.map((_,i)=>{const checked=document.querySelector(`input[name="q${i}"]:checked`);return checked?checked.value:null;});}
@@ -2413,7 +2465,7 @@ function sanitizeName(s){return String(s||'CANDIDATA').trim().replace(/\s+/g,'_'
 async function encryptPayload(payload){if(!window.crypto||!crypto.subtle)throw new Error('Crittografia non disponibile in questo browser. Apri il file con Chrome, Edge o Safari aggiornato.');const publicKey=await crypto.subtle.importKey('jwk',PUBLIC_KEY_JWK,{name:'RSA-OAEP',hash:'SHA-256'},false,['encrypt']);const aesKey=await crypto.subtle.generateKey({name:'AES-GCM',length:256},true,['encrypt','decrypt']);const iv=crypto.getRandomValues(new Uint8Array(12));const plain=strToBytes(JSON.stringify(payload));const ciphertext=new Uint8Array(await crypto.subtle.encrypt({name:'AES-GCM',iv},aesKey,plain));const rawKey=new Uint8Array(await crypto.subtle.exportKey('raw',aesKey));const encryptedKey=new Uint8Array(await crypto.subtle.encrypt({name:'RSA-OAEP'},publicKey,rawKey));return {version:'PETRALIA-TEST-CIFRATO-V1',createdAt:new Date().toISOString(),candidate:payload.candidate.name,seed:payload.seed,algorithm:'RSA-OAEP-SHA256 + AES-256-GCM',encryptedKey:bytesToBase64(encryptedKey),iv:bytesToBase64(iv),ciphertext:bytesToBase64(ciphertext)};}
 function buildPayload(){const data=getCandidateData();const rows=collectAnswersForOwner();return {schema:'PETRALIA_TEST_RESULT_V3_STEP1_NO_SCORE_IN_CANDIDATE_FILE',createdAt:new Date().toISOString(),seed:TEST_SEED,candidate:data,privacy:{version:'PRIVACY-SELEZIONE-CANDIDATI-2026-06-12',privacyRead:Boolean(document.getElementById('privacyAck').checked),selectionStepRead:Boolean(document.getElementById('selectionAck').checked),workPathRead:Boolean(document.getElementById('workPathAck').checked),nonClinicalRead:Boolean(document.getElementById('nonClinicalAck').checked),autonomyDeclared:Boolean(document.getElementById('autonomyAck').checked),acknowledgedAt:new Date().toISOString(),notice:'Informativa privacy sintetica, avvertenza non clinica, dichiarazione di compilazione autonoma, avviso di primo step di preselezione e avvertenza sul percorso lavorativo regolare mostrati prima della generazione del file cifrato.'},settings:{minAge:MIN_AGE,maxAge:MAX_AGE,totalQuestions:ACTIVE_QUESTIONS.length,bankSize:PUBLIC_QUESTION_BANK.length,bankVersion:BANK_VERSION,security:'Il file candidato non contiene punteggi, risposte corrette, aree descrittive o flag bloccanti. La correzione avviene solo nel lettore titolare.'},answers:rows,questions:ACTIVE_QUESTIONS.map((q,i)=>({testNum:i+1,bankId:q.bankId,bankNum:q.bankNum,text:q.text,options:q.optionsArray,chosen:rows[i].answer,chosenOptionId:rows[i].optionId}))};}
 function downloadBlob(blob,filename){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=filename;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},1000);}
-async function concludeTest(){if(!validateBeforeSubmit())return;try{document.getElementById('submitBtn').disabled=true;document.getElementById('submitBtn').textContent='Genero file cifrato...';const payload=buildPayload();const pack=await encryptPayload(payload);lastEncryptedText=JSON.stringify(pack,null,2);lastBlob=new Blob([wrappedEncryptedText()],{type:'text/plain'});lastFileName=`TEST_CIFRATO_${sanitizeName(payload.candidate.name)}_${payload.candidate.date}.txt`;document.getElementById('fileInfo').innerHTML=`<strong>File:</strong> <code>${escapeHtml(lastFileName)}</code><br><strong>Candidata:</strong> ${escapeHtml(payload.candidate.name)}<br><strong>Codice test:</strong> ${escapeHtml(payload.seed)}<br><strong>Stato:</strong> cifrato e autenticato. Se il file viene modificato, il lettore titolare lo rifiuta.`;document.getElementById('candidateDone').classList.remove('hidden');document.getElementById('candidateDone').scrollIntoView({behavior:'smooth',block:'start'});downloadBlob(lastBlob,lastFileName);}catch(e){alert('Errore nella generazione del file cifrato: '+e.message);}finally{document.getElementById('submitBtn').disabled=false;document.getElementById('submitBtn').textContent='Concludi e genera file cifrato';}}
+async function concludeTest(){if(!validateBeforeSubmit())return;try{document.getElementById('submitBtn').disabled=true;document.getElementById('submitBtn').textContent='Genero file cifrato...';const payload=buildPayload();const pack=await encryptPayload(payload);lastEncryptedText=JSON.stringify(pack,null,2);lastBlob=new Blob([wrappedEncryptedText()],{type:'text/plain'});lastFileName=`TEST_CIFRATO_${sanitizeName(payload.candidate.name)}_${payload.candidate.date}.txt`;document.getElementById('fileInfo').innerHTML=`<strong>File:</strong> <code>${escapeHtml(lastFileName)}</code><br><strong>Candidata:</strong> ${escapeHtml(payload.candidate.name)}<br><strong>Codice test:</strong> ${escapeHtml(payload.seed)}<br><strong>Stato:</strong> cifrato e autenticato. Se il file viene modificato, il lettore titolare lo rifiuta.`;sendTrackingEvent('test_completato_file_cifrato_generato',{fileName:lastFileName,encryptedFileCreated:true});document.getElementById('candidateDone').classList.remove('hidden');document.getElementById('candidateDone').scrollIntoView({behavior:'smooth',block:'start'});downloadBlob(lastBlob,lastFileName);}catch(e){alert('Errore nella generazione del file cifrato: '+e.message);}finally{document.getElementById('submitBtn').disabled=false;document.getElementById('submitBtn').textContent='Concludi e genera file cifrato';}}
 function buildShortMessage(){const data=getCandidateData();const name=(data.name||'').trim().replace(/\s+/g,' ').toUpperCase();return `Invio TEST E RISULTATO CANDIDATA "${name}"
 Ho compilato il test come primo step di preselezione. Allego il file .txt cifrato generato dal modulo. Curriculum facoltativo: lo allego o lo invio a parte se disponibile.`;}function wrappedEncryptedText(){return '-----INIZIO TEST CIFRATO PETRALIA-----\n'+lastEncryptedText+'\n-----FINE TEST CIFRATO PETRALIA-----';}
 function openWhatsAppWithText(text){
@@ -2423,6 +2475,7 @@ function openWhatsAppWithText(text){
 }
 async function shareEncryptedFile(){
   if(!lastBlob){alert('Prima genera il file cifrato.');return;}
+  sendTrackingEvent('clic_condividi_file_cifrato',{fileName:lastFileName});
   const file=new File([lastBlob],lastFileName,{type:'text/plain'});
   if(navigator.share&&navigator.canShare&&navigator.canShare({files:[file]})){
     try{
@@ -2435,8 +2488,8 @@ async function shareEncryptedFile(){
   }
   alert('La condivisione diretta del file non è supportata da questo browser. Usa “Scarica file cifrato” e allega manualmente il file .txt via WhatsApp o email.');
 }
-function prepareEmail(){const data=getCandidateData();const name=(data.name||'').trim().replace(/\s+/g,' ').toUpperCase();const subject=`Invio TEST E RISULTATO CANDIDATA "${name}"`;window.location.href=`mailto:${DEST_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(buildShortMessage())}`;}
-function prepareWhatsApp(){openWhatsAppWithText(buildShortMessage());}
-prepareRandomTest();renderQuestions();form.addEventListener('change',updateProgress);updateProgress();
-document.getElementById('submitBtn').addEventListener('click',concludeTest);document.getElementById('downloadBtn').addEventListener('click',()=>{if(lastBlob)downloadBlob(lastBlob,lastFileName);});document.getElementById('shareBtn').addEventListener('click',shareEncryptedFile);document.getElementById('emailBtn').addEventListener('click',prepareEmail);document.getElementById('whatsappBtn').addEventListener('click',prepareWhatsApp);document.getElementById('resetBtn').addEventListener('click',()=>{if(confirm('Cancellare tutte le risposte e generare un nuovo test casuale?'))location.reload();});
+function prepareEmail(){sendTrackingEvent('clic_prepara_email',{fileName:lastFileName});const data=getCandidateData();const name=(data.name||'').trim().replace(/\s+/g,' ').toUpperCase();const subject=`Invio TEST E RISULTATO CANDIDATA "${name}"`;window.location.href=`mailto:${DEST_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(buildShortMessage())}`;}
+function prepareWhatsApp(){sendTrackingEvent('clic_apri_whatsapp',{fileName:lastFileName});openWhatsAppWithText(buildShortMessage());}
+prepareRandomTest();renderQuestions();form.addEventListener('change',()=>{updateProgress();if(!TRACKING_FIRST_ANSWER_SENT){TRACKING_FIRST_ANSWER_SENT=true;sendTrackingEvent('inizio_compilazione_prima_risposta');}});updateProgress();sendTrackingEvent('apertura_test');
+document.getElementById('submitBtn').addEventListener('click',concludeTest);document.getElementById('downloadBtn').addEventListener('click',()=>{if(lastBlob){sendTrackingEvent('clic_scarica_file_cifrato',{fileName:lastFileName});downloadBlob(lastBlob,lastFileName);}});document.getElementById('shareBtn').addEventListener('click',shareEncryptedFile);document.getElementById('emailBtn').addEventListener('click',prepareEmail);document.getElementById('whatsappBtn').addEventListener('click',prepareWhatsApp);document.getElementById('resetBtn').addEventListener('click',()=>{sendTrackingEvent('clic_cancella_ricomincia');if(confirm('Cancellare tutte le risposte e generare un nuovo test casuale?'))location.reload();});
 </script></body></html>
