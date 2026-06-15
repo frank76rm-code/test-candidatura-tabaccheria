@@ -12,7 +12,7 @@ header{position:sticky;top:0;z-index:10;background:rgba(255,253,248,.94);backdro
 <body><header><div class="header-inner"><h1>Test attitudinale-situazionale apprendista · primo step di preselezione</h1><div class="badge" id="liveBadge">0/30 compilate</div></div></header>
 <main>
 <section class="panel candidate-only">
-<div class="notice"><strong>Istruzioni per la candidata.</strong> Leggi ogni situazione e scegli una sola risposta. Il test estrae 30 domande casuali da una banca da 100 e rimescola anche le risposte A/B/C/D. Al termine non vedrai il punteggio: verrà creato un file cifrato da inviare alla tabaccheria.</div>
+<div class="notice"><strong>Istruzioni per la candidata.</strong> Leggi ogni situazione e scegli una sola risposta. Il test estrae 30 domande casuali e rimescola anche le risposte A/B/C/D. Il sistema registra la durata della compilazione e calcola il tempo medio di risposta per ogni domanda, così da aiutare la tabaccheria a valutare anche attenzione, coerenza e naturalezza del percorso. Al termine non vedrai il punteggio: verrà creato un file cifrato da inviare alla tabaccheria.</div>
 <div class="notice" style="margin-top:12px"><strong>Primo step di preselezione.</strong> Il superamento del test non comporta assunzione automatica né promessa di assunzione. Il test serve solo come primo filtro conoscitivo e pratico. Dopo l’esame del risultato, la tabaccheria potrà contattare la candidata, tramite telefono, WhatsApp o email, per richiedere un curriculum se disponibile e/o fissare un piccolo colloquio conoscitivo direttamente in tabaccheria. L’eventuale prosecuzione della selezione resta a discrezione della tabaccheria.</div>
 <div class="notice security" style="margin-top:12px"><strong>Serietà del percorso lavorativo.</strong> La tabaccheria non propone lavoro in nero, prove gratuite non retribuite o accordi irregolari. Un eventuale inserimento avverrà esclusivamente con regolare contratto, comunicazioni obbligatorie, busta paga e trattamento economico secondo la normativa e il CCNL applicabile. L’obiettivo non è cercare una collaborazione improvvisata di pochi mesi, ma valutare un percorso serio di apprendistato e formazione, normalmente pensato su un periodo ampio e stabile quando ricorrono i requisiti previsti. Per questo è richiesto impegno reciproco: correttezza, puntualità, rispetto delle regole e reale disponibilità ad apprendere da parte della candidata; formazione, chiarezza e regolarità da parte della tabaccheria.</div>
 <div class="notice security" style="margin-top:12px"><strong>Privacy del risultato.</strong> Il file generato contiene domande, risposte ed esito in forma cifrata. Non è leggibile dal telefono della candidata: può essere aperto solo dal titolare con il lettore riservato e PIN.</div>
@@ -62,6 +62,7 @@ const TRACKING_TOKEN = "PETRALIA-TRACKING-2026-CAMBIA-QUESTA-CHIAVE";
 const TRACKING_ENABLED = Boolean(TRACKING_ENDPOINT_URL && !TRACKING_ENDPOINT_URL.includes("INCOLLA_QUI"));
 let TRACKING_SESSION_ID = "";
 let TRACKING_STARTED_AT = Date.now();
+let TRACKING_FIRST_ANSWER_AT = 0;
 let TRACKING_FIRST_ANSWER_SENT = false;
 
 const MIN_AGE = 20;
@@ -2367,6 +2368,2306 @@ const PUBLIC_QUESTION_BANK = [
         "text": "Gli racconti esperienze personali come se fossero indicazioni valide per lui."
       }
     ]
+  },
+  {
+    "id": "Q101",
+    "g": "G01",
+    "text": "Sei al banco e devi eseguire una ricarica o un pagamento. Il cliente ti parla mentre guarda il telefono e non segue il riepilogo sul terminale.",
+    "options": [
+      {
+        "id": "Q101_A",
+        "text": "Attendi la sua attenzione, ripeti importo e dati essenziali e confermi solo dopo una risposta chiara."
+      },
+      {
+        "id": "Q101_B",
+        "text": "Confermi comunque perché il cliente ti ha consegnato il documento."
+      },
+      {
+        "id": "Q101_C",
+        "text": "Chiedi al cliente di controllare dopo sulla ricevuta, così la fila scorre."
+      },
+      {
+        "id": "Q101_D",
+        "text": "Procedi velocemente e gli dici che eventuali errori si potranno sistemare."
+      }
+    ]
+  },
+  {
+    "id": "Q102",
+    "g": "G01",
+    "text": "Il terminale propone due servizi con nomi simili e il cliente non sa distinguere quello corretto.",
+    "options": [
+      {
+        "id": "Q102_A",
+        "text": "Verifichi documenti, causale e dati disponibili; se resta dubbio, chiedi supporto prima di confermare."
+      },
+      {
+        "id": "Q102_B",
+        "text": "Scegli quello che viene usato più spesso in tabaccheria."
+      },
+      {
+        "id": "Q102_C",
+        "text": "Fai scegliere al cliente senza spiegare il rischio di un servizio sbagliato."
+      },
+      {
+        "id": "Q102_D",
+        "text": "Provi il primo servizio e, se non funziona, passi all’altro."
+      }
+    ]
+  },
+  {
+    "id": "Q103",
+    "g": "G01",
+    "text": "Durante la stampa di una ricevuta il terminale rallenta e il cliente ti chiede di premere più volte perché ha fretta.",
+    "options": [
+      {
+        "id": "Q103_A",
+        "text": "Non forzi il terminale, attendi l’esito e controlli che non vengano generate doppie operazioni."
+      },
+      {
+        "id": "Q103_B",
+        "text": "Premi più volte finché esce qualcosa."
+      },
+      {
+        "id": "Q103_C",
+        "text": "Spegni il terminale durante l’operazione senza avvisare nessuno."
+      },
+      {
+        "id": "Q103_D",
+        "text": "Rifai subito il servizio perché tanto il sistema scarta i doppioni."
+      }
+    ]
+  },
+  {
+    "id": "Q104",
+    "g": "G01",
+    "text": "Stai caricando un prodotto nel distributore e due confezioni hanno nome e colore molto simili.",
+    "options": [
+      {
+        "id": "Q104_A",
+        "text": "Controlli codice, colonna e descrizione prima di caricare, senza affidarti solo al colore."
+      },
+      {
+        "id": "Q104_B",
+        "text": "Le carichi nella stessa colonna perché sono quasi uguali."
+      },
+      {
+        "id": "Q104_C",
+        "text": "Metti il prodotto dove c’è spazio e poi correggerai se qualcuno reclama."
+      },
+      {
+        "id": "Q104_D",
+        "text": "Chiedi a un cliente abituale se riconosce il pacchetto."
+      }
+    ]
+  },
+  {
+    "id": "Q105",
+    "g": "G01",
+    "text": "Un cliente ti chiede una marca o un servizio telematico ma usa un nome impreciso e sembra confondere due operazioni.",
+    "options": [
+      {
+        "id": "Q105_A",
+        "text": "Fai domande pratiche, controlli il documento e non procedi finché il servizio non è identificato con chiarezza."
+      },
+      {
+        "id": "Q105_B",
+        "text": "Stampi quello che pensi sia più probabile."
+      },
+      {
+        "id": "Q105_C",
+        "text": "Chiedi al cliente di cercare su internet mentre tieni aperto il terminale."
+      },
+      {
+        "id": "Q105_D",
+        "text": "Confermi e spieghi che dopo non sarà più un tuo problema."
+      }
+    ]
+  },
+  {
+    "id": "Q106",
+    "g": "G01",
+    "text": "Devi inserire manualmente un codice lungo perché il lettore non lo legge. Una cifra è poco chiara.",
+    "options": [
+      {
+        "id": "Q106_A",
+        "text": "Non inventi la cifra: chiedi documento più leggibile o verifica aggiuntiva prima della conferma."
+      },
+      {
+        "id": "Q106_B",
+        "text": "Inserisci la cifra che sembra più probabile."
+      },
+      {
+        "id": "Q106_C",
+        "text": "Confermi appena il terminale accetta il codice, senza controllare il riepilogo."
+      },
+      {
+        "id": "Q106_D",
+        "text": "Fai una foto al documento per ingrandirlo con calma sul tuo telefono."
+      }
+    ]
+  },
+  {
+    "id": "Q107",
+    "g": "G01",
+    "text": "Il cliente acquista più articoli e servizi insieme. Alcuni vanno battuti, altri passano da terminali diversi.",
+    "options": [
+      {
+        "id": "Q107_A",
+        "text": "Separi mentalmente e operativamente le voci, controlli i totali e comunichi con chiarezza prima dell’incasso."
+      },
+      {
+        "id": "Q107_B",
+        "text": "Fai un totale unico a occhio e poi sistemi in cassa."
+      },
+      {
+        "id": "Q107_C",
+        "text": "Passi prima ciò che ricordi e chiedi al cliente alla fine se manca qualcosa."
+      },
+      {
+        "id": "Q107_D",
+        "text": "Incassi tutto insieme e lasci che siano i terminali a fare ordine."
+      }
+    ]
+  },
+  {
+    "id": "Q108",
+    "g": "G01",
+    "text": "Il distributore segnala prodotto esaurito ma tu sai che nel magazzino ci sono scorte.",
+    "options": [
+      {
+        "id": "Q108_A",
+        "text": "Verifichi colonna, disponibilità reale e caricamento corretto prima di dire che il prodotto è nuovamente disponibile."
+      },
+      {
+        "id": "Q108_B",
+        "text": "Dici ai clienti di riprovare perché forse il distributore si aggiorna da solo."
+      },
+      {
+        "id": "Q108_C",
+        "text": "Apri il distributore e carichi rapidamente senza controllare la colonna."
+      },
+      {
+        "id": "Q108_D",
+        "text": "Ignori il messaggio finché non si lamenta qualcuno."
+      }
+    ]
+  },
+  {
+    "id": "Q109",
+    "g": "G01",
+    "text": "Un cliente ti chiede di controllare una ricevuta di gioco o servizio ma la stampa è scolorita.",
+    "options": [
+      {
+        "id": "Q109_A",
+        "text": "Leggi solo ciò che è verificabile, usi il terminale se previsto e non dai risposte certe su dati poco leggibili."
+      },
+      {
+        "id": "Q109_B",
+        "text": "Interpreti a occhio i dati mancanti."
+      },
+      {
+        "id": "Q109_C",
+        "text": "Chiedi al cliente cosa pensa ci sia scritto e ti fidi."
+      },
+      {
+        "id": "Q109_D",
+        "text": "Riscrivi tu a mano i dati mancanti sulla ricevuta."
+      }
+    ]
+  },
+  {
+    "id": "Q110",
+    "g": "G01",
+    "text": "Stai chiudendo una procedura quando il cliente cambia idea sull’importo.",
+    "options": [
+      {
+        "id": "Q110_A",
+        "text": "Ti fermi prima della conferma, annulli o correggi secondo procedura e fai ripetere l’importo definitivo."
+      },
+      {
+        "id": "Q110_B",
+        "text": "Confermi l’importo iniziale perché ormai lo aveva detto."
+      },
+      {
+        "id": "Q110_C",
+        "text": "Cambi l’importo al volo senza farlo rileggere."
+      },
+      {
+        "id": "Q110_D",
+        "text": "Confermi e poi fai un’altra operazione per compensare."
+      }
+    ]
+  },
+  {
+    "id": "Q111",
+    "g": "G02",
+    "text": "Nella tabaccheria la cassa tabacchi e la cassa giochi/servizi sono separate. Durante la fila ti manca spicciolo nella cassa giusta.",
+    "options": [
+      {
+        "id": "Q111_A",
+        "text": "Non mischi denaro senza procedura: chiedi cambio autorizzato o registri subito lo spostamento secondo regola interna."
+      },
+      {
+        "id": "Q111_B",
+        "text": "Prendi monete dall’altra cassa e lo ricorderai a fine turno."
+      },
+      {
+        "id": "Q111_C",
+        "text": "Usi soldi personali e poi sistemi quando hai tempo."
+      },
+      {
+        "id": "Q111_D",
+        "text": "Fai il resto approssimativo per non rallentare."
+      }
+    ]
+  },
+  {
+    "id": "Q112",
+    "g": "G02",
+    "text": "Un servizio incassato oggi verrà riversato tramite SEPA nei giorni successivi. Il cliente ti chiede se quei soldi sono guadagno della tabaccheria.",
+    "options": [
+      {
+        "id": "Q112_A",
+        "text": "Spieghi in modo semplice che per molti servizi la tabaccheria incassa per conto di terzi e deve gestire il denaro con precisione."
+      },
+      {
+        "id": "Q112_B",
+        "text": "Gli dici che sono tutti soldi del negozio."
+      },
+      {
+        "id": "Q112_C",
+        "text": "Fai una battuta e cambi argomento."
+      },
+      {
+        "id": "Q112_D",
+        "text": "Gli spieghi dettagli bancari interni non necessari."
+      }
+    ]
+  },
+  {
+    "id": "Q113",
+    "g": "G02",
+    "text": "A fine mattina la cassa servizi risulta superiore al previsto, mentre la cassa tabacchi è più bassa.",
+    "options": [
+      {
+        "id": "Q113_A",
+        "text": "Segnali subito la differenza e ricostruisci eventuali incassi passati nella cassa sbagliata."
+      },
+      {
+        "id": "Q113_B",
+        "text": "Sposti i soldi da una cassa all’altra finché i totali sembrano giusti."
+      },
+      {
+        "id": "Q113_C",
+        "text": "Lasci tutto così perché alla fine il totale generale torna."
+      },
+      {
+        "id": "Q113_D",
+        "text": "Prendi nota mentale e ci pensi il giorno dopo."
+      }
+    ]
+  },
+  {
+    "id": "Q114",
+    "g": "G02",
+    "text": "Il cliente paga un servizio con banconote miste e, mentre conti, un altro cliente ti interrompe con una domanda.",
+    "options": [
+      {
+        "id": "Q114_A",
+        "text": "Ti fermi, completi il conteggio del denaro davanti al cliente e solo dopo rispondi all’altro."
+      },
+      {
+        "id": "Q114_B",
+        "text": "Rispondi subito all’altro cliente e continui a contare a memoria."
+      },
+      {
+        "id": "Q114_C",
+        "text": "Metti i soldi nel cassetto e conterai dopo."
+      },
+      {
+        "id": "Q114_D",
+        "text": "Chiedi al cliente quanto ti aveva dato e ti affidi alla sua risposta."
+      }
+    ]
+  },
+  {
+    "id": "Q115",
+    "g": "G02",
+    "text": "Il POS risulta approvato ma il terminale del servizio dà operazione non conclusa.",
+    "options": [
+      {
+        "id": "Q115_A",
+        "text": "Non consideri chiuso il servizio finché non hai verificato entrambi gli esiti e, se serve, coinvolgi il titolare."
+      },
+      {
+        "id": "Q115_B",
+        "text": "Consegni la ricevuta POS e mandi via il cliente."
+      },
+      {
+        "id": "Q115_C",
+        "text": "Ripeti subito il servizio e fai pagare di nuovo senza spiegare."
+      },
+      {
+        "id": "Q115_D",
+        "text": "Annulli tutto anche se non sai se il pagamento è passato."
+      }
+    ]
+  },
+  {
+    "id": "Q116",
+    "g": "G02",
+    "text": "Devi preparare un riepilogo degli incassi del distributore dopo una giornata di chiusura.",
+    "options": [
+      {
+        "id": "Q116_A",
+        "text": "Separa contanti, eventuali POS, prodotti venduti, anomalie, data e ora del prelievo."
+      },
+      {
+        "id": "Q116_B",
+        "text": "Scrivi solo il totale trovato nel cassetto."
+      },
+      {
+        "id": "Q116_C",
+        "text": "Metti tutto nella cassa principale e basta."
+      },
+      {
+        "id": "Q116_D",
+        "text": "Fai una foto ai soldi e la mandi al titolare senza conteggio."
+      }
+    ]
+  },
+  {
+    "id": "Q117",
+    "g": "G02",
+    "text": "Un cliente vuole pagare un servizio delicato con una banconota che ti sembra falsa o sospetta.",
+    "options": [
+      {
+        "id": "Q117_A",
+        "text": "Controlli la banconota con gli strumenti previsti e non procedi se resta sospetta."
+      },
+      {
+        "id": "Q117_B",
+        "text": "Accetti per evitare discussioni."
+      },
+      {
+        "id": "Q117_C",
+        "text": "Accetti solo se il cliente è conosciuto."
+      },
+      {
+        "id": "Q117_D",
+        "text": "Gliela strappi davanti per dimostrare che è falsa."
+      }
+    ]
+  },
+  {
+    "id": "Q118",
+    "g": "G02",
+    "text": "Durante il turno ti accorgi che una ricevuta di pagamento non è stata consegnata al cliente.",
+    "options": [
+      {
+        "id": "Q118_A",
+        "text": "La custodisci separata, avvisi il titolare o la collega e cerchi di rintracciare il cliente secondo procedura."
+      },
+      {
+        "id": "Q118_B",
+        "text": "La butti perché ormai il cliente è uscito."
+      },
+      {
+        "id": "Q118_C",
+        "text": "La lasci sul banco in caso torni."
+      },
+      {
+        "id": "Q118_D",
+        "text": "La tieni nel tuo portafoglio per non perderla."
+      }
+    ]
+  },
+  {
+    "id": "Q119",
+    "g": "G02",
+    "text": "Un cliente abituale chiede di fare una bolletta ora e pagare tra un’ora.",
+    "options": [
+      {
+        "id": "Q119_A",
+        "text": "Rifiuti con educazione: i servizi si confermano solo con incasso completo e regolare."
+      },
+      {
+        "id": "Q119_B",
+        "text": "Accetti perché torna sempre."
+      },
+      {
+        "id": "Q119_C",
+        "text": "Fai il servizio e trattieni la ricevuta finché paga."
+      },
+      {
+        "id": "Q119_D",
+        "text": "Fai credito solo se l’importo è piccolo."
+      }
+    ]
+  },
+  {
+    "id": "Q120",
+    "g": "G02",
+    "text": "Il titolare ti chiede di distinguere a fine turno contanti da POS e operazioni dei servizi.",
+    "options": [
+      {
+        "id": "Q120_A",
+        "text": "Prepari un riepilogo ordinato separando canali di incasso, casse, ricevute e anomalie."
+      },
+      {
+        "id": "Q120_B",
+        "text": "Fai un solo totale generale perché conta quello."
+      },
+      {
+        "id": "Q120_C",
+        "text": "Scrivi il totale POS guardando il telefono del cliente."
+      },
+      {
+        "id": "Q120_D",
+        "text": "Lasci tutto alla collega del turno dopo."
+      }
+    ]
+  },
+  {
+    "id": "Q121",
+    "g": "G03",
+    "text": "Un ragazzo apparentemente minorenne usa il distributore e poi entra dicendo che la tessera sanitaria non funziona.",
+    "options": [
+      {
+        "id": "Q121_A",
+        "text": "Non lo aiuti ad aggirare il controllo età e, se resta dubbio, non vendi prodotti vietati ai minori."
+      },
+      {
+        "id": "Q121_B",
+        "text": "Sblocchi tu il prodotto dal banco perché sembra grande."
+      },
+      {
+        "id": "Q121_C",
+        "text": "Gli chiedi solo l’anno di nascita a voce."
+      },
+      {
+        "id": "Q121_D",
+        "text": "Chiami un adulto qualsiasi presente in negozio per autorizzarlo."
+      }
+    ]
+  },
+  {
+    "id": "Q122",
+    "g": "G03",
+    "text": "Un adulto chiede diversi Gratta e Vinci dicendo che sono un premio per una squadra di ragazzini.",
+    "options": [
+      {
+        "id": "Q122_A",
+        "text": "Ricordi che il gioco è vietato ai minori e non collabori se l’acquisto è destinato a loro."
+      },
+      {
+        "id": "Q122_B",
+        "text": "Vendi perché chi paga è maggiorenne."
+      },
+      {
+        "id": "Q122_C",
+        "text": "Consigli tagliandi piccoli perché sono per ragazzi."
+      },
+      {
+        "id": "Q122_D",
+        "text": "Fai finta di non aver sentito la destinazione."
+      }
+    ]
+  },
+  {
+    "id": "Q123",
+    "g": "G03",
+    "text": "Un cliente chiede sigarette e nel dubbio sull’età si offende quando chiedi il documento.",
+    "options": [
+      {
+        "id": "Q123_A",
+        "text": "Spieghi che non è un giudizio personale: nei casi dubbi il documento tutela cliente e tabaccheria."
+      },
+      {
+        "id": "Q123_B",
+        "text": "Vendi per non perdere il cliente."
+      },
+      {
+        "id": "Q123_C",
+        "text": "Lo prendi in giro perché sembra giovane."
+      },
+      {
+        "id": "Q123_D",
+        "text": "Chiedi a un altro cliente se secondo lui è maggiorenne."
+      }
+    ]
+  },
+  {
+    "id": "Q124",
+    "g": "G03",
+    "text": "Un cliente vuole giocare molti importi e ti chiede di dividere le giocate in modo da aggirare limiti o controlli.",
+    "options": [
+      {
+        "id": "Q124_A",
+        "text": "Non aiuti ad aggirare limiti o procedure e coinvolgi il titolare se la richiesta è insistente."
+      },
+      {
+        "id": "Q124_B",
+        "text": "Dividi le giocate perché il cliente paga."
+      },
+      {
+        "id": "Q124_C",
+        "text": "Gli suggerisci il metodo più veloce per farlo."
+      },
+      {
+        "id": "Q124_D",
+        "text": "Fai solo una parte e il resto lo lasci alla collega."
+      }
+    ]
+  },
+  {
+    "id": "Q125",
+    "g": "G03",
+    "text": "Un cliente dice che vuole comprare prodotti del tabacco per rivenderli ad amici.",
+    "options": [
+      {
+        "id": "Q125_A",
+        "text": "Non entri in accordi o quantità anomale senza seguire regole e indicazioni del titolare."
+      },
+      {
+        "id": "Q125_B",
+        "text": "Vendi tutto perché sono prodotti legali."
+      },
+      {
+        "id": "Q125_C",
+        "text": "Fai uno sconto personale se compra tanto."
+      },
+      {
+        "id": "Q125_D",
+        "text": "Gli chiedi solo di non dirlo in giro."
+      }
+    ]
+  },
+  {
+    "id": "Q126",
+    "g": "G03",
+    "text": "Una persona ti chiede di annullare una giocata già confermata perché “ha sbagliato ma tanto sei al banco e puoi farlo”.",
+    "options": [
+      {
+        "id": "Q126_A",
+        "text": "Segui solo le procedure consentite e non prometti annulli non ammessi."
+      },
+      {
+        "id": "Q126_B",
+        "text": "Forzi il terminale per accontentarla."
+      },
+      {
+        "id": "Q126_C",
+        "text": "Rimborsi di tasca tua per chiudere la discussione."
+      },
+      {
+        "id": "Q126_D",
+        "text": "Gli dici che le regole non contano se il cliente insiste."
+      }
+    ]
+  },
+  {
+    "id": "Q127",
+    "g": "G03",
+    "text": "Un cliente minorenne accompagna un adulto e sceglie lui i Gratta e Vinci da comprare.",
+    "options": [
+      {
+        "id": "Q127_A",
+        "text": "Valuti la situazione con prudenza e non faciliti una vendita che appare destinata o guidata da un minore."
+      },
+      {
+        "id": "Q127_B",
+        "text": "Vendi all’adulto perché materialmente paga lui."
+      },
+      {
+        "id": "Q127_C",
+        "text": "Chiedi al minore quali preferisce e li consegni all’adulto."
+      },
+      {
+        "id": "Q127_D",
+        "text": "Fai scegliere al minore solo tagliandi economici."
+      }
+    ]
+  },
+  {
+    "id": "Q128",
+    "g": "G03",
+    "text": "Un cliente chiede un prodotto con nicotina nuovo e sostiene che non servano controlli perché non è una sigaretta tradizionale.",
+    "options": [
+      {
+        "id": "Q128_A",
+        "text": "Applichi le regole previste per i prodotti con nicotina e chiedi documento nei casi dubbi."
+      },
+      {
+        "id": "Q128_B",
+        "text": "Vendi senza controllo perché non è tabacco classico."
+      },
+      {
+        "id": "Q128_C",
+        "text": "Gli chiedi solo se fuma già."
+      },
+      {
+        "id": "Q128_D",
+        "text": "Lasci decidere al cliente se il controllo è necessario."
+      }
+    ]
+  },
+  {
+    "id": "Q129",
+    "g": "G03",
+    "text": "Un cliente pretende di lasciare una schedina compilata e passare più tardi a pagare e ritirare la ricevuta.",
+    "options": [
+      {
+        "id": "Q129_A",
+        "text": "Non confermi giocate senza pagamento e presenza corretta del cliente secondo procedura."
+      },
+      {
+        "id": "Q129_B",
+        "text": "La giochi e tieni la ricevuta nel cassetto."
+      },
+      {
+        "id": "Q129_C",
+        "text": "La fai solo se è cliente abituale."
+      },
+      {
+        "id": "Q129_D",
+        "text": "Lasci la schedina sul banco finché torna."
+      }
+    ]
+  },
+  {
+    "id": "Q130",
+    "g": "G03",
+    "text": "Un cliente ti chiede se può mandare il figlio minorenne a ritirare sigarette già pagate.",
+    "options": [
+      {
+        "id": "Q130_A",
+        "text": "Spieghi che non si consegnano prodotti vietati ai minori, anche se già pagati o richiesti da un adulto."
+      },
+      {
+        "id": "Q130_B",
+        "text": "Accetti se sono già pagate."
+      },
+      {
+        "id": "Q130_C",
+        "text": "Accetti se il figlio mostra il messaggio del genitore."
+      },
+      {
+        "id": "Q130_D",
+        "text": "Gli dici di far entrare il figlio quando non c’è fila."
+      }
+    ]
+  },
+  {
+    "id": "Q131",
+    "g": "G04",
+    "text": "Un cliente urla perché secondo lui il distributore gli ha preso soldi senza erogare.",
+    "options": [
+      {
+        "id": "Q131_A",
+        "text": "Lo ascolti con calma, raccogli ora, prodotto e importo, e avvisi il titolare prima di rimborsare o accusare il sistema."
+      },
+      {
+        "id": "Q131_B",
+        "text": "Lo rimborsi subito senza controllare nulla."
+      },
+      {
+        "id": "Q131_C",
+        "text": "Gli dici che sicuramente sta mentendo."
+      },
+      {
+        "id": "Q131_D",
+        "text": "Gli dai un prodotto a caso per farlo andare via."
+      }
+    ]
+  },
+  {
+    "id": "Q132",
+    "g": "G04",
+    "text": "Un cliente anziano fatica a distinguere tra contanti e carta mentre deve pagare più servizi.",
+    "options": [
+      {
+        "id": "Q132_A",
+        "text": "Lo accompagni con calma, separi gli importi e non lo esponi alla pressione della fila."
+      },
+      {
+        "id": "Q132_B",
+        "text": "Fai pagare tutto nel modo più veloce, anche se non ha capito bene."
+      },
+      {
+        "id": "Q132_C",
+        "text": "Gli dici di tornare con un familiare."
+      },
+      {
+        "id": "Q132_D",
+        "text": "Chiedi agli altri clienti di spiegarglielo."
+      }
+    ]
+  },
+  {
+    "id": "Q133",
+    "g": "G04",
+    "text": "Un cliente provocatorio dice che una donna al banco non dovrebbe occuparsi di soldi o terminali.",
+    "options": [
+      {
+        "id": "Q133_A",
+        "text": "Mantieni professionalità, non alimenti la provocazione e prosegui sulla procedura corretta."
+      },
+      {
+        "id": "Q133_B",
+        "text": "Rispondi con un insulto."
+      },
+      {
+        "id": "Q133_C",
+        "text": "Ridi per sdrammatizzare anche se il commento è scorretto."
+      },
+      {
+        "id": "Q133_D",
+        "text": "Lasci il banco e ti rifiuti di servirlo senza avvisare nessuno."
+      }
+    ]
+  },
+  {
+    "id": "Q134",
+    "g": "G04",
+    "text": "Un cliente sostiene che il giorno prima una collega gli ha promesso un favore fuori regola.",
+    "options": [
+      {
+        "id": "Q134_A",
+        "text": "Non confermi favori non verificati, ascolti il cliente e chiedi al titolare o alla collega prima di procedere."
+      },
+      {
+        "id": "Q134_B",
+        "text": "Fai il favore per evitare discussioni."
+      },
+      {
+        "id": "Q134_C",
+        "text": "Dici che la collega sbaglia sempre davanti al cliente."
+      },
+      {
+        "id": "Q134_D",
+        "text": "Accusi il cliente di inventare."
+      }
+    ]
+  },
+  {
+    "id": "Q135",
+    "g": "G04",
+    "text": "Un cliente continua a parlare sopra di te mentre stai spiegando un controllo necessario.",
+    "options": [
+      {
+        "id": "Q135_A",
+        "text": "Resti fermo e cortese, ripeti il punto essenziale e procedi solo quando l’informazione è chiara."
+      },
+      {
+        "id": "Q135_B",
+        "text": "Alzi la voce più di lui."
+      },
+      {
+        "id": "Q135_C",
+        "text": "Lasci perdere il controllo per chiudere in fretta."
+      },
+      {
+        "id": "Q135_D",
+        "text": "Confermi l’operazione e smetti di spiegare."
+      }
+    ]
+  },
+  {
+    "id": "Q136",
+    "g": "G04",
+    "text": "Un cliente dice che se non fai subito un servizio scriverà una recensione negativa.",
+    "options": [
+      {
+        "id": "Q136_A",
+        "text": "Non ti fai ricattare: mantieni tono calmo e segui comunque la procedura corretta."
+      },
+      {
+        "id": "Q136_B",
+        "text": "Cedi alla richiesta per paura della recensione."
+      },
+      {
+        "id": "Q136_C",
+        "text": "Gli rispondi che anche tu scriverai qualcosa su di lui."
+      },
+      {
+        "id": "Q136_D",
+        "text": "Fai una scorciatoia ma lo avvisi che è un’eccezione."
+      }
+    ]
+  },
+  {
+    "id": "Q137",
+    "g": "G04",
+    "text": "Un cliente confonde una perdita al gioco con un errore del negozio e pretende soldi indietro.",
+    "options": [
+      {
+        "id": "Q137_A",
+        "text": "Distingui con calma tra esito di gioco e errore operativo, chiedendo ricevuta e coinvolgendo il titolare se necessario."
+      },
+      {
+        "id": "Q137_B",
+        "text": "Lo rimborsi per evitare tensioni."
+      },
+      {
+        "id": "Q137_C",
+        "text": "Gli dici che chi gioca deve stare zitto."
+      },
+      {
+        "id": "Q137_D",
+        "text": "Gli proponi altri biglietti per recuperare."
+      }
+    ]
+  },
+  {
+    "id": "Q138",
+    "g": "G04",
+    "text": "Una cliente si vergogna a fare un pagamento personale e abbassa la voce mentre la fila ascolta.",
+    "options": [
+      {
+        "id": "Q138_A",
+        "text": "Proteggi la riservatezza, riduci le parole non necessarie e gestisci la pratica con discrezione."
+      },
+      {
+        "id": "Q138_B",
+        "text": "Ripeti ad alta voce perché devi essere sicuro."
+      },
+      {
+        "id": "Q138_C",
+        "text": "Commenti il tipo di pagamento per rassicurarla."
+      },
+      {
+        "id": "Q138_D",
+        "text": "Chiedi agli altri clienti di non ascoltare."
+      }
+    ]
+  },
+  {
+    "id": "Q139",
+    "g": "G04",
+    "text": "Un cliente entra quando stai chiudendo e pretende un servizio lungo e delicato.",
+    "options": [
+      {
+        "id": "Q139_A",
+        "text": "Spieghi con educazione cosa è possibile fare nei tempi di chiusura e non inizi operazioni che rischiano di restare sospese."
+      },
+      {
+        "id": "Q139_B",
+        "text": "Inizi comunque e poi, se si fa tardi, interrompi a metà."
+      },
+      {
+        "id": "Q139_C",
+        "text": "Gli dici seccamente di uscire."
+      },
+      {
+        "id": "Q139_D",
+        "text": "Fai il servizio velocemente saltando controlli."
+      }
+    ]
+  },
+  {
+    "id": "Q140",
+    "g": "G04",
+    "text": "Un cliente contesta il prezzo di un prodotto sostenendo che ieri costava meno.",
+    "options": [
+      {
+        "id": "Q140_A",
+        "text": "Verifichi il prezzo attuale con calma e, se serve, chiedi conferma senza discutere inutilmente."
+      },
+      {
+        "id": "Q140_B",
+        "text": "Gli fai lo sconto per evitare problemi."
+      },
+      {
+        "id": "Q140_C",
+        "text": "Gli dici che se non gli va bene può andarsene."
+      },
+      {
+        "id": "Q140_D",
+        "text": "Applichi il prezzo che ricorda lui senza controllare."
+      }
+    ]
+  },
+  {
+    "id": "Q141",
+    "g": "G05",
+    "text": "Una collega ti chiede di lasciare una piccola differenza di cassa “da sistemare dopo” senza avvisare il titolare.",
+    "options": [
+      {
+        "id": "Q141_A",
+        "text": "Non copri la differenza: la aiuti a ricostruire e lasciate traccia corretta."
+      },
+      {
+        "id": "Q141_B",
+        "text": "Accetti perché tra colleghe bisogna proteggersi."
+      },
+      {
+        "id": "Q141_C",
+        "text": "Metti soldi tuoi senza dire nulla."
+      },
+      {
+        "id": "Q141_D",
+        "text": "Nascondi la nota nel cassetto per evitare problemi."
+      }
+    ]
+  },
+  {
+    "id": "Q142",
+    "g": "G05",
+    "text": "Nel passaggio di turno la collega ti dice solo “è tutto a posto”, ma vedi ricevute separate accanto al terminale.",
+    "options": [
+      {
+        "id": "Q142_A",
+        "text": "Chiedi chiarimenti sui sospesi prima di prendere il turno e annoti ciò che resta da controllare."
+      },
+      {
+        "id": "Q142_B",
+        "text": "Ti fidi e inizi a lavorare."
+      },
+      {
+        "id": "Q142_C",
+        "text": "Butti le ricevute perché creano confusione."
+      },
+      {
+        "id": "Q142_D",
+        "text": "Le metti in tasca per guardarle con calma."
+      }
+    ]
+  },
+  {
+    "id": "Q143",
+    "g": "G05",
+    "text": "Una collega più esperta fa una procedura in modo diverso da come te l’ha spiegata il titolare.",
+    "options": [
+      {
+        "id": "Q143_A",
+        "text": "Chiedi chiarimento senza polemica e ti attieni alla procedura autorizzata."
+      },
+      {
+        "id": "Q143_B",
+        "text": "Segui la collega perché ha più pratica."
+      },
+      {
+        "id": "Q143_C",
+        "text": "Fai a metà tra i due metodi."
+      },
+      {
+        "id": "Q143_D",
+        "text": "Decidi tu quale sistema è più veloce."
+      }
+    ]
+  },
+  {
+    "id": "Q144",
+    "g": "G05",
+    "text": "Ti accorgi che una collega lascia spesso ricevute con dati clienti in vista.",
+    "options": [
+      {
+        "id": "Q144_A",
+        "text": "Glielo fai notare con discrezione e, se continua, segnali il rischio nei modi corretti."
+      },
+      {
+        "id": "Q144_B",
+        "text": "Le fotografi le ricevute per provarlo."
+      },
+      {
+        "id": "Q144_C",
+        "text": "Lo racconti ai clienti per far capire che non sei tu."
+      },
+      {
+        "id": "Q144_D",
+        "text": "Ignori tutto perché non riguarda il tuo turno."
+      }
+    ]
+  },
+  {
+    "id": "Q145",
+    "g": "G05",
+    "text": "Una collega ti chiede di usare il tuo telefono personale per mandare foto di ricevute o conteggi.",
+    "options": [
+      {
+        "id": "Q145_A",
+        "text": "Rifiuti l’uso improprio del telefono personale per dati di lavoro e chiedi una procedura autorizzata."
+      },
+      {
+        "id": "Q145_B",
+        "text": "Lo fai se è solo una foto veloce."
+      },
+      {
+        "id": "Q145_C",
+        "text": "Lo fai e poi cancelli tutto."
+      },
+      {
+        "id": "Q145_D",
+        "text": "Invii tutto su WhatsApp a chi lo chiede senza pensarci."
+      }
+    ]
+  },
+  {
+    "id": "Q146",
+    "g": "G05",
+    "text": "Una collega è in difficoltà con la fila e ti chiede aiuto mentre stai sistemando la cassa.",
+    "options": [
+      {
+        "id": "Q146_A",
+        "text": "Aiuti senza abbandonare la cassa aperta o i contanti non custoditi, organizzando prima la postazione."
+      },
+      {
+        "id": "Q146_B",
+        "text": "Lasci la cassa aperta e corri al banco."
+      },
+      {
+        "id": "Q146_C",
+        "text": "Fingi di non sentire."
+      },
+      {
+        "id": "Q146_D",
+        "text": "Prendi contanti e ricevute con te mentre la aiuti."
+      }
+    ]
+  },
+  {
+    "id": "Q147",
+    "g": "G05",
+    "text": "Durante una pausa una collega commenta abitudini di gioco di un cliente abituale.",
+    "options": [
+      {
+        "id": "Q147_A",
+        "text": "Non partecipi al commento e ricordi che le abitudini dei clienti restano riservate."
+      },
+      {
+        "id": "Q147_B",
+        "text": "Aggiungi dettagli perché lo conosci anche tu."
+      },
+      {
+        "id": "Q147_C",
+        "text": "Ridi e cambi argomento senza dire nulla."
+      },
+      {
+        "id": "Q147_D",
+        "text": "Registri la conversazione per tutelarti."
+      }
+    ]
+  },
+  {
+    "id": "Q148",
+    "g": "G05",
+    "text": "Una collega dimentica di caricare correttamente il distributore e i clienti reclamano durante il tuo turno.",
+    "options": [
+      {
+        "id": "Q148_A",
+        "text": "Gestisci il problema senza accusarla davanti ai clienti, sistemi ciò che puoi e segnali l’accaduto internamente."
+      },
+      {
+        "id": "Q148_B",
+        "text": "Dice ai clienti che è colpa sua."
+      },
+      {
+        "id": "Q148_C",
+        "text": "Lasci il distributore così finché torna la collega."
+      },
+      {
+        "id": "Q148_D",
+        "text": "Rimborsi tutti senza verificare."
+      }
+    ]
+  },
+  {
+    "id": "Q149",
+    "g": "G05",
+    "text": "Una collega ti chiede di confermare tu una procedura che lei ha iniziato ma non ha controllato.",
+    "options": [
+      {
+        "id": "Q149_A",
+        "text": "Prima di confermare ricontrolli dati e responsabilità dell’operazione, senza firmare alla cieca."
+      },
+      {
+        "id": "Q149_B",
+        "text": "Confermi perché l’ha già preparata lei."
+      },
+      {
+        "id": "Q149_C",
+        "text": "Confermi e poi le chiedi cosa fosse."
+      },
+      {
+        "id": "Q149_D",
+        "text": "Ti rifiuti sempre di aiutare in qualsiasi procedura."
+      }
+    ]
+  },
+  {
+    "id": "Q150",
+    "g": "G05",
+    "text": "Nel gruppo di lavoro nasce tensione su turni e mansioni.",
+    "options": [
+      {
+        "id": "Q150_A",
+        "text": "Mantieni toni professionali, eviti discussioni davanti ai clienti e rimandi i chiarimenti al titolare."
+      },
+      {
+        "id": "Q150_B",
+        "text": "Sfoghi la tensione al banco."
+      },
+      {
+        "id": "Q150_C",
+        "text": "Ti allei con una collega contro l’altra."
+      },
+      {
+        "id": "Q150_D",
+        "text": "Ti rifiuti di fare mansioni finché non viene chiarito tutto."
+      }
+    ]
+  },
+  {
+    "id": "Q151",
+    "g": "G06",
+    "text": "Il titolare ti insegna a fare un servizio delicato e ti dice che potrai farlo da sola solo quando avrai preso pratica.",
+    "options": [
+      {
+        "id": "Q151_A",
+        "text": "All’inizio lo fai sotto controllo, poi diventi autonoma rispettando sempre i passaggi stabiliti."
+      },
+      {
+        "id": "Q151_B",
+        "text": "Lo fai da sola appena lui si allontana per dimostrare capacità."
+      },
+      {
+        "id": "Q151_C",
+        "text": "Lo eviti per sempre perché è rischioso."
+      },
+      {
+        "id": "Q151_D",
+        "text": "Chiedi al cliente di guidarti perché magari lo ha già fatto."
+      }
+    ]
+  },
+  {
+    "id": "Q152",
+    "g": "G06",
+    "text": "Il titolare non è presente e un cliente chiede una procedura che hai visto fare una sola volta.",
+    "options": [
+      {
+        "id": "Q152_A",
+        "text": "Non improvvisi: contatti il titolare o rimandi se la procedura è delicata e non urgente."
+      },
+      {
+        "id": "Q152_B",
+        "text": "La provi comunque perché hai buona memoria."
+      },
+      {
+        "id": "Q152_C",
+        "text": "Chiedi al cliente se ricorda i passaggi."
+      },
+      {
+        "id": "Q152_D",
+        "text": "Fai una procedura simile sperando sia corretta."
+      }
+    ]
+  },
+  {
+    "id": "Q153",
+    "g": "G06",
+    "text": "Dopo alcune settimane hai imparato a gestire il distributore. Cosa significa autonomia corretta?",
+    "options": [
+      {
+        "id": "Q153_A",
+        "text": "Controllare carico, incassi, anomalie e comunicare ciò che serve, senza uscire dalle procedure autorizzate."
+      },
+      {
+        "id": "Q153_B",
+        "text": "Fare modifiche a prezzi e colonne quando ti sembra utile."
+      },
+      {
+        "id": "Q153_C",
+        "text": "Aprire e prelevare quando vuoi senza avvisare."
+      },
+      {
+        "id": "Q153_D",
+        "text": "Lasciare al distributore tutta la responsabilità dei controlli."
+      }
+    ]
+  },
+  {
+    "id": "Q154",
+    "g": "G06",
+    "text": "Il titolare ti chiede di preparare una lista prodotti mancanti per un ordine, ma non di inviare l’ordine.",
+    "options": [
+      {
+        "id": "Q154_A",
+        "text": "Prepari dati precisi su venduto, giacenza e richieste clienti, senza inviare nulla se non autorizzata."
+      },
+      {
+        "id": "Q154_B",
+        "text": "Invii l’ordine per completare il lavoro."
+      },
+      {
+        "id": "Q154_C",
+        "text": "Aggiungi prodotti a intuito perché potrebbero servire."
+      },
+      {
+        "id": "Q154_D",
+        "text": "Chiedi ai clienti cosa ordinare e copi la lista."
+      }
+    ]
+  },
+  {
+    "id": "Q155",
+    "g": "G06",
+    "text": "Un cliente chiede un favore personale dicendo che il titolare glielo concede sempre.",
+    "options": [
+      {
+        "id": "Q155_A",
+        "text": "Non concedi eccezioni senza conferma e mantieni la regola anche se il cliente insiste."
+      },
+      {
+        "id": "Q155_B",
+        "text": "Gli credi perché parla con sicurezza."
+      },
+      {
+        "id": "Q155_C",
+        "text": "Fai il favore ma lo segni per dopo."
+      },
+      {
+        "id": "Q155_D",
+        "text": "Gli chiedi di non dirlo al titolare."
+      }
+    ]
+  },
+  {
+    "id": "Q156",
+    "g": "G06",
+    "text": "Commetti un errore su un servizio e capisci che comunicarlo subito potrebbe evitare un danno maggiore.",
+    "options": [
+      {
+        "id": "Q156_A",
+        "text": "Avvisi immediatamente il titolare, raccogli ricevute e dettagli e collabori alla soluzione."
+      },
+      {
+        "id": "Q156_B",
+        "text": "Provi prima a coprirlo per vedere se si risolve."
+      },
+      {
+        "id": "Q156_C",
+        "text": "Aspetti fine turno per non disturbare."
+      },
+      {
+        "id": "Q156_D",
+        "text": "Dai al cliente una spiegazione inventata."
+      }
+    ]
+  },
+  {
+    "id": "Q157",
+    "g": "G06",
+    "text": "Il titolare ti affida il controllo di una chiusura cassa con doppia sezione.",
+    "options": [
+      {
+        "id": "Q157_A",
+        "text": "Segui schema, separi le casse e segnali ogni differenza, anche piccola."
+      },
+      {
+        "id": "Q157_B",
+        "text": "Sommi tutto insieme perché il totale generale basta."
+      },
+      {
+        "id": "Q157_C",
+        "text": "Sistemi le differenze con contanti dell’altra cassa."
+      },
+      {
+        "id": "Q157_D",
+        "text": "Controlli solo la cassa con più soldi."
+      }
+    ]
+  },
+  {
+    "id": "Q158",
+    "g": "G06",
+    "text": "Il titolare ti corregge una procedura che pensavi di aver imparato bene.",
+    "options": [
+      {
+        "id": "Q158_A",
+        "text": "Accetti la correzione, aggiorni il tuo metodo e chiedi di verificare il passaggio critico."
+      },
+      {
+        "id": "Q158_B",
+        "text": "Ti offendi perché ormai sai lavorare."
+      },
+      {
+        "id": "Q158_C",
+        "text": "Continui come prima quando lui non vede."
+      },
+      {
+        "id": "Q158_D",
+        "text": "Dici che la collega ti aveva insegnato così e basta."
+      }
+    ]
+  },
+  {
+    "id": "Q159",
+    "g": "G06",
+    "text": "Arriva una comunicazione interna su una nuova regola per servizi o pagamenti.",
+    "options": [
+      {
+        "id": "Q159_A",
+        "text": "La leggi, chiedi chiarimenti e la applichi anche se i clienti erano abituati diversamente."
+      },
+      {
+        "id": "Q159_B",
+        "text": "La ignori finché qualcuno non ti richiama."
+      },
+      {
+        "id": "Q159_C",
+        "text": "Applichi la regola solo con clienti sconosciuti."
+      },
+      {
+        "id": "Q159_D",
+        "text": "Spieghi ai clienti che la regola è inutile."
+      }
+    ]
+  },
+  {
+    "id": "Q160",
+    "g": "G06",
+    "text": "Hai un dubbio su una procedura ma il negozio è pieno e temi di sembrare lenta.",
+    "options": [
+      {
+        "id": "Q160_A",
+        "text": "Preferisci chiedere conferma prima di un errore definitivo, spiegando ai clienti che serve un controllo."
+      },
+      {
+        "id": "Q160_B",
+        "text": "Procedi comunque per fare bella figura."
+      },
+      {
+        "id": "Q160_C",
+        "text": "Passi il problema a una collega senza imparare."
+      },
+      {
+        "id": "Q160_D",
+        "text": "Fai scegliere al cliente se rischiare o aspettare."
+      }
+    ]
+  },
+  {
+    "id": "Q161",
+    "g": "G07",
+    "text": "Durante un pagamento compare sul terminale un dato personale del cliente e un’altra persona cerca di guardare.",
+    "options": [
+      {
+        "id": "Q161_A",
+        "text": "Proteggi lo schermo o riduci la visibilità e parli solo con il cliente interessato."
+      },
+      {
+        "id": "Q161_B",
+        "text": "Lasci vedere perché tanto sono dati sul terminale."
+      },
+      {
+        "id": "Q161_C",
+        "text": "Leggi il dato ad alta voce per controllarlo meglio."
+      },
+      {
+        "id": "Q161_D",
+        "text": "Chiedi all’altra persona se conosce il cliente."
+      }
+    ]
+  },
+  {
+    "id": "Q162",
+    "g": "G07",
+    "text": "Un cliente lascia una ricevuta con codice fiscale sul banco.",
+    "options": [
+      {
+        "id": "Q162_A",
+        "text": "La rimuovi subito dalla vista e la custodisci o consegni secondo procedura."
+      },
+      {
+        "id": "Q162_B",
+        "text": "La butti nel cestino normale."
+      },
+      {
+        "id": "Q162_C",
+        "text": "La lasci lì perché non è tua."
+      },
+      {
+        "id": "Q162_D",
+        "text": "La fotografi per ricordarti di restituirla."
+      }
+    ]
+  },
+  {
+    "id": "Q163",
+    "g": "G07",
+    "text": "Una persona telefona chiedendo se un cliente ha pagato una certa bolletta da voi.",
+    "options": [
+      {
+        "id": "Q163_A",
+        "text": "Non confermi né neghi informazioni su pagamenti di terzi e rimandi ai canali corretti."
+      },
+      {
+        "id": "Q163_B",
+        "text": "Rispondi se conosci la persona al telefono."
+      },
+      {
+        "id": "Q163_C",
+        "text": "Controlli e comunichi l’esito per essere utile."
+      },
+      {
+        "id": "Q163_D",
+        "text": "Chiedi il nome del cliente e poi decidi."
+      }
+    ]
+  },
+  {
+    "id": "Q164",
+    "g": "G07",
+    "text": "Una cliente ti chiede di inviarle su WhatsApp la foto di una ricevuta appena stampata.",
+    "options": [
+      {
+        "id": "Q164_A",
+        "text": "Segui solo canali e modalità autorizzate, evitando di usare il telefono personale per dati sensibili."
+      },
+      {
+        "id": "Q164_B",
+        "text": "La mandi dal tuo telefono e poi cancelli la chat."
+      },
+      {
+        "id": "Q164_C",
+        "text": "La mandi a un numero dettato a voce senza verificare."
+      },
+      {
+        "id": "Q164_D",
+        "text": "La pubblichi nel gruppo colleghi per ricordartene."
+      }
+    ]
+  },
+  {
+    "id": "Q165",
+    "g": "G07",
+    "text": "Un cliente abituale ti racconta dati personali di un altro cliente e vuole sapere se è vero.",
+    "options": [
+      {
+        "id": "Q165_A",
+        "text": "Non alimenti la conversazione e non confermi informazioni, anche se le conosci."
+      },
+      {
+        "id": "Q165_B",
+        "text": "Confermi solo ciò che tutti sanno."
+      },
+      {
+        "id": "Q165_C",
+        "text": "Racconti la tua versione perché ormai il dato circola."
+      },
+      {
+        "id": "Q165_D",
+        "text": "Chiedi dettagli per capire meglio."
+      }
+    ]
+  },
+  {
+    "id": "Q166",
+    "g": "G07",
+    "text": "Durante il conteggio cassa una ricevuta resta visibile a un cliente vicino.",
+    "options": [
+      {
+        "id": "Q166_A",
+        "text": "Copri o sposti subito la ricevuta e mantieni separata l’area di lavoro dai clienti."
+      },
+      {
+        "id": "Q166_B",
+        "text": "Continui perché il cliente non dovrebbe leggere."
+      },
+      {
+        "id": "Q166_C",
+        "text": "Chiedi al cliente di non guardare."
+      },
+      {
+        "id": "Q166_D",
+        "text": "Giri la ricevuta solo dopo aver finito il conteggio."
+      }
+    ]
+  },
+  {
+    "id": "Q167",
+    "g": "G07",
+    "text": "Un’amica ti chiede su chat se nella tabaccheria lavora ancora una certa persona o se passa spesso.",
+    "options": [
+      {
+        "id": "Q167_A",
+        "text": "Non dai informazioni su presenze, turni o abitudini di clienti e colleghi."
+      },
+      {
+        "id": "Q167_B",
+        "text": "Rispondi perché è un’amica."
+      },
+      {
+        "id": "Q167_C",
+        "text": "Le dici solo gli orari generici."
+      },
+      {
+        "id": "Q167_D",
+        "text": "Le mandi una foto del banco per farle capire."
+      }
+    ]
+  },
+  {
+    "id": "Q168",
+    "g": "G07",
+    "text": "Un cliente ti mostra un documento sul telefono e ti chiede di tenerlo in mano mentre cerca i soldi.",
+    "options": [
+      {
+        "id": "Q168_A",
+        "text": "Usi solo i dati necessari e restituisci subito il telefono, evitando esposizioni inutili."
+      },
+      {
+        "id": "Q168_B",
+        "text": "Scorri lo schermo per cercare altri dati utili."
+      },
+      {
+        "id": "Q168_C",
+        "text": "Lo appoggi sul banco aperto davanti alla fila."
+      },
+      {
+        "id": "Q168_D",
+        "text": "Fai uno screenshot per inserirli con calma."
+      }
+    ]
+  },
+  {
+    "id": "Q169",
+    "g": "G07",
+    "text": "Una ricevuta di gioco o pagamento viene dimenticata nella stampante.",
+    "options": [
+      {
+        "id": "Q169_A",
+        "text": "La separi subito dagli altri documenti e la gestisci come informazione riservata."
+      },
+      {
+        "id": "Q169_B",
+        "text": "La lasci nella stampante finché il cliente torna."
+      },
+      {
+        "id": "Q169_C",
+        "text": "La dai al cliente successivo chiedendo se sa di chi sia."
+      },
+      {
+        "id": "Q169_D",
+        "text": "La butti per non avere responsabilità."
+      }
+    ]
+  },
+  {
+    "id": "Q170",
+    "g": "G07",
+    "text": "Qualcuno chiede di fare un video nel negozio mentre si vedono clienti, terminali e cassa.",
+    "options": [
+      {
+        "id": "Q170_A",
+        "text": "Lo blocchi con gentilezza e spieghi che non si possono riprendere clienti, dati, terminali o cassa senza autorizzazione."
+      },
+      {
+        "id": "Q170_B",
+        "text": "Lo lasci fare se non riprende il tuo volto."
+      },
+      {
+        "id": "Q170_C",
+        "text": "Gli chiedi solo di taggarti."
+      },
+      {
+        "id": "Q170_D",
+        "text": "Lasci fare perché è pubblicità gratuita."
+      }
+    ]
+  },
+  {
+    "id": "Q171",
+    "g": "G08",
+    "text": "Hai appena imparato una procedura e il primo cliente che la richiede è impaziente.",
+    "options": [
+      {
+        "id": "Q171_A",
+        "text": "Procedi con calma, segui i passaggi e chiedi conferma nei punti critici invece di improvvisare."
+      },
+      {
+        "id": "Q171_B",
+        "text": "Vai veloce per non sembrare inesperta."
+      },
+      {
+        "id": "Q171_C",
+        "text": "Lasci fare al cliente sul terminale."
+      },
+      {
+        "id": "Q171_D",
+        "text": "Rinunci al servizio senza provare a imparare."
+      }
+    ]
+  },
+  {
+    "id": "Q172",
+    "g": "G08",
+    "text": "Durante una fila lunga ti accorgi che stai iniziando a confondere importi e ricevute.",
+    "options": [
+      {
+        "id": "Q172_A",
+        "text": "Ti fermi pochi secondi, rimetti ordine e continui una pratica alla volta."
+      },
+      {
+        "id": "Q172_B",
+        "text": "Acceleri per svuotare la fila."
+      },
+      {
+        "id": "Q172_C",
+        "text": "Metti tutte le ricevute insieme e sistemi dopo."
+      },
+      {
+        "id": "Q172_D",
+        "text": "Chiedi ai clienti di ricordarti l’ordine."
+      }
+    ]
+  },
+  {
+    "id": "Q173",
+    "g": "G08",
+    "text": "Ricevi una correzione ripetuta sulla stessa procedura.",
+    "options": [
+      {
+        "id": "Q173_A",
+        "text": "Prendi nota del punto critico e chiedi di rifarla una volta sotto supervisione."
+      },
+      {
+        "id": "Q173_B",
+        "text": "Ti giustifichi dicendo che la procedura è fatta male."
+      },
+      {
+        "id": "Q173_C",
+        "text": "Fingi di aver capito pur di chiudere il discorso."
+      },
+      {
+        "id": "Q173_D",
+        "text": "Eviti da quel momento tutte le procedure simili."
+      }
+    ]
+  },
+  {
+    "id": "Q174",
+    "g": "G08",
+    "text": "Il terminale cambia schermata dopo un aggiornamento e non trovi più un pulsante.",
+    "options": [
+      {
+        "id": "Q174_A",
+        "text": "Non tocchi a caso: cerchi la procedura o chiedi supporto prima di confermare operazioni definitive."
+      },
+      {
+        "id": "Q174_B",
+        "text": "Premi i tasti finché qualcosa funziona."
+      },
+      {
+        "id": "Q174_C",
+        "text": "Dici al cliente che il servizio non esiste più."
+      },
+      {
+        "id": "Q174_D",
+        "text": "Chiedi al cliente di cercare istruzioni online."
+      }
+    ]
+  },
+  {
+    "id": "Q175",
+    "g": "G08",
+    "text": "Mentre sei sotto stress, un cliente ti fa una domanda semplice ma insistente.",
+    "options": [
+      {
+        "id": "Q175_A",
+        "text": "Rispondi in modo breve e cortese, senza scaricare sul cliente la tensione del momento."
+      },
+      {
+        "id": "Q175_B",
+        "text": "Gli rispondi male perché vede che sei occupata."
+      },
+      {
+        "id": "Q175_C",
+        "text": "Lo ignori completamente."
+      },
+      {
+        "id": "Q175_D",
+        "text": "Gli dici di chiedere a un altro cliente."
+      }
+    ]
+  },
+  {
+    "id": "Q176",
+    "g": "G08",
+    "text": "Devi imparare a caricare il distributore, ma temi di sbagliare colonna.",
+    "options": [
+      {
+        "id": "Q176_A",
+        "text": "Chiedi una prima prova guidata, poi usi controlli su codice, colonna e prodotto finché diventi autonoma."
+      },
+      {
+        "id": "Q176_B",
+        "text": "Carichi a intuito perché tanto si può svuotare dopo."
+      },
+      {
+        "id": "Q176_C",
+        "text": "Rifiuti sempre di imparare."
+      },
+      {
+        "id": "Q176_D",
+        "text": "Chiedi a un cliente abituale di controllare."
+      }
+    ]
+  },
+  {
+    "id": "Q177",
+    "g": "G08",
+    "text": "Dopo una giornata piena ti accorgi di essere stanca e devi ancora chiudere alcune operazioni.",
+    "options": [
+      {
+        "id": "Q177_A",
+        "text": "Rallenti il necessario, controlli le chiusure essenziali e segnali eventuali sospesi."
+      },
+      {
+        "id": "Q177_B",
+        "text": "Chiudi tutto a memoria per andare via."
+      },
+      {
+        "id": "Q177_C",
+        "text": "Lasci ricevute e contanti per il giorno dopo."
+      },
+      {
+        "id": "Q177_D",
+        "text": "Chiedi al cliente rimasto di aiutarti a contare."
+      }
+    ]
+  },
+  {
+    "id": "Q178",
+    "g": "G08",
+    "text": "Una procedura richiede tre passaggi e tu ricordi solo i primi due.",
+    "options": [
+      {
+        "id": "Q178_A",
+        "text": "Ti fermi prima del passaggio mancante e chiedi conferma o consulti la procedura."
+      },
+      {
+        "id": "Q178_B",
+        "text": "Inventi il terzo passaggio."
+      },
+      {
+        "id": "Q178_C",
+        "text": "Ripeti i primi due più volte."
+      },
+      {
+        "id": "Q178_D",
+        "text": "Confermi e speri che il terminale completi da solo."
+      }
+    ]
+  },
+  {
+    "id": "Q179",
+    "g": "G08",
+    "text": "Il titolare ti affida gradualmente più responsabilità e tu vuoi dimostrare affidabilità.",
+    "options": [
+      {
+        "id": "Q179_A",
+        "text": "Mostri autonomia rispettando procedure, chiedendo aiuto nei dubbi e comunicando anomalie."
+      },
+      {
+        "id": "Q179_B",
+        "text": "Fai tutto da sola anche quando non sei sicura."
+      },
+      {
+        "id": "Q179_C",
+        "text": "Nascondi gli errori piccoli per sembrare più brava."
+      },
+      {
+        "id": "Q179_D",
+        "text": "Prometti ai clienti favori per far vedere che sai decidere."
+      }
+    ]
+  },
+  {
+    "id": "Q180",
+    "g": "G08",
+    "text": "Un cliente ti mette ansia dicendo che nell’altra tabaccheria sono più veloci.",
+    "options": [
+      {
+        "id": "Q180_A",
+        "text": "Non gareggi sulla fretta: resti educata, precisa e segui i controlli necessari."
+      },
+      {
+        "id": "Q180_B",
+        "text": "Salti i controlli per dimostrare velocità."
+      },
+      {
+        "id": "Q180_C",
+        "text": "Gli rispondi che può andare nell’altra tabaccheria."
+      },
+      {
+        "id": "Q180_D",
+        "text": "Fai l’operazione in modo approssimativo."
+      }
+    ]
+  },
+  {
+    "id": "Q181",
+    "g": "G09",
+    "text": "Un cliente ha perso più volte e chiede quali Gratta e Vinci comprare per recuperare.",
+    "options": [
+      {
+        "id": "Q181_A",
+        "text": "Non prometti vincite né suggerisci recuperi; mantieni comunicazione neutra e prudente."
+      },
+      {
+        "id": "Q181_B",
+        "text": "Gli consigli quelli più costosi."
+      },
+      {
+        "id": "Q181_C",
+        "text": "Gli dici che dopo tante perdite una vincita è vicina."
+      },
+      {
+        "id": "Q181_D",
+        "text": "Gli fai credito per aiutarlo a recuperare."
+      }
+    ]
+  },
+  {
+    "id": "Q182",
+    "g": "G09",
+    "text": "Un cliente fragile o molto agitato continua a spendere importi elevati al gioco.",
+    "options": [
+      {
+        "id": "Q182_A",
+        "text": "Eviti frasi di incentivo, non fai credito e coinvolgi il titolare se la situazione appare problematica."
+      },
+      {
+        "id": "Q182_B",
+        "text": "Lo incoraggi perché è libero di spendere."
+      },
+      {
+        "id": "Q182_C",
+        "text": "Gli proponi una strategia di gioco."
+      },
+      {
+        "id": "Q182_D",
+        "text": "Lo deridi con un collega quando esce."
+      }
+    ]
+  },
+  {
+    "id": "Q183",
+    "g": "G09",
+    "text": "Un cliente chiede se esiste un blocchetto di Gratta e Vinci “più fortunato”.",
+    "options": [
+      {
+        "id": "Q183_A",
+        "text": "Spieghi che non puoi prevedere vincite e non trasformi la vendita in consiglio di gioco."
+      },
+      {
+        "id": "Q183_B",
+        "text": "Gli indichi quello che secondo te deve uscire."
+      },
+      {
+        "id": "Q183_C",
+        "text": "Gli dici di comprare tutto il blocchetto."
+      },
+      {
+        "id": "Q183_D",
+        "text": "Gli suggerisci di tornare quando sei sola."
+      }
+    ]
+  },
+  {
+    "id": "Q184",
+    "g": "G09",
+    "text": "Un cliente dice che ha già speso troppo ma vuole continuare “solo per rifarsi”.",
+    "options": [
+      {
+        "id": "Q184_A",
+        "text": "Mantieni tono rispettoso, non lo spingi a continuare e non usi frasi sul recupero delle perdite."
+      },
+      {
+        "id": "Q184_B",
+        "text": "Gli dici di insistere perché mollare ora sarebbe un peccato."
+      },
+      {
+        "id": "Q184_C",
+        "text": "Gli proponi tagliandi più economici ma tanti."
+      },
+      {
+        "id": "Q184_D",
+        "text": "Gli fai credito se promette di pagare domani."
+      }
+    ]
+  },
+  {
+    "id": "Q185",
+    "g": "G09",
+    "text": "Un cliente ti chiede se secondo te il Lotto può risolvere un suo problema economico.",
+    "options": [
+      {
+        "id": "Q185_A",
+        "text": "Non alimenti illusioni: resti neutra, non prometti vincite e non dai consigli finanziari o di gioco."
+      },
+      {
+        "id": "Q185_B",
+        "text": "Gli suggerisci numeri fortunati."
+      },
+      {
+        "id": "Q185_C",
+        "text": "Gli dici che tentar non nuoce."
+      },
+      {
+        "id": "Q185_D",
+        "text": "Gli consigli di aumentare l’importo per vincere di più."
+      }
+    ]
+  },
+  {
+    "id": "Q186",
+    "g": "G09",
+    "text": "Un cliente arrabbiato dopo una perdita accusa te personalmente.",
+    "options": [
+      {
+        "id": "Q186_A",
+        "text": "Resti calma, non entri nella provocazione, chiarisci che l’esito non dipende dal banco e chiami supporto se serve."
+      },
+      {
+        "id": "Q186_B",
+        "text": "Rispondi che se perde è colpa sua."
+      },
+      {
+        "id": "Q186_C",
+        "text": "Gli offri un biglietto omaggio non autorizzato."
+      },
+      {
+        "id": "Q186_D",
+        "text": "Gli prometti che la prossima volta andrà meglio."
+      }
+    ]
+  },
+  {
+    "id": "Q187",
+    "g": "G09",
+    "text": "Una persona chiede di comprare Gratta e Vinci a credito perché ha finito i contanti.",
+    "options": [
+      {
+        "id": "Q187_A",
+        "text": "Rifiuti il credito con educazione e fermezza, senza giudicare la persona."
+      },
+      {
+        "id": "Q187_B",
+        "text": "Accetti se è un cliente abituale."
+      },
+      {
+        "id": "Q187_C",
+        "text": "Accetti per piccoli importi."
+      },
+      {
+        "id": "Q187_D",
+        "text": "Gli dici di lasciare un documento come garanzia."
+      }
+    ]
+  },
+  {
+    "id": "Q188",
+    "g": "G09",
+    "text": "Un cliente ti chiede di scegliere tu i numeri perché si fida della tua fortuna.",
+    "options": [
+      {
+        "id": "Q188_A",
+        "text": "Non scegli numeri né crei aspettative: il cliente deve decidere autonomamente."
+      },
+      {
+        "id": "Q188_B",
+        "text": "Scegli numeri casuali per simpatia."
+      },
+      {
+        "id": "Q188_C",
+        "text": "Usi date personali del cliente."
+      },
+      {
+        "id": "Q188_D",
+        "text": "Gli consigli numeri che ti sembrano ricorrenti."
+      }
+    ]
+  },
+  {
+    "id": "Q189",
+    "g": "G09",
+    "text": "Un cliente sembra in difficoltà emotiva e parla di gioco come unica soluzione.",
+    "options": [
+      {
+        "id": "Q189_A",
+        "text": "Non giudichi, non incentivi la spesa e segnali la situazione al titolare mantenendo riservatezza."
+      },
+      {
+        "id": "Q189_B",
+        "text": "Gli dici che deve smettere subito davanti agli altri."
+      },
+      {
+        "id": "Q189_C",
+        "text": "Gli proponi un ultimo tentativo."
+      },
+      {
+        "id": "Q189_D",
+        "text": "Racconti la situazione a un cliente abituale."
+      }
+    ]
+  },
+  {
+    "id": "Q190",
+    "g": "G09",
+    "text": "Un cliente dice che nel vostro negozio non vince mai e vuole essere risarcito.",
+    "options": [
+      {
+        "id": "Q190_A",
+        "text": "Spieghi con calma che il gioco non garantisce vincite e che non sono previsti rimborsi per perdite regolari."
+      },
+      {
+        "id": "Q190_B",
+        "text": "Gli dai soldi dalla cassa per calmarlo."
+      },
+      {
+        "id": "Q190_C",
+        "text": "Gli vendi altri biglietti promettendo che andrà meglio."
+      },
+      {
+        "id": "Q190_D",
+        "text": "Gli rispondi in modo aggressivo."
+      }
+    ]
+  },
+  {
+    "id": "Q191",
+    "g": "G10",
+    "text": "Un cliente ti chiede quale sigaretta elettronica o prodotto con nicotina faccia meno male.",
+    "options": [
+      {
+        "id": "Q191_A",
+        "text": "Non dai consigli medici: ti limiti a informazioni commerciali consentite e rimandi a professionisti sanitari."
+      },
+      {
+        "id": "Q191_B",
+        "text": "Gli dici quale secondo te è più sicura."
+      },
+      {
+        "id": "Q191_C",
+        "text": "Gli garantisci che un prodotto risolve il problema."
+      },
+      {
+        "id": "Q191_D",
+        "text": "Gli racconti esperienze personali come indicazione."
+      }
+    ]
+  },
+  {
+    "id": "Q192",
+    "g": "G10",
+    "text": "Un cliente parla di dipendenza da tabacco e chiede come smettere.",
+    "options": [
+      {
+        "id": "Q192_A",
+        "text": "Rispondi con rispetto, non fai diagnosi né terapie e suggerisci di rivolgersi a medico o servizi competenti."
+      },
+      {
+        "id": "Q192_B",
+        "text": "Gli prepari un piano personale."
+      },
+      {
+        "id": "Q192_C",
+        "text": "Gli dici che basta forza di volontà."
+      },
+      {
+        "id": "Q192_D",
+        "text": "Gli vendi il prodotto più caro promettendo risultati."
+      }
+    ]
+  },
+  {
+    "id": "Q193",
+    "g": "G10",
+    "text": "Un cliente chiede se può comprare prodotti con nicotina per un ragazzo giovane fuori dal negozio.",
+    "options": [
+      {
+        "id": "Q193_A",
+        "text": "Applichi prudenza e non collabori se il prodotto sembra destinato a un minore."
+      },
+      {
+        "id": "Q193_B",
+        "text": "Vendi perché l’adulto paga."
+      },
+      {
+        "id": "Q193_C",
+        "text": "Chiedi solo se il ragazzo fuma già."
+      },
+      {
+        "id": "Q193_D",
+        "text": "Consigli un prodotto più leggero."
+      }
+    ]
+  },
+  {
+    "id": "Q194",
+    "g": "G10",
+    "text": "Un cliente vuole discutere al banco sulle avvertenze sanitarie dei pacchetti.",
+    "options": [
+      {
+        "id": "Q194_A",
+        "text": "Resti neutra: non fai dibattiti sanitari, vendi solo prodotti regolari e non alteri confezioni."
+      },
+      {
+        "id": "Q194_B",
+        "text": "Dici che le avvertenze sono esagerate."
+      },
+      {
+        "id": "Q194_C",
+        "text": "Copri l’avvertenza se il cliente la trova fastidiosa."
+      },
+      {
+        "id": "Q194_D",
+        "text": "Prendi posizione personale davanti alla fila."
+      }
+    ]
+  },
+  {
+    "id": "Q195",
+    "g": "G10",
+    "text": "Un cliente ti chiede se un prodotto con nicotina crea dipendenza.",
+    "options": [
+      {
+        "id": "Q195_A",
+        "text": "Non improvvisi spiegazioni mediche; dai solo informazioni generali consentite e rimandi a fonti sanitarie o professionisti."
+      },
+      {
+        "id": "Q195_B",
+        "text": "Gli dici che non crea mai dipendenza."
+      },
+      {
+        "id": "Q195_C",
+        "text": "Gli dici che crea sempre gli stessi effetti su tutti."
+      },
+      {
+        "id": "Q195_D",
+        "text": "Gli rispondi con una battuta."
+      }
+    ]
+  },
+  {
+    "id": "Q196",
+    "g": "G10",
+    "text": "Una persona visibilmente giovane chiede prodotti con nicotina e insiste dicendo che li compra ovunque.",
+    "options": [
+      {
+        "id": "Q196_A",
+        "text": "Chiedi documento nei casi dubbi e rifiuti se non può dimostrare l’età."
+      },
+      {
+        "id": "Q196_B",
+        "text": "Vendi perché dice che lo fanno tutti."
+      },
+      {
+        "id": "Q196_C",
+        "text": "Chiedi a voce l’anno di nascita e basta."
+      },
+      {
+        "id": "Q196_D",
+        "text": "Vendi solo un pezzo per ridurre il problema."
+      }
+    ]
+  },
+  {
+    "id": "Q197",
+    "g": "G10",
+    "text": "Un cliente abituale ti racconta problemi personali legati al tabagismo e cerca un consiglio da amica.",
+    "options": [
+      {
+        "id": "Q197_A",
+        "text": "Lo ascolti con rispetto ma mantieni ruolo professionale e non dai consigli sanitari improvvisati."
+      },
+      {
+        "id": "Q197_B",
+        "text": "Gli dici cosa faresti tu al suo posto."
+      },
+      {
+        "id": "Q197_C",
+        "text": "Gli consigli di cambiare marca."
+      },
+      {
+        "id": "Q197_D",
+        "text": "Ne parli poi con una collega perché ti ha colpito."
+      }
+    ]
+  },
+  {
+    "id": "Q198",
+    "g": "G10",
+    "text": "Un cliente chiede un prodotto del tabacco a credito perché ha dimenticato il portafoglio.",
+    "options": [
+      {
+        "id": "Q198_A",
+        "text": "Rifiuti il credito non autorizzato con cortesia, anche se il cliente è abituale."
+      },
+      {
+        "id": "Q198_B",
+        "text": "Glielo dai perché lo conosci."
+      },
+      {
+        "id": "Q198_C",
+        "text": "Segni il debito su un foglietto."
+      },
+      {
+        "id": "Q198_D",
+        "text": "Lo fai pagare la prossima volta ma solo se promette."
+      }
+    ]
+  },
+  {
+    "id": "Q199",
+    "g": "G10",
+    "text": "Un cliente chiede se può restituire un prodotto con nicotina già acquistato perché ha cambiato idea.",
+    "options": [
+      {
+        "id": "Q199_A",
+        "text": "Segui le regole del negozio e chiedi al titolare se non conosci la procedura, senza improvvisare resi."
+      },
+      {
+        "id": "Q199_B",
+        "text": "Lo riprendi e lo rivendi."
+      },
+      {
+        "id": "Q199_C",
+        "text": "Gli cambi prodotto senza scontrino."
+      },
+      {
+        "id": "Q199_D",
+        "text": "Rifiuti in modo brusco senza spiegazione."
+      }
+    ]
+  },
+  {
+    "id": "Q200",
+    "g": "G10",
+    "text": "Un cliente minimizza tabagismo e dipendenza da nicotina e cerca la tua complicità con battute pesanti.",
+    "options": [
+      {
+        "id": "Q200_A",
+        "text": "Non giudichi né alimenti battute; mantieni tono professionale e neutro sui prodotti sensibili."
+      },
+      {
+        "id": "Q200_B",
+        "text": "Ridi e fai una battuta più forte."
+      },
+      {
+        "id": "Q200_C",
+        "text": "Gli fai una lezione morale davanti agli altri."
+      },
+      {
+        "id": "Q200_D",
+        "text": "Gli consigli di comprare di più finché può."
+      }
+    ]
   }
 ];
 const AREA_TARGETS_CODE = {
@@ -2381,7 +4682,7 @@ const AREA_TARGETS_CODE = {
   "G09": 1,
   "G10": 1
 };
-const BANK_VERSION = 'PETRALIA-BANK-100-HARDENED-2026-06-12';
+const BANK_VERSION = 'PETRALIA-BANK-200-HARDENED-2026-06-15';
 
 const form=document.getElementById('testForm'),badge=document.getElementById('liveBadge'),progressText=document.getElementById('progressText'),progressBar=document.getElementById('progressBar');
 let TEST_SEED='',ACTIVE_QUESTIONS=[],lastEncryptedText='',lastBlob=null,lastFileName='';
@@ -2429,6 +4730,7 @@ function sendTrackingEvent(eventName,extra={}){
       language:navigator.language||'',
       timezone:(Intl.DateTimeFormat().resolvedOptions().timeZone)||'',
       elapsedSeconds:Math.round((Date.now()-TRACKING_STARTED_AT)/1000),
+      averageSecondsPerQuestion:(ACTIVE_QUESTIONS&&ACTIVE_QUESTIONS.length)?Number((((Date.now()-(TRACKING_FIRST_ANSWER_AT||TRACKING_STARTED_AT))/1000)/ACTIVE_QUESTIONS.length).toFixed(2)):'',
       candidateName:data.name||'',
       candidateEmail:data.email||'',
       candidatePhone:data.phone||'',
@@ -2463,7 +4765,8 @@ function validateBeforeSubmit(){const answers=getAnswers();const firstMissing=an
 function strToBytes(s){return new TextEncoder().encode(s);}function bytesToStr(b){return new TextDecoder().decode(b);}function bytesToBase64(bytes){let bin='';for(let i=0;i<bytes.length;i+=0x8000)bin+=String.fromCharCode(...bytes.subarray(i,i+0x8000));return btoa(bin);}
 function sanitizeName(s){return String(s||'CANDIDATA').trim().replace(/\s+/g,'_').replace(/[^A-Za-zÀ-ÿ0-9_-]/g,'').toUpperCase().slice(0,60)||'CANDIDATA';}
 async function encryptPayload(payload){if(!window.crypto||!crypto.subtle)throw new Error('Crittografia non disponibile in questo browser. Apri il file con Chrome, Edge o Safari aggiornato.');const publicKey=await crypto.subtle.importKey('jwk',PUBLIC_KEY_JWK,{name:'RSA-OAEP',hash:'SHA-256'},false,['encrypt']);const aesKey=await crypto.subtle.generateKey({name:'AES-GCM',length:256},true,['encrypt','decrypt']);const iv=crypto.getRandomValues(new Uint8Array(12));const plain=strToBytes(JSON.stringify(payload));const ciphertext=new Uint8Array(await crypto.subtle.encrypt({name:'AES-GCM',iv},aesKey,plain));const rawKey=new Uint8Array(await crypto.subtle.exportKey('raw',aesKey));const encryptedKey=new Uint8Array(await crypto.subtle.encrypt({name:'RSA-OAEP'},publicKey,rawKey));return {version:'PETRALIA-TEST-CIFRATO-V1',createdAt:new Date().toISOString(),candidate:payload.candidate.name,seed:payload.seed,algorithm:'RSA-OAEP-SHA256 + AES-256-GCM',encryptedKey:bytesToBase64(encryptedKey),iv:bytesToBase64(iv),ciphertext:bytesToBase64(ciphertext)};}
-function buildPayload(){const data=getCandidateData();const rows=collectAnswersForOwner();return {schema:'PETRALIA_TEST_RESULT_V3_STEP1_NO_SCORE_IN_CANDIDATE_FILE',createdAt:new Date().toISOString(),seed:TEST_SEED,candidate:data,privacy:{version:'PRIVACY-SELEZIONE-CANDIDATI-2026-06-12',privacyRead:Boolean(document.getElementById('privacyAck').checked),selectionStepRead:Boolean(document.getElementById('selectionAck').checked),workPathRead:Boolean(document.getElementById('workPathAck').checked),nonClinicalRead:Boolean(document.getElementById('nonClinicalAck').checked),autonomyDeclared:Boolean(document.getElementById('autonomyAck').checked),acknowledgedAt:new Date().toISOString(),notice:'Informativa privacy sintetica, avvertenza non clinica, dichiarazione di compilazione autonoma, avviso di primo step di preselezione e avvertenza sul percorso lavorativo regolare mostrati prima della generazione del file cifrato.'},settings:{minAge:MIN_AGE,maxAge:MAX_AGE,totalQuestions:ACTIVE_QUESTIONS.length,bankSize:PUBLIC_QUESTION_BANK.length,bankVersion:BANK_VERSION,security:'Il file candidato non contiene punteggi, risposte corrette, aree descrittive o flag bloccanti. La correzione avviene solo nel lettore titolare.'},answers:rows,questions:ACTIVE_QUESTIONS.map((q,i)=>({testNum:i+1,bankId:q.bankId,bankNum:q.bankNum,text:q.text,options:q.optionsArray,chosen:rows[i].answer,chosenOptionId:rows[i].optionId}))};}
+function getTimingSummary(){const completedAt=Date.now();const startedAt=TRACKING_FIRST_ANSWER_AT||TRACKING_STARTED_AT;const totalSeconds=Math.max(0,Math.round((completedAt-startedAt)/1000));const avgSecondsPerQuestion=ACTIVE_QUESTIONS.length?Number((totalSeconds/ACTIVE_QUESTIONS.length).toFixed(2)):0;return {pageOpenedAt:new Date(TRACKING_STARTED_AT).toISOString(),firstAnswerAt:TRACKING_FIRST_ANSWER_AT?new Date(TRACKING_FIRST_ANSWER_AT).toISOString():'',completedAt:new Date(completedAt).toISOString(),totalSeconds,avgSecondsPerQuestion,questionsCount:ACTIVE_QUESTIONS.length};}
+function buildPayload(){const data=getCandidateData();const rows=collectAnswersForOwner();return {schema:'PETRALIA_TEST_RESULT_V3_STEP1_NO_SCORE_IN_CANDIDATE_FILE',createdAt:new Date().toISOString(),seed:TEST_SEED,candidate:data,timing:getTimingSummary(),privacy:{version:'PRIVACY-SELEZIONE-CANDIDATI-2026-06-12',privacyRead:Boolean(document.getElementById('privacyAck').checked),selectionStepRead:Boolean(document.getElementById('selectionAck').checked),workPathRead:Boolean(document.getElementById('workPathAck').checked),nonClinicalRead:Boolean(document.getElementById('nonClinicalAck').checked),autonomyDeclared:Boolean(document.getElementById('autonomyAck').checked),acknowledgedAt:new Date().toISOString(),notice:'Informativa privacy sintetica, avvertenza non clinica, dichiarazione di compilazione autonoma, avviso di primo step di preselezione e avvertenza sul percorso lavorativo regolare mostrati prima della generazione del file cifrato.'},settings:{minAge:MIN_AGE,maxAge:MAX_AGE,totalQuestions:ACTIVE_QUESTIONS.length,bankSize:PUBLIC_QUESTION_BANK.length,bankVersion:BANK_VERSION,security:'Il file candidato non contiene punteggi, risposte corrette, aree descrittive o flag bloccanti. La correzione avviene solo nel lettore titolare.'},answers:rows,questions:ACTIVE_QUESTIONS.map((q,i)=>({testNum:i+1,bankId:q.bankId,bankNum:q.bankNum,text:q.text,options:q.optionsArray,chosen:rows[i].answer,chosenOptionId:rows[i].optionId}))};}
 function downloadBlob(blob,filename){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=filename;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},1000);}
 async function concludeTest(){if(!validateBeforeSubmit())return;try{document.getElementById('submitBtn').disabled=true;document.getElementById('submitBtn').textContent='Genero file cifrato...';const payload=buildPayload();const pack=await encryptPayload(payload);lastEncryptedText=JSON.stringify(pack,null,2);lastBlob=new Blob([wrappedEncryptedText()],{type:'text/plain'});lastFileName=`TEST_CIFRATO_${sanitizeName(payload.candidate.name)}_${payload.candidate.date}.txt`;document.getElementById('fileInfo').innerHTML=`<strong>File:</strong> <code>${escapeHtml(lastFileName)}</code><br><strong>Candidata:</strong> ${escapeHtml(payload.candidate.name)}<br><strong>Codice test:</strong> ${escapeHtml(payload.seed)}<br><strong>Stato:</strong> cifrato e autenticato. Se il file viene modificato, il lettore titolare lo rifiuta.`;sendTrackingEvent('test_completato_file_cifrato_generato',{fileName:lastFileName,encryptedFileCreated:true});document.getElementById('candidateDone').classList.remove('hidden');document.getElementById('candidateDone').scrollIntoView({behavior:'smooth',block:'start'});downloadBlob(lastBlob,lastFileName);}catch(e){alert('Errore nella generazione del file cifrato: '+e.message);}finally{document.getElementById('submitBtn').disabled=false;document.getElementById('submitBtn').textContent='Concludi e genera file cifrato';}}
 function buildShortMessage(){const data=getCandidateData();const name=(data.name||'').trim().replace(/\s+/g,' ').toUpperCase();return `Invio TEST E RISULTATO CANDIDATA "${name}"
@@ -2490,6 +4793,6 @@ async function shareEncryptedFile(){
 }
 function prepareEmail(){sendTrackingEvent('clic_prepara_email',{fileName:lastFileName});const data=getCandidateData();const name=(data.name||'').trim().replace(/\s+/g,' ').toUpperCase();const subject=`Invio TEST E RISULTATO CANDIDATA "${name}"`;window.location.href=`mailto:${DEST_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(buildShortMessage())}`;}
 function prepareWhatsApp(){sendTrackingEvent('clic_apri_whatsapp',{fileName:lastFileName});openWhatsAppWithText(buildShortMessage());}
-prepareRandomTest();renderQuestions();form.addEventListener('change',()=>{updateProgress();if(!TRACKING_FIRST_ANSWER_SENT){TRACKING_FIRST_ANSWER_SENT=true;sendTrackingEvent('inizio_compilazione_prima_risposta');}});updateProgress();sendTrackingEvent('apertura_test');
+prepareRandomTest();renderQuestions();form.addEventListener('change',()=>{if(!TRACKING_FIRST_ANSWER_AT)TRACKING_FIRST_ANSWER_AT=Date.now();updateProgress();if(!TRACKING_FIRST_ANSWER_SENT){TRACKING_FIRST_ANSWER_SENT=true;sendTrackingEvent('inizio_compilazione_prima_risposta');}});updateProgress();sendTrackingEvent('apertura_test');
 document.getElementById('submitBtn').addEventListener('click',concludeTest);document.getElementById('downloadBtn').addEventListener('click',()=>{if(lastBlob){sendTrackingEvent('clic_scarica_file_cifrato',{fileName:lastFileName});downloadBlob(lastBlob,lastFileName);}});document.getElementById('shareBtn').addEventListener('click',shareEncryptedFile);document.getElementById('emailBtn').addEventListener('click',prepareEmail);document.getElementById('whatsappBtn').addEventListener('click',prepareWhatsApp);document.getElementById('resetBtn').addEventListener('click',()=>{sendTrackingEvent('clic_cancella_ricomincia');if(confirm('Cancellare tutte le risposte e generare un nuovo test casuale?'))location.reload();});
 </script></body></html>
