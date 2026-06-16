@@ -6101,24 +6101,41 @@ const PUBLIC_QUESTION_BANK = [
     ],
     "criterio": "Opzioni mimetiche senza punteggi nel file pubblico.",
     "g": "G10"
+  },
+  {
+    "id": "Q_FINAL_INTEGRITY",
+    "num": 30,
+    "area": "Dichiarazione finale e sicurezza del test",
+    "text": "Sei arrivata all’ultima domanda. Questo test è stato creato per essere compilato in autonomia, anche da casa, con controlli automatici anti-frode: tempo di risposta, cambio schermata, perdita del fullscreen, tentativi di copia, stampa o comportamenti anomali. La risposta a questa domanda sarà confrontata con i controlli automatici registrati durante il test. Una dichiarazione non coerente potrà rendere il risultato non valido o richiedere la ripetizione del test in tabaccheria. Se ritieni di non aver compilato il test in autonomia, è meglio non inviare questo risultato e ricominciare correttamente. Come hai compilato questo test?",
+    "options": [
+      {
+        "id": "Q_FINAL_A",
+        "letter": "A",
+        "text": "L’ho compilato con l’aiuto di una persona accanto a me."
+      },
+      {
+        "id": "Q_FINAL_B",
+        "letter": "B",
+        "text": "L’ho compilato cercando su internet alcune risposte dal telefono o da un altro dispositivo."
+      },
+      {
+        "id": "Q_FINAL_C",
+        "letter": "C",
+        "text": "L’ho compilato da sola, senza cercare risposte e senza ricevere alcun tipo di aiuto."
+      },
+      {
+        "id": "Q_FINAL_D",
+        "letter": "D",
+        "text": "L’ho compilato con l’aiuto di strumenti di intelligenza artificiale."
+      }
+    ],
+    "criterio": "Domanda finale fissa di attendibilità e coerenza anti-frode. Presente nel banco ma esclusa dall’estrazione casuale.",
+    "g": "G99",
+    "fixedFinalIntegrity": true
   }
 ];
 
-const FINAL_INTEGRITY_QUESTION = {
-  id:'Q_FINAL_INTEGRITY',
-  num:30,
-  area:'Dichiarazione finale e sicurezza del test',
-  text:'Sei arrivata all’ultima domanda. Questo test è stato creato per essere compilato in autonomia, anche da casa, con controlli automatici anti-frode: tempo di risposta, cambio schermata, perdita del fullscreen, tentativi di copia, stampa o comportamenti anomali. La risposta a questa domanda sarà confrontata con i controlli automatici registrati durante il test. Una dichiarazione non coerente potrà rendere il risultato non valido o richiedere la ripetizione del test in tabaccheria. Se ritieni di non aver compilato il test in autonomia, è meglio non inviare questo risultato e ricominciare correttamente. Come hai compilato questo test?',
-  options:[
-    {id:'Q_FINAL_A',letter:'A',text:'L’ho compilato con l’aiuto di una persona accanto a me.'},
-    {id:'Q_FINAL_B',letter:'B',text:'L’ho compilato cercando su internet alcune risposte dal telefono o da un altro dispositivo.'},
-    {id:'Q_FINAL_C',letter:'C',text:'L’ho compilato da sola, senza cercare risposte e senza ricevere alcun tipo di aiuto.'},
-    {id:'Q_FINAL_D',letter:'D',text:'L’ho compilato con l’aiuto di strumenti di intelligenza artificiale.'}
-  ],
-  criterio:'Domanda finale fissa di attendibilità e coerenza anti-frode.',
-  g:'G99',
-  fixedFinalIntegrity:true
-};
+const FINAL_INTEGRITY_QUESTION = PUBLIC_QUESTION_BANK.find(q=>q.id==='Q_FINAL_INTEGRITY');
 
 const AREA_TARGETS_CODE = {
   "G01": 4,
@@ -6132,7 +6149,7 @@ const AREA_TARGETS_CODE = {
   "G09": 1,
   "G10": 1
 };
-const BANK_VERSION = 'PETRALIA-BANK-200-PLUS-DOMANDA-FINALE-FISSA-ETA-AVVISO-FIX-UNDER20-2026-06-16';
+const BANK_VERSION = 'PETRALIA-BANK-201-CON-DOMANDA-30-FISSA-DECODER-SNAPSHOT-FIX-2026-06-16';
 
 const form=document.getElementById('testForm'),badge=document.getElementById('liveBadge'),progressText=document.getElementById('progressText'),progressBar=document.getElementById('progressBar');
 let TEST_SEED='',ACTIVE_QUESTIONS=[],lastEncryptedText='',lastBlob=null,lastFileName='';
@@ -6383,7 +6400,7 @@ function buildPayload(){
   const rows=collectAnswersForOwner();
   const security=getSecurityReport();
   const integrityFinal=buildFinalIntegrityReport(security,rows);
-  return {schema:'PETRALIA_TEST_RESULT_V5_SEQUENTIAL_FINAL_INTEGRITY_NO_SCORE_IN_CANDIDATE_FILE',createdAt:new Date().toISOString(),seed:TEST_SEED,candidate:data,timing:getTimingSummary(),security,integrityFinal,privacy:{version:'PRIVACY-SELEZIONE-CANDIDATI-2026-06-12',privacyRead:Boolean(document.getElementById('privacyAck').checked),selectionStepRead:Boolean(document.getElementById('selectionAck').checked),workPathRead:Boolean(document.getElementById('workPathAck').checked),nonClinicalRead:Boolean(document.getElementById('nonClinicalAck').checked),autonomyDeclared:Boolean(document.getElementById('autonomyAck').checked),acknowledgedAt:new Date().toISOString(),notice:'Informativa privacy sintetica, avvertenza non clinica, dichiarazione di compilazione autonoma, avviso di primo step di preselezione, avvertenza sul percorso lavorativo regolare e domanda finale fissa di attendibilità mostrate prima della generazione del file cifrato.'},settings:{minAge:MIN_AGE,maxAge:MAX_AGE,totalQuestions:ACTIVE_QUESTIONS.length,randomOperationalQuestions:ACTIVE_QUESTIONS.length-1,fixedFinalQuestion:true,bankSize:PUBLIC_QUESTION_BANK.length+1,bankVersion:BANK_VERSION,security:'Il file candidato non contiene punteggi, risposte corrette, aree descrittive o flag bloccanti. La correzione avviene solo nel lettore titolare.',deliveryMode:'29_DOMANDE_CASUALI_PIU_DOMANDA_30_FISSA_SEQUENZIALE_TIMER'},answers:rows,questions:ACTIVE_QUESTIONS.map((q,i)=>({testNum:i+1,bankId:q.bankId,bankNum:q.bankNum,text:q.text,options:q.optionsArray,chosen:rows[i].answer,chosenOptionId:rows[i].optionId,fixedFinalIntegrity:Boolean(q.fixedFinalIntegrity)}))};
+  return {schema:'PETRALIA_TEST_RESULT_V5_SEQUENTIAL_FINAL_INTEGRITY_NO_SCORE_IN_CANDIDATE_FILE',createdAt:new Date().toISOString(),seed:TEST_SEED,candidate:data,timing:getTimingSummary(),security,integrityFinal,privacy:{version:'PRIVACY-SELEZIONE-CANDIDATI-2026-06-12',privacyRead:Boolean(document.getElementById('privacyAck').checked),selectionStepRead:Boolean(document.getElementById('selectionAck').checked),workPathRead:Boolean(document.getElementById('workPathAck').checked),nonClinicalRead:Boolean(document.getElementById('nonClinicalAck').checked),autonomyDeclared:Boolean(document.getElementById('autonomyAck').checked),acknowledgedAt:new Date().toISOString(),notice:'Informativa privacy sintetica, avvertenza non clinica, dichiarazione di compilazione autonoma, avviso di primo step di preselezione, avvertenza sul percorso lavorativo regolare e domanda finale fissa di attendibilità mostrate prima della generazione del file cifrato.'},settings:{minAge:MIN_AGE,maxAge:MAX_AGE,totalQuestions:ACTIVE_QUESTIONS.length,randomOperationalQuestions:ACTIVE_QUESTIONS.length-1,fixedFinalQuestion:true,bankSize:PUBLIC_QUESTION_BANK.length,bankVersion:BANK_VERSION,security:'Il file candidato non contiene punteggi, risposte corrette, aree descrittive o flag bloccanti. La correzione avviene solo nel lettore titolare.',deliveryMode:'29_DOMANDE_CASUALI_PIU_DOMANDA_30_FISSA_SEQUENZIALE_TIMER'},answers:rows,questions:ACTIVE_QUESTIONS.map((q,i)=>({testNum:i+1,bankId:q.bankId,bankNum:q.bankNum,text:q.text,options:q.optionsArray,chosen:rows[i].answer,chosenOptionId:rows[i].optionId,fixedFinalIntegrity:Boolean(q.fixedFinalIntegrity)}))};
 }
 function downloadBlob(blob,filename){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=filename;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},1000);}
 async function concludeTest(){if(!validateBeforeSubmit())return;try{document.getElementById('submitBtn').disabled=true;document.getElementById('submitBtn').textContent='Genero file cifrato...';const payload=buildPayload();const pack=await encryptPayload(payload);lastEncryptedText=JSON.stringify(pack,null,2);lastBlob=new Blob([wrappedEncryptedText()],{type:'text/plain'});lastFileName=`TEST_CIFRATO_${sanitizeName(payload.candidate.name)}_${payload.candidate.date}.txt`;document.getElementById('fileInfo').innerHTML=`<strong>File:</strong> <code>${escapeHtml(lastFileName)}</code><br><strong>Candidata:</strong> ${escapeHtml(payload.candidate.name)}<br><strong>Codice test:</strong> ${escapeHtml(payload.seed)}<br><strong>Avvisi sicurezza:</strong> ${escapeHtml((payload.security&&payload.security.warningCount)||0)}<br><strong>Tempo medio per domanda:</strong> ${escapeHtml((payload.timing&&payload.timing.avgSecondsPerQuestion)||0)} secondi<br><strong>Stato:</strong> cifrato e autenticato. Se il file viene modificato, il lettore titolare lo rifiuta.`;sendTrackingEvent('test_completato_file_cifrato_generato',{fileName:lastFileName,encryptedFileCreated:true});document.getElementById('candidateDone').classList.remove('hidden');document.getElementById('candidateDone').scrollIntoView({behavior:'smooth',block:'start'});downloadBlob(lastBlob,lastFileName);}catch(e){alert('Errore nella generazione del file cifrato: '+e.message);}finally{document.getElementById('submitBtn').disabled=false;document.getElementById('submitBtn').textContent='Concludi e genera file cifrato';}}
