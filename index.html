@@ -13,7 +13,7 @@ header{position:sticky;top:0;z-index:10;background:rgba(255,253,248,.94);backdro
 .question-lockbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-top:14px;padding-top:14px;border-top:1px solid var(--line)}
 .question-timer{font-weight:900;color:var(--brand);background:var(--soft);border:1px solid var(--line);border-radius:999px;padding:9px 12px}
 .question-mini-note{font-size:.92rem;color:var(--muted);margin-top:10px}
-body:not(.test-completed) #candidateNotesPanel{display:none!important}
+body.test-in-progress #candidateNotesPanel{display:none!important}
 body.test-completed #candidateNotesPanel{display:block!important}
 
 @media(max-width:760px){.header-inner{align-items:flex-start;flex-direction:column}.grid,.kpi{grid-template-columns:1fr}.area{text-align:left}.qtop{flex-direction:column}main{padding:0 10px}.question-card,.panel,.result-card{border-radius:16px}}
@@ -34,7 +34,7 @@ body.security-blur main,body.security-blur header,body.security-blur footer{filt
 <body><div id="securityBlocker" class="security-blocker">AZIONE NON CONSENTITA<small>Il test è protetto contro copia, stampa, selezione, scorciatoie e acquisizioni non autorizzate.</small></div><div id="securityWatermark" class="security-watermark" aria-hidden="true"></div><input id="securityCopyTrap" class="security-copytrap" value="TEST PROTETTO TABACCHERIA PETRALIA" readonly><header><div class="header-inner"><h1>Test attitudinale-situazionale apprendista · primo step di preselezione</h1><div class="badge" id="liveBadge">0/30 compilate</div></div></header>
 <main>
 <section class="panel candidate-only">
-<div class="notice"><strong>Istruzioni per la candidata.</strong> Leggi ogni situazione e scegli una sola risposta. Il test valuta equilibrio pratico: rispetto delle regole, tutela del negozio, gestione commerciale del cliente, rapidità e buon senso. Estrae 30 domande casuali e rimescola anche le risposte A/B/C/D. Il sistema registra la durata della compilazione e calcola il tempo medio di risposta per ogni domanda, così da aiutare la tabaccheria a valutare anche attenzione, coerenza e naturalezza del percorso. Al termine non vedrai il punteggio: verrà creato un file cifrato da inviare alla tabaccheria.</div>
+<div class="notice"><strong>Istruzioni per la candidata.</strong> Leggi ogni situazione e scegli una sola risposta. Il test valuta equilibrio pratico: rispetto delle regole, tutela del negozio, gestione commerciale del cliente, rapidità e buon senso. Estrae 29 domande casuali, poi mostra una domanda finale fissa di dichiarazione sull’autonomia della compilazione. Le risposte A/B/C/D vengono rimescolate nelle domande operative; la domanda finale mantiene le opzioni dichiarative. Il sistema registra la durata della compilazione e calcola il tempo medio di risposta per ogni domanda, così da aiutare la tabaccheria a valutare anche attenzione, coerenza e naturalezza del percorso. Al termine non vedrai il punteggio: verrà creato un file cifrato da inviare alla tabaccheria.</div>
 <div class="notice" style="margin-top:12px"><strong>Primo step di preselezione.</strong> Il superamento del test non comporta assunzione automatica né promessa di assunzione. Il test serve solo come primo filtro conoscitivo e pratico. Dopo l’esame del risultato, la tabaccheria potrà contattare la candidata, tramite telefono, WhatsApp o email, per richiedere un curriculum se disponibile e/o fissare un piccolo colloquio conoscitivo direttamente in tabaccheria. L’eventuale prosecuzione della selezione resta a discrezione della tabaccheria.</div>
 <div class="notice security" style="margin-top:12px"><strong>Serietà del percorso lavorativo.</strong> La tabaccheria non propone lavoro in nero, prove gratuite non retribuite o accordi irregolari. Un eventuale inserimento avverrà esclusivamente con regolare contratto, comunicazioni obbligatorie, busta paga e trattamento economico secondo la normativa e il CCNL applicabile. L’obiettivo non è cercare una collaborazione improvvisata di pochi mesi, ma valutare un percorso serio di apprendistato e formazione, normalmente pensato su un periodo ampio e stabile quando ricorrono i requisiti previsti. Per questo è richiesto impegno reciproco: correttezza, puntualità, rispetto delle regole e reale disponibilità ad apprendere da parte della candidata; formazione, chiarezza e regolarità da parte della tabaccheria.</div>
 <div class="notice security" style="margin-top:12px"><strong>Privacy del risultato.</strong> Il file generato contiene domande, risposte ed esito in forma cifrata. Non è leggibile dal telefono della candidata: può essere aperto solo dal titolare con il lettore riservato e PIN.</div>
@@ -6094,11 +6094,28 @@ const PUBLIC_QUESTION_BANK = [
     "g": "G10"
   }
 ];
+
+const FINAL_INTEGRITY_QUESTION = {
+  id:'Q_FINAL_INTEGRITY',
+  num:30,
+  area:'Dichiarazione finale e sicurezza del test',
+  text:'Sei arrivata all’ultima domanda. Questo test è stato creato per essere compilato in autonomia, anche da casa, con controlli automatici anti-frode: tempo di risposta, cambio schermata, perdita del fullscreen, tentativi di copia, stampa o comportamenti anomali. La risposta a questa domanda sarà confrontata con i controlli automatici registrati durante il test. Una dichiarazione non coerente potrà rendere il risultato non valido o richiedere la ripetizione del test in tabaccheria. Se ritieni di non aver compilato il test in autonomia, è meglio non inviare questo risultato e ricominciare correttamente. Come hai compilato questo test?',
+  options:[
+    {id:'Q_FINAL_A',letter:'A',text:'L’ho compilato con l’aiuto di una persona accanto a me.'},
+    {id:'Q_FINAL_B',letter:'B',text:'L’ho compilato cercando su internet alcune risposte dal telefono o da un altro dispositivo.'},
+    {id:'Q_FINAL_C',letter:'C',text:'L’ho compilato da sola, senza cercare risposte e senza ricevere alcun tipo di aiuto.'},
+    {id:'Q_FINAL_D',letter:'D',text:'L’ho compilato con l’aiuto di strumenti di intelligenza artificiale.'}
+  ],
+  criterio:'Domanda finale fissa di attendibilità e coerenza anti-frode.',
+  g:'G99',
+  fixedFinalIntegrity:true
+};
+
 const AREA_TARGETS_CODE = {
   "G01": 4,
   "G02": 4,
   "G03": 5,
-  "G04": 4,
+  "G04": 3,
   "G05": 3,
   "G06": 3,
   "G07": 3,
@@ -6106,7 +6123,7 @@ const AREA_TARGETS_CODE = {
   "G09": 1,
   "G10": 1
 };
-const BANK_VERSION = 'PETRALIA-BANK-200-COMMERCIO-MIMETICO-2026-06-15';
+const BANK_VERSION = 'PETRALIA-BANK-200-PLUS-DOMANDA-FINALE-FISSA-2026-06-16';
 
 const form=document.getElementById('testForm'),badge=document.getElementById('liveBadge'),progressText=document.getElementById('progressText'),progressBar=document.getElementById('progressBar');
 let TEST_SEED='',ACTIVE_QUESTIONS=[],lastEncryptedText='',lastBlob=null,lastFileName='';
@@ -6243,11 +6260,38 @@ function initSecurityProtection(){
 
 function makeSeed(){const d=new Date(),p=n=>String(n).padStart(2,'0');return `${d.getFullYear()}${p(d.getMonth()+1)}${p(d.getDate())}-${p(d.getHours())}${p(d.getMinutes())}${p(d.getSeconds())}-${Math.random().toString(36).slice(2,8).toUpperCase()}`;}
 function shuffleArray(arr){const out=arr.slice();for(let i=out.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[out[i],out[j]]=[out[j],out[i]];}return out;}
-function prepareRandomTest(){TEST_SEED=makeSeed();TRACKING_SESSION_ID=TEST_SEED;const displayLetters=['A','B','C','D'];const selected=[];Object.entries(AREA_TARGETS_CODE).forEach(([groupCode,targetCount])=>{const pool=PUBLIC_QUESTION_BANK.map((q,bankIndex)=>({q,bankIndex})).filter(item=>item.q.g===groupCode);selected.push(...shuffleArray(pool).slice(0,targetCount));});ACTIVE_QUESTIONS=shuffleArray(selected).map(({q,bankIndex})=>{const shuffledOptions=shuffleArray(q.options).map((opt,optionIndex)=>({displayLetter:displayLetters[optionIndex],optionId:opt.id,text:opt.text}));return {bankId:q.id,bankNum:bankIndex+1,text:q.text,optionsArray:shuffledOptions};});ANSWER_STATE=Array(ACTIVE_QUESTIONS.length).fill(null);QUESTION_TIMES=ACTIVE_QUESTIONS.map((q,i)=>({testNum:i+1,bankId:q.bankId,bankNum:q.bankNum,revealedAt:'',answeredAt:'',seconds:null,answer:'',optionId:''}));CURRENT_QUESTION_INDEX=0;TEST_REVEALED_AT=0;CURRENT_QUESTION_REVEALED_AT=0;TEST_COMPLETED_AT=0;}
+function prepareRandomTest(){
+  TEST_SEED=makeSeed();
+  TRACKING_SESSION_ID=TEST_SEED;
+  const displayLetters=['A','B','C','D'];
+  const selected=[];
+  Object.entries(AREA_TARGETS_CODE).forEach(([groupCode,targetCount])=>{
+    const pool=PUBLIC_QUESTION_BANK.map((q,bankIndex)=>({q,bankIndex})).filter(item=>item.q.g===groupCode);
+    selected.push(...shuffleArray(pool).slice(0,targetCount));
+  });
+  const operativeQuestions=shuffleArray(selected).map(({q,bankIndex})=>{
+    const shuffledOptions=shuffleArray(q.options).map((opt,optionIndex)=>({displayLetter:displayLetters[optionIndex],optionId:opt.id,text:opt.text}));
+    return {bankId:q.id,bankNum:bankIndex+1,text:q.text,optionsArray:shuffledOptions,fixedFinalIntegrity:false};
+  });
+  const finalQuestion={
+    bankId:FINAL_INTEGRITY_QUESTION.id,
+    bankNum:FINAL_INTEGRITY_QUESTION.num,
+    text:FINAL_INTEGRITY_QUESTION.text,
+    optionsArray:FINAL_INTEGRITY_QUESTION.options.map(opt=>({displayLetter:opt.letter,optionId:opt.id,text:opt.text})),
+    fixedFinalIntegrity:true
+  };
+  ACTIVE_QUESTIONS=[...operativeQuestions,finalQuestion];
+  ANSWER_STATE=Array(ACTIVE_QUESTIONS.length).fill(null);
+  QUESTION_TIMES=ACTIVE_QUESTIONS.map((q,i)=>({testNum:i+1,bankId:q.bankId,bankNum:q.bankNum,revealedAt:'',answeredAt:'',seconds:null,answer:'',optionId:''}));
+  CURRENT_QUESTION_INDEX=0;
+  TEST_REVEALED_AT=0;
+  CURRENT_QUESTION_REVEALED_AT=0;
+  TEST_COMPLETED_AT=0;
+}
 function renderQuestions(){document.body.classList.remove('test-in-progress','test-completed');form.innerHTML=`<section class="sequential-gate" id="startGate"><h2>Domande protette: una alla volta</h2><p>Le domande non vengono mostrate tutte insieme. Il timer parte quando viene scoperta la prima domanda. Dopo ogni risposta, la domanda viene bloccata e appare solo quella successiva.</p><p><strong>Importante:</strong> non è previsto tornare indietro. Rispondi con attenzione prima di premere “Blocca risposta e vai avanti”.</p><div class="actions"><button id="startTestBtn" type="button">Scopri la prima domanda e avvia timer</button></div></section>`;const btn=document.getElementById('startTestBtn');if(btn)btn.addEventListener('click',startSequentialTest);updateProgress();}
 function startSequentialTest(){TEST_REVEALED_AT=Date.now();TRACKING_FIRST_ANSWER_AT=TEST_REVEALED_AT;TRACKING_FIRST_ANSWER_SENT=true;document.body.classList.add('test-in-progress');sendTrackingEvent('inizio_compilazione_prima_domanda_scoperta',{firstQuestionRevealed:true});requestFullscreenOnce();revealQuestion(0);}
 function startQuestionClock(){if(QUESTION_CLOCK_TIMER)clearInterval(QUESTION_CLOCK_TIMER);const tick=()=>{const qEl=document.getElementById('qSeconds'),tEl=document.getElementById('totalSeconds');const now=Date.now();if(qEl)qEl.textContent=String(Math.max(0,Math.round((now-CURRENT_QUESTION_REVEALED_AT)/1000)));if(tEl)tEl.textContent=String(Math.max(0,Math.round((now-(TEST_REVEALED_AT||now))/1000)));};tick();QUESTION_CLOCK_TIMER=setInterval(tick,1000);}
-function revealQuestion(index){if(index<0||index>=ACTIVE_QUESTIONS.length)return;CURRENT_QUESTION_INDEX=index;CURRENT_QUESTION_REVEALED_AT=Date.now();const q=ACTIVE_QUESTIONS[index];QUESTION_TIMES[index]={...QUESTION_TIMES[index],revealedAt:new Date(CURRENT_QUESTION_REVEALED_AT).toISOString()};const opts=q.optionsArray.map(opt=>`<label class="option"><input type="radio" name="qCurrent" value="${opt.displayLetter}" data-option-id="${escapeHtml(opt.optionId)}" aria-label="Domanda ${index+1} risposta ${opt.displayLetter}"><span><strong>${opt.displayLetter}</strong>${escapeHtml(opt.text)}</span></label>`).join('');const buttonText=(index===ACTIVE_QUESTIONS.length-1)?'Blocca risposta e completa test':'Blocca risposta e vai avanti';form.innerHTML=`<article class="question-card" id="card${index}"><div class="qtop"><div class="qnum">Domanda ${index+1} di ${ACTIVE_QUESTIONS.length}</div><div class="area">Domande precedenti non più visibili</div></div><p class="qtext">${escapeHtml(q.text)}</p><div class="options">${opts}</div><div class="question-lockbar"><div class="question-timer">Tempo domanda: <span id="qSeconds">0</span>s · Totale: <span id="totalSeconds">0</span>s</div><button id="nextQuestionBtn" type="button" disabled>${buttonText}</button></div><div class="question-mini-note">La risposta viene registrata solo quando premi il pulsante. Dopo il blocco non si torna indietro.</div></article>`;const next=document.getElementById('nextQuestionBtn');document.querySelectorAll('input[name="qCurrent"]').forEach(r=>r.addEventListener('change',()=>{next.disabled=false;}));next.addEventListener('click',lockAnswerAndAdvance);updateProgress();refreshSecurityWatermark();startQuestionClock();setTimeout(()=>{const card=document.getElementById(`card${index}`);if(card)card.scrollIntoView({behavior:'smooth',block:'center'});},60);}
+function revealQuestion(index){if(index<0||index>=ACTIVE_QUESTIONS.length)return;CURRENT_QUESTION_INDEX=index;CURRENT_QUESTION_REVEALED_AT=Date.now();const q=ACTIVE_QUESTIONS[index];QUESTION_TIMES[index]={...QUESTION_TIMES[index],revealedAt:new Date(CURRENT_QUESTION_REVEALED_AT).toISOString()};const opts=q.optionsArray.map(opt=>`<label class="option"><input type="radio" name="qCurrent" value="${opt.displayLetter}" data-option-id="${escapeHtml(opt.optionId)}" aria-label="Domanda ${index+1} risposta ${opt.displayLetter}"><span><strong>${opt.displayLetter}</strong>${escapeHtml(opt.text)}</span></label>`).join('');const buttonText=(index===ACTIVE_QUESTIONS.length-1)?'Blocca risposta e completa test':'Blocca risposta e vai avanti';form.innerHTML=`<article class="question-card" id="card${index}"><div class="qtop"><div class="qnum">Domanda ${index+1} di ${ACTIVE_QUESTIONS.length}</div><div class="area">${q.fixedFinalIntegrity?'Domanda finale fissa · sicurezza':'Domande precedenti non più visibili'}</div></div><p class="qtext">${escapeHtml(q.text)}</p><div class="options">${opts}</div><div class="question-lockbar"><div class="question-timer">Tempo domanda: <span id="qSeconds">0</span>s · Totale: <span id="totalSeconds">0</span>s</div><button id="nextQuestionBtn" type="button" disabled>${buttonText}</button></div><div class="question-mini-note">La risposta viene registrata solo quando premi il pulsante. Dopo il blocco non si torna indietro.</div></article>`;const next=document.getElementById('nextQuestionBtn');document.querySelectorAll('input[name="qCurrent"]').forEach(r=>r.addEventListener('change',()=>{next.disabled=false;}));next.addEventListener('click',lockAnswerAndAdvance);updateProgress();refreshSecurityWatermark();startQuestionClock();setTimeout(()=>{const card=document.getElementById(`card${index}`);if(card)card.scrollIntoView({behavior:'smooth',block:'center'});},60);}
 function lockAnswerAndAdvance(){const checked=document.querySelector('input[name="qCurrent"]:checked');if(!checked){alert('Seleziona una risposta prima di andare avanti.');return;}const i=CURRENT_QUESTION_INDEX,q=ACTIVE_QUESTIONS[i],opt=findChosenOption(q,checked.value),now=Date.now();ANSWER_STATE[i]=checked.value;QUESTION_TIMES[i]={testNum:i+1,bankId:q.bankId,bankNum:q.bankNum,revealedAt:QUESTION_TIMES[i].revealedAt||new Date(CURRENT_QUESTION_REVEALED_AT).toISOString(),answeredAt:new Date(now).toISOString(),seconds:Math.max(0,Math.round((now-CURRENT_QUESTION_REVEALED_AT)/1000)),answer:checked.value,optionId:opt?opt.optionId:''};sendTrackingEvent('risposta_bloccata_domanda',{questionNumber:i+1,bankId:q.bankId,seconds:QUESTION_TIMES[i].seconds,answersDone:getAnswers().filter(Boolean).length});if(i+1<ACTIVE_QUESTIONS.length){revealQuestion(i+1);}else{TEST_COMPLETED_AT=now;if(QUESTION_CLOCK_TIMER)clearInterval(QUESTION_CLOCK_TIMER);document.body.classList.remove('test-in-progress');document.body.classList.add('test-completed');form.innerHTML=`<section class="sequential-gate"><h2>Test completato</h2><p>Tutte le ${ACTIVE_QUESTIONS.length} risposte sono state bloccate. Ora puoi aggiungere eventuali note pratiche, se necessarie, e generare il file cifrato.</p><p><strong>Tempo totale effettivo:</strong> ${Math.max(0,Math.round((TEST_COMPLETED_AT-TEST_REVEALED_AT)/1000))} secondi.</p></section>`;updateProgress();document.getElementById('candidateNotesPanel').scrollIntoView({behavior:'smooth',block:'start'});sendTrackingEvent('domande_tutte_bloccate',{totalSeconds:Math.max(0,Math.round((TEST_COMPLETED_AT-TEST_REVEALED_AT)/1000))});}}
 function findChosenOption(q,displayLetter){return q.optionsArray.find(o=>o.displayLetter===displayLetter)||null;}
 function getAnswers(){return ANSWER_STATE.slice(0,ACTIVE_QUESTIONS.length);}
@@ -6257,8 +6301,37 @@ function validateBeforeSubmit(){const answers=getAnswers();const firstMissing=an
 function strToBytes(s){return new TextEncoder().encode(s);}function bytesToStr(b){return new TextDecoder().decode(b);}function bytesToBase64(bytes){let bin='';for(let i=0;i<bytes.length;i+=0x8000)bin+=String.fromCharCode(...bytes.subarray(i,i+0x8000));return btoa(bin);}
 function sanitizeName(s){return String(s||'CANDIDATA').trim().replace(/\s+/g,'_').replace(/[^A-Za-zÀ-ÿ0-9_-]/g,'').toUpperCase().slice(0,60)||'CANDIDATA';}
 async function encryptPayload(payload){if(!window.crypto||!crypto.subtle)throw new Error('Crittografia non disponibile in questo browser. Apri il file con Chrome, Edge o Safari aggiornato.');const publicKey=await crypto.subtle.importKey('jwk',PUBLIC_KEY_JWK,{name:'RSA-OAEP',hash:'SHA-256'},false,['encrypt']);const aesKey=await crypto.subtle.generateKey({name:'AES-GCM',length:256},true,['encrypt','decrypt']);const iv=crypto.getRandomValues(new Uint8Array(12));const plain=strToBytes(JSON.stringify(payload));const ciphertext=new Uint8Array(await crypto.subtle.encrypt({name:'AES-GCM',iv},aesKey,plain));const rawKey=new Uint8Array(await crypto.subtle.exportKey('raw',aesKey));const encryptedKey=new Uint8Array(await crypto.subtle.encrypt({name:'RSA-OAEP'},publicKey,rawKey));return {version:'PETRALIA-TEST-CIFRATO-V1',createdAt:new Date().toISOString(),candidate:payload.candidate.name,seed:payload.seed,algorithm:'RSA-OAEP-SHA256 + AES-256-GCM',encryptedKey:bytesToBase64(encryptedKey),iv:bytesToBase64(iv),ciphertext:bytesToBase64(ciphertext)};}
+
+function buildFinalIntegrityReport(security,rows){
+  const finalRow=(rows||[]).find(r=>r.bankId==='Q_FINAL_INTEGRITY')||{};
+  const optionId=finalRow.optionId||'';
+  const declarations={
+    Q_FINAL_A:'Aiuto dichiarato da persona accanto',
+    Q_FINAL_B:'Ricerca dichiarata su internet o altro dispositivo',
+    Q_FINAL_C:'Compilazione autonoma dichiarata',
+    Q_FINAL_D:'Uso dichiarato di intelligenza artificiale'
+  };
+  const warnings=Array.isArray(security&&security.warnings)?security.warnings:[];
+  const warningCount=(security&&Number.isFinite(security.warningCount))?security.warningCount:warnings.length;
+  const severeWords=['copia','taglia','incolla','stampa','screenshot','printscreen','scorciatoia','uscita pagina','visibilità pagina nascosta','fullscreen perso','possibili strumenti sviluppatore'];
+  const severeEvents=warnings.filter(w=>severeWords.some(x=>String((w&&w.reason)||'').toLowerCase().includes(x))).length;
+  let integrityScore=0,reliabilityLevel='NON VALIDA',reliabilityClass='bad',suggestedAction='Ripetizione consigliata in tabaccheria o nuova compilazione controllata.',coherence='Dichiarazione non autonoma o non presente.';
+  if(optionId==='Q_FINAL_C'){
+    if(severeEvents>=3||warningCount>=8){integrityScore=1;reliabilityLevel='BASSA';reliabilityClass='bad';suggestedAction='Verificare a colloquio o ripetere il test in tabaccheria.';coherence='Autonomia dichiarata, ma controlli automatici molto rumorosi.';}
+    else if(severeEvents>=1||warningCount>=3){integrityScore=2;reliabilityLevel='MEDIA';reliabilityClass='warn';suggestedAction='Risultato utilizzabile con cautela e domande di verifica al colloquio.';coherence='Autonomia dichiarata con alcuni eventi automatici da controllare.';}
+    else{integrityScore=3;reliabilityLevel='ALTA';reliabilityClass='ok';suggestedAction='Risultato coerente con compilazione autonoma, salvo valutazione generale.';coherence='Autonomia dichiarata e controlli automatici coerenti.';}
+  }
+  return {questionNumber:30,bankId:'Q_FINAL_INTEGRITY',answer:finalRow.answer||'',optionId,declaration:declarations[optionId]||'Non indicata',integrityScore,maxIntegrityScore:3,reliabilityLevel,reliabilityClass,coherence,suggestedAction,automaticWarnings:warningCount,severeEvents,warningByReason:(security&&security.warningByReason)||{},answerText:finalRow.text||''};
+}
+
 function getTimingSummary(){const completedAt=Date.now();const startedAt=TEST_REVEALED_AT||TRACKING_FIRST_ANSWER_AT||TRACKING_STARTED_AT;const totalSeconds=Math.max(0,Math.round((completedAt-startedAt)/1000));const avgSecondsPerQuestion=ACTIVE_QUESTIONS.length?Number((totalSeconds/ACTIVE_QUESTIONS.length).toFixed(2)):0;const questionSeconds=QUESTION_TIMES.map(q=>q.seconds).filter(v=>typeof v==='number');return {pageOpenedAt:new Date(TRACKING_STARTED_AT).toISOString(),firstQuestionRevealedAt:TEST_REVEALED_AT?new Date(TEST_REVEALED_AT).toISOString():'',firstAnswerAt:TRACKING_FIRST_ANSWER_AT?new Date(TRACKING_FIRST_ANSWER_AT).toISOString():'',completedAt:new Date(completedAt).toISOString(),totalSeconds,avgSecondsPerQuestion,questionsCount:ACTIVE_QUESTIONS.length,questionTimes:QUESTION_TIMES.slice(),minQuestionSeconds:questionSeconds.length?Math.min(...questionSeconds):null,maxQuestionSeconds:questionSeconds.length?Math.max(...questionSeconds):null};}
-function buildPayload(){const data=getCandidateData();const rows=collectAnswersForOwner();return {schema:'PETRALIA_TEST_RESULT_V3_STEP1_NO_SCORE_IN_CANDIDATE_FILE',createdAt:new Date().toISOString(),seed:TEST_SEED,candidate:data,timing:getTimingSummary(),security:getSecurityReport(),privacy:{version:'PRIVACY-SELEZIONE-CANDIDATI-2026-06-12',privacyRead:Boolean(document.getElementById('privacyAck').checked),selectionStepRead:Boolean(document.getElementById('selectionAck').checked),workPathRead:Boolean(document.getElementById('workPathAck').checked),nonClinicalRead:Boolean(document.getElementById('nonClinicalAck').checked),autonomyDeclared:Boolean(document.getElementById('autonomyAck').checked),acknowledgedAt:new Date().toISOString(),notice:'Informativa privacy sintetica, avvertenza non clinica, dichiarazione di compilazione autonoma, avviso di primo step di preselezione e avvertenza sul percorso lavorativo regolare mostrati prima della generazione del file cifrato.'},settings:{minAge:MIN_AGE,maxAge:MAX_AGE,totalQuestions:ACTIVE_QUESTIONS.length,bankSize:PUBLIC_QUESTION_BANK.length,bankVersion:BANK_VERSION,security:'Il file candidato non contiene punteggi, risposte corrette, aree descrittive o flag bloccanti. La correzione avviene solo nel lettore titolare.',deliveryMode:'DOMANDE_SEQUENZIALI_UNA_ALLA_VOLTA_TIMER_DA_PRIMA_DOMANDA'},answers:rows,questions:ACTIVE_QUESTIONS.map((q,i)=>({testNum:i+1,bankId:q.bankId,bankNum:q.bankNum,text:q.text,options:q.optionsArray,chosen:rows[i].answer,chosenOptionId:rows[i].optionId}))};}
+function buildPayload(){
+  const data=getCandidateData();
+  const rows=collectAnswersForOwner();
+  const security=getSecurityReport();
+  const integrityFinal=buildFinalIntegrityReport(security,rows);
+  return {schema:'PETRALIA_TEST_RESULT_V5_SEQUENTIAL_FINAL_INTEGRITY_NO_SCORE_IN_CANDIDATE_FILE',createdAt:new Date().toISOString(),seed:TEST_SEED,candidate:data,timing:getTimingSummary(),security,integrityFinal,privacy:{version:'PRIVACY-SELEZIONE-CANDIDATI-2026-06-12',privacyRead:Boolean(document.getElementById('privacyAck').checked),selectionStepRead:Boolean(document.getElementById('selectionAck').checked),workPathRead:Boolean(document.getElementById('workPathAck').checked),nonClinicalRead:Boolean(document.getElementById('nonClinicalAck').checked),autonomyDeclared:Boolean(document.getElementById('autonomyAck').checked),acknowledgedAt:new Date().toISOString(),notice:'Informativa privacy sintetica, avvertenza non clinica, dichiarazione di compilazione autonoma, avviso di primo step di preselezione, avvertenza sul percorso lavorativo regolare e domanda finale fissa di attendibilità mostrate prima della generazione del file cifrato.'},settings:{minAge:MIN_AGE,maxAge:MAX_AGE,totalQuestions:ACTIVE_QUESTIONS.length,randomOperationalQuestions:ACTIVE_QUESTIONS.length-1,fixedFinalQuestion:true,bankSize:PUBLIC_QUESTION_BANK.length+1,bankVersion:BANK_VERSION,security:'Il file candidato non contiene punteggi, risposte corrette, aree descrittive o flag bloccanti. La correzione avviene solo nel lettore titolare.',deliveryMode:'29_DOMANDE_CASUALI_PIU_DOMANDA_30_FISSA_SEQUENZIALE_TIMER'},answers:rows,questions:ACTIVE_QUESTIONS.map((q,i)=>({testNum:i+1,bankId:q.bankId,bankNum:q.bankNum,text:q.text,options:q.optionsArray,chosen:rows[i].answer,chosenOptionId:rows[i].optionId,fixedFinalIntegrity:Boolean(q.fixedFinalIntegrity)}))};
+}
 function downloadBlob(blob,filename){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=filename;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},1000);}
 async function concludeTest(){if(!validateBeforeSubmit())return;try{document.getElementById('submitBtn').disabled=true;document.getElementById('submitBtn').textContent='Genero file cifrato...';const payload=buildPayload();const pack=await encryptPayload(payload);lastEncryptedText=JSON.stringify(pack,null,2);lastBlob=new Blob([wrappedEncryptedText()],{type:'text/plain'});lastFileName=`TEST_CIFRATO_${sanitizeName(payload.candidate.name)}_${payload.candidate.date}.txt`;document.getElementById('fileInfo').innerHTML=`<strong>File:</strong> <code>${escapeHtml(lastFileName)}</code><br><strong>Candidata:</strong> ${escapeHtml(payload.candidate.name)}<br><strong>Codice test:</strong> ${escapeHtml(payload.seed)}<br><strong>Avvisi sicurezza:</strong> ${escapeHtml((payload.security&&payload.security.warningCount)||0)}<br><strong>Tempo medio per domanda:</strong> ${escapeHtml((payload.timing&&payload.timing.avgSecondsPerQuestion)||0)} secondi<br><strong>Stato:</strong> cifrato e autenticato. Se il file viene modificato, il lettore titolare lo rifiuta.`;sendTrackingEvent('test_completato_file_cifrato_generato',{fileName:lastFileName,encryptedFileCreated:true});document.getElementById('candidateDone').classList.remove('hidden');document.getElementById('candidateDone').scrollIntoView({behavior:'smooth',block:'start'});downloadBlob(lastBlob,lastFileName);}catch(e){alert('Errore nella generazione del file cifrato: '+e.message);}finally{document.getElementById('submitBtn').disabled=false;document.getElementById('submitBtn').textContent='Concludi e genera file cifrato';}}
 function buildShortMessage(){const data=getCandidateData();const name=(data.name||'').trim().replace(/\s+/g,' ').toUpperCase();return `Invio TEST E RISULTATO CANDIDATA "${name}"
