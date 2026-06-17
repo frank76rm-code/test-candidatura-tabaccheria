@@ -9,6 +9,12 @@ header{position:sticky;top:0;z-index:10;background:rgba(255,253,248,.94);backdro
 .delivery-warning strong{color:#b42318}
 .delivery-warning.ok-delivery{background:#eefaf3;border-color:#b7e1c7;color:#17623e}
 .delivery-warning.ok-delivery strong{color:#17623e}
+.device-guide{margin-top:14px;background:#f7fbff;border:1px solid #b8d9ef;border-radius:18px;padding:16px;color:#183b56;line-height:1.45}
+.device-guide h3{margin:0 0 8px;color:#183b56;font-size:1.05rem}
+.device-guide ol{margin:8px 0 8px 22px;padding:0}.device-guide li{margin:6px 0}.device-guide .pill{display:inline-block;border:1px solid #b8d9ef;border-radius:999px;padding:3px 8px;background:white;font-weight:900;color:#183b56;margin:2px 4px 2px 0}
+.compat-critical{margin-top:14px;background:#fff1f0;border:2px solid #f0b4ad;border-radius:18px;padding:16px;color:#7a1d1d;font-weight:850;line-height:1.45}
+.compat-ok{margin-top:14px;background:#eefaf3;border:1px solid #b7e1c7;border-radius:18px;padding:14px;color:#17623e;line-height:1.45}
+.delivery-confirm{margin-top:14px;background:#fffaf0;border:1px solid #efd3a2;border-radius:18px;padding:14px;color:#5f3b11}.delivery-confirm button{margin-top:10px}.delivery-confirm input:disabled+span{opacity:.55}
 
 .privacy-box{margin-top:12px;background:#f7fbff;border:1px solid #b8d9ef;border-radius:18px;padding:16px;color:#183b56}.privacy-box h2{margin:0 0 8px;color:#183b56;font-size:1.05rem}.privacy-box p{margin:8px 0;line-height:1.45}.privacy-box ul{margin:8px 0 8px 18px;padding:0}.privacy-box li{margin:4px 0}.checkrow{display:grid;grid-template-columns:30px 1fr;gap:10px;align-items:start;margin-top:12px;background:white;border:1px solid var(--line);border-radius:14px;padding:12px}.checkrow input{width:22px;height:22px;accent-color:var(--brand);margin-top:1px}.checkrow strong{color:var(--brand)}
 .age-status{margin-top:8px;border-radius:12px;padding:10px 12px;font-weight:800;line-height:1.35;border:1px solid var(--line);background:#fff;color:var(--muted)}
@@ -83,7 +89,7 @@ body.security-blur main,body.security-blur header,body.security-blur footer{filt
 </section>
 <form id="testForm" class="candidate-only"></form>
 <section id="candidateNotesPanel" class="panel candidate-only"><label class="field"><span>Eventuali note della candidata, facoltative</span><textarea id="candidateNotes" rows="3" placeholder="Spazio facoltativo. Non inserire dati sensibili o informazioni private non pertinenti alla candidatura."></textarea></label><p class="small"><strong>Nota privacy:</strong> usa questo spazio solo per informazioni pratiche legate alla disponibilità o alla candidatura. Non indicare dati sanitari, familiari, politici, religiosi o altre informazioni private non richieste.</p><div class="actions"><button id="submitBtn" type="button">Concludi e genera file cifrato</button><button id="resetBtn" type="button" class="ghost">Cancella e ricomincia</button></div><p class="small">Dopo la generazione invia il file cifrato alla tabaccheria via email o WhatsApp. Il curriculum è facoltativo e può essere inviato a parte. Il superamento del test non equivale ad assunzione: se ritenuto opportuno, la tabaccheria potrà contattarti per un colloquio conoscitivo in sede. Eventuali fasi successive riguarderanno esclusivamente un possibile inserimento regolare, con contratto e busta paga, e richiederanno impegno reciproco.</p></section>
-<section id="candidateDone" class="result-card hidden"><h2>File cifrato generato</h2><p>Invia alla tabaccheria <strong>solo il file .txt cifrato generato dal test</strong>. Il contenuto non è leggibile senza lettore titolare e PIN. Dopo la valutazione, sarai contattata solo se la tabaccheria riterrà di proseguire con il colloquio conoscitivo in sede.</p><div id="fileInfo" class="notice security"></div><div class="actions"><button id="shareBtn" type="button" class="whatsapp">Condividi file cifrato</button><button id="downloadBtn" type="button">Scarica file cifrato</button><button id="emailBtn" type="button" class="secondary">Prepara email</button></div><div id="deliveryWarning" class="delivery-warning"><strong>ATTENZIONE: non chiudere questa pagina.</strong><br>Per completare davvero l’invio devi premere <strong>Condividi file cifrato</strong> oppure <strong>Scarica file cifrato</strong> e verificare di avere il file <code>.txt</code>. Il download automatico può non partire su alcuni iPhone, Android o browser interni. Senza quel file la tabaccheria non può leggere il test.</div><p class="small">Destinatario: <strong>tabaccheriapetralia@gmail.com</strong>. Puoi inviare il file cifrato tramite condivisione del telefono oppure allegarlo manualmente a una email. Il pulsante “Prepara email” serve solo a preparare testo e destinatario: il file <code>.txt</code> va allegato dalla candidata.</p></section>
+<section id="candidateDone" class="result-card hidden"><h2>File cifrato generato</h2><p>Invia alla tabaccheria <strong>solo il file .txt cifrato generato dal test</strong>. Il contenuto non è leggibile senza lettore titolare e PIN. Dopo la valutazione, sarai contattata solo se la tabaccheria riterrà di proseguire con il colloquio conoscitivo in sede.</p><div id="fileInfo" class="notice security"></div><div id="mobileDeviceGuide" class="device-guide"></div><div class="actions"><button id="shareBtn" type="button" class="whatsapp">1 · Condividi file cifrato</button><button id="downloadBtn" type="button">2 · Scarica file cifrato</button><button id="emailBtn" type="button" class="secondary">3 · Prepara email</button></div><div id="deliveryWarning" class="delivery-warning"><strong>ATTENZIONE: non chiudere questa pagina.</strong><br>Per completare davvero l’invio devi premere <strong>Condividi file cifrato</strong> oppure <strong>Scarica file cifrato</strong> e verificare di avere il file <code>.txt</code>. Il download automatico può non partire su alcuni iPhone, Android o browser interni. Senza quel file la tabaccheria non può leggere il test.</div><div id="deliveryConfirmBox" class="delivery-confirm"><label class="checkrow"><input id="deliveryConfirmAck" type="checkbox" disabled><span><strong>Confermo di avere il file cifrato</strong>: l’ho condiviso con la tabaccheria oppure l’ho scaricato/salvato e so dove trovarlo per allegarlo. Il file deve chiamarsi <code id="confirmFileName">TEST_CIFRATO...</code>.</span></label><button id="finalCloseOkBtn" type="button" class="secondary" disabled>Ho il file, posso chiudere la pagina</button></div><p class="small">Destinatario: <strong>tabaccheriapetralia@gmail.com</strong>. Su iPhone usa prima “Condividi file cifrato”. Se scegli “Prepara email”, il telefono apre solo il messaggio: il file <code>.txt</code> va allegato manualmente dalla candidata.</p></section>
 </main><footer>Strumento interno per preselezione apprendista tabaccheria/ricevitoria.</footer>
 <script>
 const DEST_EMAIL = "tabaccheriapetralia@gmail.com";
@@ -102,7 +108,7 @@ let TRACKING_STARTED_AT = Date.now();
 let TRACKING_FIRST_ANSWER_AT = 0;
 let TRACKING_FIRST_ANSWER_SENT = false;
 let SECURITY_WARNINGS=[],SECURITY_LAST_EVENT={},SECURITY_FULLSCREEN_REQUESTED=false;
-let FILE_DELIVERY_ACTION_DONE=false,FILE_DELIVERY_ACTION_TYPE="";
+let FILE_DELIVERY_ACTION_DONE=false,FILE_DELIVERY_ACTION_TYPE="",FILE_DELIVERY_ATTEMPTED=false,FILE_DELIVERY_CONFIRMED=false,FILE_DELIVERY_EMAIL_MODE=false;
 
 const MIN_AGE = 20;
 const MAX_AGE = 27;
@@ -6231,6 +6237,70 @@ function validateAgeBeforeStart(){
 }
 function getCandidateData(){const birth=document.getElementById('birthDate').value||'';const age=calcAge(birth);const ageEligibility=(typeof getAgeEligibility==='function')?getAgeEligibility():{};return {name:document.getElementById('candidateName').value.trim()||'Candidato non indicato',email:document.getElementById('candidateEmail').value.trim()||'',phone:document.getElementById('candidatePhone').value.trim()||'',birth,age,zone:document.getElementById('candidateZone').value.trim()||'',availability:document.getElementById('candidateAvailability').value.trim()||'',date:document.getElementById('testDate').value||todayISO(),notes:document.getElementById('candidateNotes').value.trim()||'',ageEligibilityStatus:ageEligibility.status||'',under20ExceptionRequested:ageEligibility.status==='under20_exception'};}
 function getTrackingAnswersDone(){try{return getAnswers().filter(Boolean).length;}catch(e){return 0;}}
+
+function getMobileCompatibilityInfo(){
+  const ua=navigator.userAgent||'';
+  const platform=navigator.platform||'';
+  const isIOS=/iPad|iPhone|iPod/i.test(ua)||(platform==='MacIntel'&&navigator.maxTouchPoints>1);
+  const isAndroid=/Android/i.test(ua);
+  const isFacebook=/FBAN|FBAV|FB_IAB|FBIOS|FB4A/i.test(ua);
+  const isInstagram=/Instagram/i.test(ua);
+  const isTikTok=/TikTok/i.test(ua);
+  const isWhatsApp=/WhatsApp/i.test(ua);
+  const isMessenger=/Messenger/i.test(ua);
+  const isInApp=isFacebook||isInstagram||isTikTok||isMessenger;
+  const isChromeIOS=/CriOS/i.test(ua);
+  const isSafariIOS=isIOS&&/Safari/i.test(ua)&&!/CriOS|FxiOS|EdgiOS/i.test(ua);
+  const hasCrypto=Boolean(window.crypto&&crypto.subtle&&window.TextEncoder&&window.Blob&&window.File);
+  let canShareFiles=false;
+  try{canShareFiles=Boolean(navigator.share&&navigator.canShare&&navigator.canShare({files:[new File(['test'],'test.txt',{type:'text/plain'})]}));}catch(e){canShareFiles=false;}
+  const blockStart=Boolean(isInApp||!hasCrypto);
+  let device='computer';
+  if(isIOS)device='iPhone/iPad'; else if(isAndroid)device='Android';
+  return {ua,isIOS,isAndroid,isFacebook,isInstagram,isTikTok,isWhatsApp,isMessenger,isInApp,isChromeIOS,isSafariIOS,hasCrypto,canShareFiles,blockStart,device};
+}
+function buildStartCompatibilityHtml(info){
+  if(!info.hasCrypto){
+    return '<div class="compat-critical"><strong>Browser non compatibile.</strong><br>Questo browser non espone la crittografia necessaria. Apri il test con Chrome aggiornato su Android oppure Safari/Chrome aggiornato su iPhone.</div>';
+  }
+  if(info.isInApp){
+    return '<div class="compat-critical"><strong>ATTENZIONE: browser interno non ammesso.</strong><br>Stai aprendo il test dentro un’app come Facebook, Instagram, TikTok o Messenger. Su questi browser il file finale può non essere salvato o condiviso correttamente. Apri il link nel browser esterno: <strong>Chrome</strong> su Android oppure <strong>Safari/Chrome</strong> su iPhone. Poi ricarica questa pagina e avvia il test.</div>';
+  }
+  if(info.isIOS){
+    return '<div class="compat-ok"><strong>Modalità iPhone/iPad rilevata.</strong><br>Alla fine usa prima <strong>Condividi file cifrato</strong>. Se scegli il download, controlla nell’app <strong>File</strong> > <strong>Recenti/Download</strong> che esista il file <code>TEST_CIFRATO...</code>.</div>';
+  }
+  if(info.isAndroid){
+    return '<div class="compat-ok"><strong>Modalità Android rilevata.</strong><br>Alla fine puoi usare <strong>Condividi file cifrato</strong> oppure <strong>Scarica file cifrato</strong>. Se scarichi, controlla la cartella <strong>Download</strong>.</div>';
+  }
+  return '<div class="compat-ok"><strong>Browser compatibile.</strong><br>Alla fine scarica o condividi il file <code>.txt</code> generato dal test.</div>';
+}
+function renderMobileDeliveryGuide(){
+  const box=document.getElementById('mobileDeviceGuide');
+  if(!box)return;
+  const info=getMobileCompatibilityInfo();
+  const share='<span class="pill">Condivisione file: '+(info.canShareFiles?'supportata':'non garantita')+'</span>';
+  if(info.isIOS){
+    box.innerHTML='<h3>Guida iPhone/iPad, passaggio obbligatorio</h3>'+share+'<ol><li>Premi <strong>1 · Condividi file cifrato</strong>.</li><li>Scegli <strong>WhatsApp</strong>, <strong>Mail</strong> oppure <strong>Salva su File</strong>.</li><li>Controlla che nell’invio o nei file allegati compaia <code>'+escapeHtml(lastFileName||'TEST_CIFRATO...txt')+'</code>.</li><li>Solo dopo spunta la conferma sotto e chiudi la pagina.</li></ol><p><strong>Se la condivisione non si apre:</strong> premi <strong>2 · Scarica file cifrato</strong>, poi apri l’app <strong>File</strong> > <strong>Recenti</strong> o <strong>Download</strong> e allega manualmente il file alla tabaccheria.</p>';
+  }else if(info.isAndroid){
+    box.innerHTML='<h3>Guida Android, passaggio obbligatorio</h3>'+share+'<ol><li>Premi <strong>1 · Condividi file cifrato</strong> e invia direttamente il file alla tabaccheria, oppure premi <strong>2 · Scarica file cifrato</strong>.</li><li>Se scarichi, controlla in <strong>Download</strong> che ci sia <code>'+escapeHtml(lastFileName||'TEST_CIFRATO...txt')+'</code>.</li><li>Solo dopo spunta la conferma sotto e chiudi la pagina.</li></ol>';
+  }else{
+    box.innerHTML='<h3>Guida invio file</h3>'+share+'<ol><li>Scarica o condividi il file cifrato.</li><li>Verifica che il file si chiami <code>'+escapeHtml(lastFileName||'TEST_CIFRATO...txt')+'</code>.</li><li>Allega quel file alla email o al messaggio WhatsApp per la tabaccheria.</li></ol>';
+  }
+}
+function setDeliveryConfirmationEnabled(enabled){
+  const ack=document.getElementById('deliveryConfirmAck'),btn=document.getElementById('finalCloseOkBtn');
+  if(ack)ack.disabled=!enabled;
+  if(btn)btn.disabled=!(enabled&&ack&&ack.checked);
+}
+function confirmFinalDelivery(){
+  if(!FILE_DELIVERY_ATTEMPTED){alert('Prima devi condividere o scaricare il file cifrato.');return;}
+  FILE_DELIVERY_CONFIRMED=true;
+  FILE_DELIVERY_ACTION_DONE=true;
+  updateDeliveryWarning();
+  window.removeEventListener('beforeunload',preventCloseWithoutFile);
+  sendTrackingEvent('file_cifrato_confermato_da_candidata',{fileName:lastFileName,deliveryAction:FILE_DELIVERY_ACTION_TYPE});
+  alert('Perfetto. Ora puoi chiudere la pagina solo se hai davvero inviato o salvato il file .txt cifrato.');
+}
 function sendTrackingEvent(eventName,extra={}){
   if(!TRACKING_ENABLED)return;
   try{
@@ -6280,7 +6350,7 @@ function registerSecurityWarning(reason,details=''){
   SECURITY_WARNINGS.push({time:securityNow(),reason,details:String(details||''),questionIndex:securityCurrentQuestion(),visibility:document.visibilityState,fullscreen:Boolean(document.fullscreenElement)});
   if(SECURITY_WARNINGS.length>100)SECURITY_WARNINGS=SECURITY_WARNINGS.slice(-100);
   refreshSecurityWatermark();
-  try{sendTrackingEvent('avviso_sicurezza_'+String(reason||'evento').toLowerCase().replace(/[^a-z0-9]+/g,'_'),{securityReason:reason,securityDetails:String(details||''),securityWarningsCount:SECURITY_WARNINGS.length});}catch(e){}
+  try{if(SECURITY_WARNINGS.length<=5||SECURITY_WARNINGS.length%10===0)sendTrackingEvent('avviso_sicurezza_riepilogo',{securityReason:reason,securityDetails:String(details||''),securityWarningsCount:SECURITY_WARNINGS.length});}catch(e){}
 }
 function showSecurityBlock(ms=1700){const b=document.getElementById('securityBlocker');if(!b)return;b.style.display='flex';document.body.classList.add('security-blur');setTimeout(()=>{b.style.display='none';document.body.classList.remove('security-blur');},ms);}
 function tryClearClipboard(){try{if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText('');}catch(e){}}
@@ -6364,7 +6434,14 @@ function prepareRandomTest(){
   CURRENT_QUESTION_REVEALED_AT=0;
   TEST_COMPLETED_AT=0;
 }
-function renderQuestions(){document.body.classList.remove('test-in-progress','test-completed');form.innerHTML=`<section class="sequential-gate" id="startGate"><h2>Domande protette: una alla volta</h2><p>Le domande non vengono mostrate tutte insieme. Il timer parte quando viene scoperta la prima domanda. Dopo ogni risposta, la domanda viene bloccata e appare solo quella successiva.</p><p><strong>Importante:</strong> non è previsto tornare indietro. Rispondi con attenzione prima di premere “Blocca risposta e vai avanti”.</p><div class="actions"><button id="startTestBtn" type="button">Scopri la prima domanda e avvia timer</button></div></section>`;const btn=document.getElementById('startTestBtn');if(btn)btn.addEventListener('click',startSequentialTest);updateProgress();}
+function renderQuestions(){
+  document.body.classList.remove('test-in-progress','test-completed');
+  const info=getMobileCompatibilityInfo();
+  const compatHtml=buildStartCompatibilityHtml(info);
+  form.innerHTML=`<section class="sequential-gate" id="startGate"><h2>Domande protette: una alla volta</h2><p>Le domande non vengono mostrate tutte insieme. Il timer parte quando viene scoperta la prima domanda. Dopo ogni risposta, la domanda viene bloccata e appare solo quella successiva.</p><p><strong>Importante:</strong> non è previsto tornare indietro. Rispondi con attenzione prima di premere “Blocca risposta e vai avanti”.</p>${compatHtml}<div class="actions"><button id="startTestBtn" type="button" ${info.blockStart?'disabled':''}>Scopri la prima domanda e avvia timer</button></div>${info.blockStart?'<p class="small"><strong>Per proteggere il risultato, il test non parte da questo ambiente.</strong> Apri lo stesso link nel browser esterno e ricarica.</p>':''}</section>`;
+  const btn=document.getElementById('startTestBtn');if(btn&&!info.blockStart)btn.addEventListener('click',startSequentialTest);
+  updateProgress();
+}
 function startSequentialTest(){if(!validateAgeBeforeStart())return;TEST_REVEALED_AT=Date.now();TRACKING_FIRST_ANSWER_AT=TEST_REVEALED_AT;TRACKING_FIRST_ANSWER_SENT=true;document.body.classList.add('test-in-progress');sendTrackingEvent('inizio_compilazione_prima_domanda_scoperta',{firstQuestionRevealed:true,ageStatus:getAgeEligibility().status,candidateAge:getAgeEligibility().age});requestFullscreenOnce();revealQuestion(0);}
 function startQuestionClock(){if(QUESTION_CLOCK_TIMER)clearInterval(QUESTION_CLOCK_TIMER);const tick=()=>{const qEl=document.getElementById('qSeconds'),tEl=document.getElementById('totalSeconds');const now=Date.now();if(qEl)qEl.textContent=String(Math.max(0,Math.round((now-CURRENT_QUESTION_REVEALED_AT)/1000)));if(tEl)tEl.textContent=String(Math.max(0,Math.round((now-(TEST_REVEALED_AT||now))/1000)));};tick();QUESTION_CLOCK_TIMER=setInterval(tick,1000);}
 function revealQuestion(index){if(index<0||index>=ACTIVE_QUESTIONS.length)return;CURRENT_QUESTION_INDEX=index;CURRENT_QUESTION_REVEALED_AT=Date.now();const q=ACTIVE_QUESTIONS[index];QUESTION_TIMES[index]={...QUESTION_TIMES[index],revealedAt:new Date(CURRENT_QUESTION_REVEALED_AT).toISOString()};const opts=q.optionsArray.map(opt=>`<label class="option"><input type="radio" name="qCurrent" value="${opt.displayLetter}" data-option-id="${escapeHtml(opt.optionId)}" aria-label="Domanda ${index+1} risposta ${opt.displayLetter}"><span><strong>${opt.displayLetter}</strong>${escapeHtml(opt.text)}</span></label>`).join('');const buttonText=(index===ACTIVE_QUESTIONS.length-1)?'Blocca risposta e completa test':'Blocca risposta e vai avanti';form.innerHTML=`<article class="question-card" id="card${index}"><div class="qtop"><div class="qnum">Domanda ${index+1} di ${ACTIVE_QUESTIONS.length}</div><div class="area">${q.fixedFinalIntegrity?'Domanda finale fissa · sicurezza':'Domande precedenti non più visibili'}</div></div><p class="qtext">${escapeHtml(q.text)}</p><div class="options">${opts}</div><div class="question-lockbar"><div class="question-timer">Tempo domanda: <span id="qSeconds">0</span>s · Totale: <span id="totalSeconds">0</span>s</div><button id="nextQuestionBtn" type="button" disabled>${buttonText}</button></div><div class="question-mini-note">La risposta viene registrata solo quando premi il pulsante. Dopo il blocco non si torna indietro.</div></article>`;const next=document.getElementById('nextQuestionBtn');document.querySelectorAll('input[name="qCurrent"]').forEach(r=>r.addEventListener('change',()=>{next.disabled=false;}));next.addEventListener('click',lockAnswerAndAdvance);updateProgress();refreshSecurityWatermark();startQuestionClock();setTimeout(()=>{const card=document.getElementById(`card${index}`);if(card)card.scrollIntoView({behavior:'smooth',block:'center'});},60);}
@@ -6408,11 +6485,48 @@ function buildPayload(){
   const integrityFinal=buildFinalIntegrityReport(security,rows);
   return {schema:'PETRALIA_TEST_RESULT_V5_SEQUENTIAL_FINAL_INTEGRITY_NO_SCORE_IN_CANDIDATE_FILE',createdAt:new Date().toISOString(),seed:TEST_SEED,candidate:data,timing:getTimingSummary(),security,integrityFinal,privacy:{version:'PRIVACY-SELEZIONE-CANDIDATI-2026-06-12',privacyRead:Boolean(document.getElementById('privacyAck').checked),selectionStepRead:Boolean(document.getElementById('selectionAck').checked),workPathRead:Boolean(document.getElementById('workPathAck').checked),nonClinicalRead:Boolean(document.getElementById('nonClinicalAck').checked),autonomyDeclared:Boolean(document.getElementById('autonomyAck').checked),acknowledgedAt:new Date().toISOString(),notice:'Informativa privacy sintetica, avvertenza non clinica, dichiarazione di compilazione autonoma, avviso di primo step di preselezione, avvertenza sul percorso lavorativo regolare e domanda finale fissa di attendibilità mostrate prima della generazione del file cifrato.'},settings:{minAge:MIN_AGE,maxAge:MAX_AGE,totalQuestions:ACTIVE_QUESTIONS.length,randomOperationalQuestions:ACTIVE_QUESTIONS.length-1,fixedFinalQuestion:true,bankSize:PUBLIC_QUESTION_BANK.length,bankVersion:BANK_VERSION,security:'Il file candidato non contiene punteggi, risposte corrette, aree descrittive o flag bloccanti. La correzione avviene solo nel lettore titolare.',deliveryMode:'29_DOMANDE_CASUALI_PIU_DOMANDA_30_FISSA_SEQUENZIALE_TIMER'},answers:rows,questions:ACTIVE_QUESTIONS.map((q,i)=>({testNum:i+1,bankId:q.bankId,bankNum:q.bankNum,text:q.text,options:q.optionsArray,chosen:rows[i].answer,chosenOptionId:rows[i].optionId,fixedFinalIntegrity:Boolean(q.fixedFinalIntegrity)}))};
 }
-function downloadBlob(blob,filename){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=filename;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},1000);}
-function preventCloseWithoutFile(e){if(lastBlob&&!FILE_DELIVERY_ACTION_DONE){e.preventDefault();e.returnValue='Il file cifrato non risulta ancora condiviso o scaricato manualmente. Senza il file .txt la tabaccheria non può leggere il test.';return e.returnValue;}}
-function updateDeliveryWarning(){const box=document.getElementById('deliveryWarning');if(!box)return;if(FILE_DELIVERY_ACTION_DONE){box.classList.add('ok-delivery');box.innerHTML='<strong>File gestito.</strong><br>Hai premuto '+escapeHtml(FILE_DELIVERY_ACTION_TYPE||'un pulsante di invio/scaricamento')+'. Prima di chiudere, controlla comunque che il file .txt sia stato davvero condiviso o allegato.';}else{box.classList.remove('ok-delivery');box.innerHTML='<strong>ATTENZIONE: non chiudere questa pagina.</strong><br>Per completare davvero l’invio devi premere <strong>Condividi file cifrato</strong> oppure <strong>Scarica file cifrato</strong> e verificare di avere il file <code>.txt</code>. Il download automatico può non partire su alcuni iPhone, Android o browser interni. Senza quel file la tabaccheria non può leggere il test.';}}
-function markFileDeliveryAction(type){FILE_DELIVERY_ACTION_DONE=true;FILE_DELIVERY_ACTION_TYPE=type||'file cifrato';updateDeliveryWarning();sendTrackingEvent('file_cifrato_gestito_da_candidata',{fileName:lastFileName,deliveryAction:FILE_DELIVERY_ACTION_TYPE});}
-async function concludeTest(){if(!validateBeforeSubmit())return;try{document.getElementById('submitBtn').disabled=true;document.getElementById('submitBtn').textContent='Genero file cifrato...';const payload=buildPayload();const pack=await encryptPayload(payload);lastEncryptedText=JSON.stringify(pack,null,2);lastBlob=new Blob([wrappedEncryptedText()],{type:'text/plain'});lastFileName=`TEST_CIFRATO_${sanitizeName(payload.candidate.name)}_${payload.candidate.date}.txt`;document.getElementById('fileInfo').innerHTML=`<strong>File:</strong> <code>${escapeHtml(lastFileName)}</code><br><strong>Candidata:</strong> ${escapeHtml(payload.candidate.name)}<br><strong>Codice test:</strong> ${escapeHtml(payload.seed)}<br><strong>Avvisi sicurezza:</strong> ${escapeHtml((payload.security&&payload.security.warningCount)||0)}<br><strong>Tempo medio per domanda:</strong> ${escapeHtml((payload.timing&&payload.timing.avgSecondsPerQuestion)||0)} secondi<br><strong>Stato:</strong> cifrato e autenticato. Se il file viene modificato, il lettore titolare lo rifiuta.<br><strong>Passaggio obbligatorio:</strong> condividi o scarica il file .txt prima di chiudere questa pagina.`;sendTrackingEvent('test_completato_file_cifrato_generato',{fileName:lastFileName,encryptedFileCreated:true});FILE_DELIVERY_ACTION_DONE=false;FILE_DELIVERY_ACTION_TYPE='';updateDeliveryWarning();window.addEventListener('beforeunload',preventCloseWithoutFile);document.getElementById('candidateDone').classList.remove('hidden');document.getElementById('candidateDone').scrollIntoView({behavior:'smooth',block:'start'});downloadBlob(lastBlob,lastFileName);}catch(e){alert('Errore nella generazione del file cifrato: '+e.message);}finally{document.getElementById('submitBtn').disabled=false;document.getElementById('submitBtn').textContent='Concludi e genera file cifrato';}}
+function downloadBlob(blob,filename){
+  if(!blob)return;
+  if(window.navigator&&window.navigator.msSaveOrOpenBlob){window.navigator.msSaveOrOpenBlob(blob,filename);return;}
+  const info=getMobileCompatibilityInfo();
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;
+  a.download=filename;
+  a.rel='noopener';
+  if(info.isIOS)a.target='_blank';
+  a.style.display='none';
+  document.body.appendChild(a);
+  try{a.dispatchEvent(new MouseEvent('click',{bubbles:true,cancelable:true,view:window}));}
+  catch(e){a.click();}
+  setTimeout(()=>{try{URL.revokeObjectURL(url);}catch(e){}try{a.remove();}catch(e){}},60000);
+}
+function preventCloseWithoutFile(e){if(lastBlob&&!FILE_DELIVERY_CONFIRMED){e.preventDefault();e.returnValue='Il file cifrato non risulta ancora confermato come condiviso o scaricato. Senza il file .txt la tabaccheria non può leggere il test.';return e.returnValue;}}
+function updateDeliveryWarning(){
+  const box=document.getElementById('deliveryWarning');if(!box)return;
+  const file='<code>'+escapeHtml(lastFileName||'TEST_CIFRATO...txt')+'</code>';
+  if(FILE_DELIVERY_CONFIRMED){
+    box.classList.add('ok-delivery');
+    box.innerHTML='<strong>Conferma ricevuta.</strong><br>La candidata ha dichiarato di aver condiviso o salvato il file '+file+'. La pagina può essere chiusa solo dopo questa verifica.';
+  }else if(FILE_DELIVERY_ATTEMPTED){
+    box.classList.remove('ok-delivery');
+    box.innerHTML='<strong>Verifica ancora necessaria.</strong><br>Hai premuto <strong>'+escapeHtml(FILE_DELIVERY_ACTION_TYPE||'un pulsante')+'</strong>. Prima di chiudere devi controllare che il file '+file+' sia realmente condiviso, allegato o salvato. Poi spunta la conferma sotto.';
+  }else{
+    box.classList.remove('ok-delivery');
+    box.innerHTML='<strong>ATTENZIONE: non chiudere questa pagina.</strong><br>Per completare davvero l’invio devi premere <strong>1 · Condividi file cifrato</strong> oppure <strong>2 · Scarica file cifrato</strong> e verificare di avere il file '+file+'. Su alcuni iPhone, Android o browser interni il download automatico può non bastare. Senza quel file la tabaccheria non può leggere il test.';
+  }
+  const nameEl=document.getElementById('confirmFileName');if(nameEl)nameEl.textContent=lastFileName||'TEST_CIFRATO...txt';
+}
+function markFileDeliveryAction(type){
+  FILE_DELIVERY_ATTEMPTED=true;
+  FILE_DELIVERY_CONFIRMED=false;
+  FILE_DELIVERY_ACTION_DONE=false;
+  FILE_DELIVERY_ACTION_TYPE=type||'file cifrato';
+  updateDeliveryWarning();
+  setDeliveryConfirmationEnabled(true);
+  sendTrackingEvent('file_cifrato_azione_avviata_da_candidata',{fileName:lastFileName,deliveryAction:FILE_DELIVERY_ACTION_TYPE});
+}
+async function concludeTest(){if(!validateBeforeSubmit())return;try{document.getElementById('submitBtn').disabled=true;document.getElementById('submitBtn').textContent='Genero file cifrato...';const payload=buildPayload();const pack=await encryptPayload(payload);lastEncryptedText=JSON.stringify(pack,null,2);lastBlob=new Blob([wrappedEncryptedText()],{type:'text/plain'});lastFileName=`TEST_CIFRATO_${sanitizeName(payload.candidate.name)}_${payload.candidate.date}.txt`;document.getElementById('fileInfo').innerHTML=`<strong>File:</strong> <code>${escapeHtml(lastFileName)}</code><br><strong>Candidata:</strong> ${escapeHtml(payload.candidate.name)}<br><strong>Codice test:</strong> ${escapeHtml(payload.seed)}<br><strong>Avvisi sicurezza:</strong> ${escapeHtml((payload.security&&payload.security.warningCount)||0)}<br><strong>Tempo medio per domanda:</strong> ${escapeHtml((payload.timing&&payload.timing.avgSecondsPerQuestion)||0)} secondi<br><strong>Stato:</strong> cifrato e autenticato. Se il file viene modificato, il lettore titolare lo rifiuta.<br><strong>Passaggio obbligatorio:</strong> condividi o scarica il file .txt prima di chiudere questa pagina.`;sendTrackingEvent('test_completato_file_cifrato_generato',{fileName:lastFileName,encryptedFileCreated:true});FILE_DELIVERY_ACTION_DONE=false;FILE_DELIVERY_ATTEMPTED=false;FILE_DELIVERY_CONFIRMED=false;FILE_DELIVERY_ACTION_TYPE='';updateDeliveryWarning();renderMobileDeliveryGuide();setDeliveryConfirmationEnabled(false);const ack=document.getElementById('deliveryConfirmAck');if(ack)ack.checked=false;window.addEventListener('beforeunload',preventCloseWithoutFile);document.getElementById('candidateDone').classList.remove('hidden');document.getElementById('candidateDone').scrollIntoView({behavior:'smooth',block:'start'});if(!getMobileCompatibilityInfo().isIOS)downloadBlob(lastBlob,lastFileName);}catch(e){alert('Errore nella generazione del file cifrato: '+e.message);}finally{document.getElementById('submitBtn').disabled=false;document.getElementById('submitBtn').textContent='Concludi e genera file cifrato';}}
 function buildShortMessage(){const data=getCandidateData();const name=(data.name||'').trim().replace(/\s+/g,' ').toUpperCase();return `Invio TEST E RISULTATO CANDIDATA "${name}"
 Ho compilato il test come primo step di preselezione. Allego il file .txt cifrato generato dal modulo. Curriculum facoltativo: lo allego o lo invio a parte se disponibile.`;}function wrappedEncryptedText(){return '-----INIZIO TEST CIFRATO PETRALIA-----\n'+lastEncryptedText+'\n-----FINE TEST CIFRATO PETRALIA-----';}
 async function shareEncryptedFile(){
@@ -6431,7 +6545,20 @@ async function shareEncryptedFile(){
   }
   alert('La condivisione diretta del file non è supportata da questo browser. Usa “Scarica file cifrato” e allega manualmente il file .txt via WhatsApp o email.');
 }
-function prepareEmail(){if(!FILE_DELIVERY_ACTION_DONE){alert('Prima premi “Condividi file cifrato” oppure “Scarica file cifrato”. La email non può allegare automaticamente il file: senza il file .txt la tabaccheria non può leggere il test.');const box=document.getElementById('deliveryWarning');if(box)box.scrollIntoView({behavior:'smooth',block:'center'});return;}sendTrackingEvent('clic_prepara_email',{fileName:lastFileName});const data=getCandidateData();const name=(data.name||'').trim().replace(/\s+/g,' ').toUpperCase();const subject=`Invio TEST E RISULTATO CANDIDATA "${name}"`;window.location.href=`mailto:${DEST_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(buildShortMessage())}`;}
+function prepareEmail(){
+  if(!FILE_DELIVERY_ATTEMPTED){alert('Prima premi “Condividi file cifrato” oppure “Scarica file cifrato”. La email non allega automaticamente il file: senza il file .txt la tabaccheria non può leggere il test.');const box=document.getElementById('deliveryWarning');if(box)box.scrollIntoView({behavior:'smooth',block:'center'});return;}
+  const ok=confirm('La email verrà solo preparata: devi allegare manualmente il file '+(lastFileName||'TEST_CIFRATO...txt')+'. Confermi di voler aprire la email?');
+  if(!ok)return;
+  sendTrackingEvent('clic_prepara_email',{fileName:lastFileName});
+  const data=getCandidateData();const name=(data.name||'').trim().replace(/\s+/g,' ').toUpperCase();const subject=`Invio TEST E RISULTATO CANDIDATA "${name}"`;
+  window.location.href=`mailto:${DEST_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(buildShortMessage())}`;
+}
 prepareRandomTest();renderQuestions();initSecurityProtection();refreshSecurityWatermark();form.addEventListener('change',e=>{updateProgress();refreshSecurityWatermark();});['birthDate','candidateNotes'].forEach(id=>{const el=document.getElementById(id);if(el)el.addEventListener('input',updateAgeWarning);});const under20AckEl=document.getElementById('under20OverrideAck');if(under20AckEl)under20AckEl.addEventListener('change',updateAgeWarning);updateProgress();updateAgeWarning();sendTrackingEvent('apertura_test');
-document.getElementById('submitBtn').addEventListener('click',concludeTest);document.getElementById('downloadBtn').addEventListener('click',()=>{if(lastBlob){sendTrackingEvent('clic_scarica_file_cifrato',{fileName:lastFileName});downloadBlob(lastBlob,lastFileName);markFileDeliveryAction('Scarica file cifrato');}});document.getElementById('shareBtn').addEventListener('click',shareEncryptedFile);document.getElementById('emailBtn').addEventListener('click',prepareEmail);document.getElementById('resetBtn').addEventListener('click',()=>{sendTrackingEvent('clic_cancella_ricomincia');if(confirm('Cancellare tutte le risposte e generare un nuovo test casuale?'))location.reload();});
+document.getElementById('submitBtn').addEventListener('click',concludeTest);
+document.getElementById('downloadBtn').addEventListener('click',()=>{if(lastBlob){sendTrackingEvent('clic_scarica_file_cifrato',{fileName:lastFileName});downloadBlob(lastBlob,lastFileName);markFileDeliveryAction('Scarica file cifrato');alert('Download avviato. Ora controlla che il file '+lastFileName+' sia davvero presente nei Download o nell’app File. Poi spunta la conferma sotto.');}});
+document.getElementById('shareBtn').addEventListener('click',shareEncryptedFile);
+document.getElementById('emailBtn').addEventListener('click',prepareEmail);
+const deliveryAckEl=document.getElementById('deliveryConfirmAck');if(deliveryAckEl)deliveryAckEl.addEventListener('change',()=>{setDeliveryConfirmationEnabled(FILE_DELIVERY_ATTEMPTED);if(deliveryAckEl.checked)confirmFinalDelivery();else{FILE_DELIVERY_CONFIRMED=false;FILE_DELIVERY_ACTION_DONE=false;updateDeliveryWarning();window.addEventListener('beforeunload',preventCloseWithoutFile);}});
+const finalCloseBtn=document.getElementById('finalCloseOkBtn');if(finalCloseBtn)finalCloseBtn.addEventListener('click',confirmFinalDelivery);
+document.getElementById('resetBtn').addEventListener('click',()=>{sendTrackingEvent('clic_cancella_ricomincia');if(confirm('Cancellare tutte le risposte e generare un nuovo test casuale?'))location.reload();});
 </script></body></html>
