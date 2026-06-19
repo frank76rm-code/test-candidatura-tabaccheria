@@ -92,7 +92,7 @@ body.security-blur main,body.security-blur header,body.security-blur footer{filt
 </section>
 <form id="testForm" class="candidate-only"></form>
 <section id="candidateNotesPanel" class="panel candidate-only"><label class="field"><span>Eventuali note della candidata, facoltative</span><textarea id="candidateNotes" rows="3" placeholder="Spazio facoltativo. Non inserire dati sensibili o informazioni private non pertinenti alla candidatura."></textarea></label><p class="small"><strong>Nota privacy:</strong> usa questo spazio solo per informazioni pratiche legate alla disponibilità o alla candidatura. Non indicare dati sanitari, familiari, politici, religiosi o altre informazioni private non richieste.</p><div class="actions"><button id="submitBtn" type="button">Concludi e genera file cifrato</button><button id="resetBtn" type="button" class="ghost">Cancella e ricomincia</button></div><p class="small">Dopo la generazione invia il file cifrato alla tabaccheria via email o WhatsApp. Il curriculum è facoltativo e può essere inviato a parte. Il superamento del test non equivale ad assunzione: se ritenuto opportuno, la tabaccheria potrà contattarti per un colloquio conoscitivo in sede. Eventuali fasi successive riguarderanno esclusivamente un possibile inserimento regolare, con contratto e busta paga, e richiederanno impegno reciproco.</p></section>
-<section id="candidateDone" class="result-card hidden"><h2>File cifrato generato</h2><p>Invia alla tabaccheria <strong>solo il file .txt cifrato generato dal test</strong>. Il contenuto non è leggibile senza lettore titolare e PIN. Dopo la valutazione, sarai contattata solo se la tabaccheria riterrà di proseguire con il colloquio conoscitivo in sede.</p><div id="fileInfo" class="notice security"></div><div id="mobileDeviceGuide" class="device-guide"></div><div class="actions"><button id="shareBtn" type="button" class="whatsapp">1 · Condividi file cifrato</button><button id="downloadBtn" type="button">2 · Scarica file cifrato</button><button id="emailBtn" type="button" class="secondary">3 · Prepara email</button></div><div id="deliveryWarning" class="delivery-warning"><strong>ATTENZIONE: non chiudere questa pagina.</strong><br>Per completare davvero l’invio devi premere <strong>Condividi file cifrato</strong> oppure <strong>Scarica file cifrato</strong> e verificare di avere il file <code>.txt</code>. Il download automatico può non partire su alcuni iPhone, Android o browser interni. Senza quel file la tabaccheria non può leggere il test.</div><div id="deliveryConfirmBox" class="delivery-confirm"><label class="checkrow"><input id="deliveryConfirmAck" type="checkbox" disabled><span><strong>Confermo di avere il file cifrato</strong>: l’ho condiviso con la tabaccheria oppure l’ho scaricato/salvato e so dove trovarlo per allegarlo. Il file deve chiamarsi <code id="confirmFileName">TEST_CIFRATO...</code>.</span></label><button id="finalCloseOkBtn" type="button" class="secondary" disabled>Ho il file, posso chiudere la pagina</button></div><p class="small">Destinatario: <strong>tabaccheriapetralia@gmail.com</strong>. Su iPhone usa prima “Condividi file cifrato”. Se scegli “Prepara email”, il telefono apre solo il messaggio: il file <code>.txt</code> va allegato manualmente dalla candidata.</p></section>
+<section id="candidateDone" class="result-card hidden"><h2>File cifrato generato</h2><p>Invia alla tabaccheria <strong>solo il file .txt cifrato generato dal test</strong>. Il contenuto non è leggibile senza lettore titolare e PIN. Dopo la valutazione, sarai contattata solo se la tabaccheria riterrà di proseguire con il colloquio conoscitivo in sede.</p><div id="fileInfo" class="notice security"></div><div id="mobileDeviceGuide" class="device-guide"></div><div class="actions"><button id="downloadBtn" type="button">1 · Scarica file cifrato</button><button id="whatsappBtn" type="button" class="whatsapp">2 · WhatsApp 06 9090211</button><button id="emailBtn" type="button" class="secondary">3 · Email tabaccheria</button><button id="shareBtn" type="button" class="ghost">Altro: condividi file</button></div><div id="deliveryWarning" class="delivery-warning"><strong>ATTENZIONE: non chiudere questa pagina.</strong><br>Per completare davvero l’invio devi scaricare il file <code>.txt</code> e poi allegarlo a <strong>WhatsApp 06 9090211</strong> oppure alla email <strong>tabaccheriapetralia@gmail.com</strong>. WhatsApp e email vengono aperti già con destinatario e testo pronti, ma l’allegato va controllato dalla candidata.</div><div id="deliveryConfirmBox" class="delivery-confirm"><label class="checkrow"><input id="deliveryConfirmAck" type="checkbox" disabled><span><strong>Confermo di avere il file cifrato</strong>: l’ho inviato alla tabaccheria oppure l’ho scaricato/salvato e so dove trovarlo per allegarlo. Il file deve chiamarsi <code id="confirmFileName">TEST_CIFRATO...</code>.</span></label><button id="finalCloseOkBtn" type="button" class="secondary" disabled>Ho il file, posso chiudere la pagina</button></div><p class="small"><strong>WhatsApp:</strong> il pulsante apre direttamente la chat con <strong>06 9090211</strong>. <strong>Email:</strong> il pulsante prepara una email a <strong>tabaccheriapetralia@gmail.com</strong> con oggetto e testo già compilati. Per sicurezza, il file <code>.txt</code> va sempre allegato e verificato prima dell’invio.</p></section>
 </main><footer>Strumento interno per preselezione apprendista tabaccheria/ricevitoria.</footer>
 <script>
 const DEST_EMAIL = "tabaccheriapetralia@gmail.com";
@@ -6267,15 +6267,15 @@ function buildStartCompatibilityHtml(info){
     return '<div class="compat-critical"><strong>Browser non compatibile.</strong><br>Questo browser non espone la crittografia necessaria. Apri il test con Chrome aggiornato su Android oppure Safari/Chrome aggiornato su iPhone.</div>';
   }
   if(info.isInApp){
-    return '<div class="compat-warning"><strong>Browser interno rilevato.</strong><br>Il test può partire anche da Facebook, Instagram, WhatsApp, TikTok o Messenger. Alla fine usa prima <strong>Condividi file cifrato</strong>. Se il telefono non allega il file, usa <strong>Scarica file cifrato</strong> e controlla Download/File. In caso di blocco, apri lo stesso link nel browser esterno e riparti.</div>';
+    return '<div class="compat-warning"><strong>Browser interno rilevato.</strong><br>Il test può partire anche da Facebook, Instagram, WhatsApp, TikTok o Messenger. Alla fine premi <strong>Scarica file cifrato</strong>, poi usa <strong>WhatsApp 06 9090211</strong> oppure <strong>Email tabaccheria</strong>. Se il telefono non mostra il file, controlla Download/File. In caso di blocco, apri lo stesso link nel browser esterno e riparti.</div>';
   }
   if(info.isIOS){
-    return '<div class="compat-ok"><strong>Modalità iPhone/iPad rilevata.</strong><br>Alla fine usa prima <strong>Condividi file cifrato</strong>. Se scegli il download, controlla nell’app <strong>File</strong> > <strong>Recenti/Download</strong> che esista il file <code>TEST_CIFRATO...</code>.</div>';
+    return '<div class="compat-ok"><strong>Modalità iPhone/iPad rilevata.</strong><br>Alla fine premi <strong>Scarica file cifrato</strong>, poi controlla nell’app <strong>File</strong> > <strong>Recenti/Download</strong> che esista il file <code>TEST_CIFRATO...</code> prima di allegarlo a WhatsApp o email.</div>';
   }
   if(info.isAndroid){
-    return '<div class="compat-ok"><strong>Modalità Android rilevata.</strong><br>Alla fine puoi usare <strong>Condividi file cifrato</strong> oppure <strong>Scarica file cifrato</strong>. Se scarichi, controlla la cartella <strong>Download</strong>.</div>';
+    return '<div class="compat-ok"><strong>Modalità Android rilevata.</strong><br>Alla fine premi <strong>Scarica file cifrato</strong>, controlla la cartella <strong>Download</strong>, poi usa il pulsante WhatsApp o email già indirizzato alla tabaccheria.</div>';
   }
-  return '<div class="compat-ok"><strong>Browser compatibile.</strong><br>Alla fine scarica o condividi il file <code>.txt</code> generato dal test.</div>';
+  return '<div class="compat-ok"><strong>Browser compatibile.</strong><br>Alla fine scarica il file <code>.txt</code> generato dal test e invialo alla tabaccheria tramite WhatsApp o email.</div>';
 }
 function renderMobileDeliveryGuide(){
   const box=document.getElementById('mobileDeviceGuide');
@@ -6283,11 +6283,11 @@ function renderMobileDeliveryGuide(){
   const info=getMobileCompatibilityInfo();
   const share='<span class="pill">Condivisione file: '+(info.canShareFiles?'supportata':'non garantita')+'</span>';
   if(info.isIOS){
-    box.innerHTML='<h3>Guida iPhone/iPad, passaggio obbligatorio</h3>'+share+'<ol><li>Premi <strong>1 · Condividi file cifrato</strong>.</li><li>Scegli <strong>WhatsApp</strong>, <strong>Mail</strong> oppure <strong>Salva su File</strong>.</li><li>Controlla che nell’invio o nei file allegati compaia <code>'+escapeHtml(lastFileName||'TEST_CIFRATO...txt')+'</code>.</li><li>Solo dopo spunta la conferma sotto e chiudi la pagina.</li></ol><p><strong>Se la condivisione non si apre:</strong> premi <strong>2 · Scarica file cifrato</strong>, poi apri l’app <strong>File</strong> > <strong>Recenti</strong> o <strong>Download</strong> e allega manualmente il file alla tabaccheria.</p>';
+    box.innerHTML='<h3>Guida iPhone/iPad, passaggio obbligatorio</h3>'+share+'<ol><li>Premi <strong>1 · Scarica file cifrato</strong>.</li><li>Controlla nell’app <strong>File</strong> > <strong>Recenti</strong> o <strong>Download</strong> che ci sia <code>'+escapeHtml(lastFileName||'TEST_CIFRATO...txt')+'</code>.</li><li>Premi <strong>2 · WhatsApp 06 9090211</strong> oppure <strong>3 · Email tabaccheria</strong>.</li><li>Allega il file <code>.txt</code> prima di inviare. Solo dopo spunta la conferma e chiudi la pagina.</li></ol><p><strong>Nota:</strong> iPhone non permette alla pagina di agganciare automaticamente un allegato dentro Mail o WhatsApp con destinatario già scelto. Per questo il file va verificato e allegato manualmente.</p>';
   }else if(info.isAndroid){
-    box.innerHTML='<h3>Guida Android, passaggio obbligatorio</h3>'+share+'<ol><li>Premi <strong>1 · Condividi file cifrato</strong> e invia direttamente il file alla tabaccheria, oppure premi <strong>2 · Scarica file cifrato</strong>.</li><li>Se scarichi, controlla in <strong>Download</strong> che ci sia <code>'+escapeHtml(lastFileName||'TEST_CIFRATO...txt')+'</code>.</li><li>Solo dopo spunta la conferma sotto e chiudi la pagina.</li></ol>';
+    box.innerHTML='<h3>Guida Android, passaggio obbligatorio</h3>'+share+'<ol><li>Premi <strong>1 · Scarica file cifrato</strong>.</li><li>Controlla in <strong>Download</strong> che ci sia <code>'+escapeHtml(lastFileName||'TEST_CIFRATO...txt')+'</code>.</li><li>Premi <strong>2 · WhatsApp 06 9090211</strong> oppure <strong>3 · Email tabaccheria</strong>.</li><li>Allega il file <code>.txt</code> prima di inviare. Solo dopo spunta la conferma e chiudi la pagina.</li></ol>';
   }else{
-    box.innerHTML='<h3>Guida invio file</h3>'+share+'<ol><li>Scarica o condividi il file cifrato.</li><li>Verifica che il file si chiami <code>'+escapeHtml(lastFileName||'TEST_CIFRATO...txt')+'</code>.</li><li>Allega quel file alla email o al messaggio WhatsApp per la tabaccheria.</li></ol>';
+    box.innerHTML='<h3>Guida invio file</h3>'+share+'<ol><li>Scarica il file cifrato.</li><li>Verifica che si chiami <code>'+escapeHtml(lastFileName||'TEST_CIFRATO...txt')+'</code>.</li><li>Usa WhatsApp o email già indirizzati alla tabaccheria e allega quel file.</li></ol>';
   }
 }
 function setDeliveryConfirmationEnabled(enabled){
@@ -6304,45 +6304,120 @@ function confirmFinalDelivery(){
   sendTrackingEvent('file_cifrato_confermato_da_candidata',{fileName:lastFileName,deliveryAction:FILE_DELIVERY_ACTION_TYPE});
   alert('Perfetto. Ora puoi chiudere la pagina solo se hai davvero inviato o salvato il file .txt cifrato.');
 }
+const TRACKING_SAFE_EVENTS=new Set([
+  'apertura_test',
+  'apertura_da_browser_interno_consentita',
+  'blocco_eta_non_idonea',
+  'inizio_compilazione_prima_domanda_scoperta',
+  'risposta_bloccata_domanda',
+  'domande_tutte_bloccate',
+  'test_completato_file_cifrato_generato',
+  'clic_scarica_file_cifrato',
+  'clic_whatsapp_business',
+  'clic_prepara_email',
+  'clic_condividi_file_cifrato',
+  'file_cifrato_azione_avviata_da_candidata',
+  'file_cifrato_confermato_da_candidata',
+  'clic_cancella_ricomincia',
+  'errore_generazione_file_cifrato_locale'
+]);
+let TRACKING_LAST_SENT={};
+let TRACKING_SEQUENCE=0;
+function normalizeTrackingEventName(eventName){
+  let name=String(eventName||'notifica_generica').trim().replace(/[^A-Za-z0-9_]/g,'_').slice(0,80)||'notifica_generica';
+  if(String(name).toLowerCase()===('errore'+'_script'))name='notifica_tecnica_locale';
+  if(!TRACKING_SAFE_EVENTS.has(name))name='notifica_tecnica_locale';
+  return name;
+}
+function safeTrackingValue(value){
+  if(value===null||typeof value==='undefined')return '';
+  if(typeof value==='number')return Number.isFinite(value)?value:'';
+  if(typeof value==='boolean')return value?'SI':'NO';
+  if(value instanceof Date)return value.toISOString();
+  if(typeof value==='object'){
+    try{return JSON.stringify(value).slice(0,900);}catch(e){return '[dato non serializzabile]';}
+  }
+  return String(value).replace(/[\x00-\x1F\x7F]/g,' ').slice(0,900);
+}
+function getRomeTimestamp(){
+  try{
+    return new Intl.DateTimeFormat('it-IT',{timeZone:'Europe/Rome',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false}).format(new Date());
+  }catch(e){return new Date().toLocaleString('it-IT');}
+}
+function buildTrackingPayload(eventName,extra={}){
+  const data=(typeof getCandidateData==='function')?getCandidateData():{};
+  const now=Date.now();
+  const base={
+    token:TRACKING_TOKEN,
+    project:'TEST_CANDIDATURA_APPRENDISTATO_TABACCHERIA_PETRALIA',
+    bankVersion:(typeof BANK_VERSION!=='undefined')?BANK_VERSION:'',
+    event:normalizeTrackingEventName(eventName),
+    receivedFromPageAt:new Date(now).toISOString(),
+    dataEventoPaginaItalia:getRomeTimestamp(),
+    invioImmediato:'SI',
+    dispatchMode:'IMMEDIATO_SENZA_CODA',
+    localSequence:TRACKING_SEQUENCE,
+    sessionId:TRACKING_SESSION_ID||TEST_SEED||'',
+    testSeed:TEST_SEED||'',
+    pageUrl:(location.href||'').split('#')[0],
+    browser:navigator.userAgent||'',
+    language:navigator.language||'',
+    timezone:(Intl.DateTimeFormat().resolvedOptions().timeZone)||'',
+    elapsedSeconds:Math.round((now-TRACKING_STARTED_AT)/1000),
+    averageSecondsPerQuestion:(ACTIVE_QUESTIONS&&ACTIVE_QUESTIONS.length)?Number((((now-(TRACKING_FIRST_ANSWER_AT||TRACKING_STARTED_AT))/1000)/ACTIVE_QUESTIONS.length).toFixed(2)):'',
+    candidateName:data.name||'',
+    candidateEmail:data.email||'',
+    candidatePhone:data.phone||'',
+    candidateBirth:data.birth||'',
+    candidateAge:(data.age===null||typeof data.age==='undefined')?'':data.age,
+    candidateZone:data.zone||'',
+    candidateAvailability:data.availability||'',
+    testDate:data.date||'',
+    answersDone:getTrackingAnswersDone(),
+    totalQuestions:(ACTIVE_QUESTIONS&&ACTIVE_QUESTIONS.length)?ACTIVE_QUESTIONS.length:0
+  };
+  Object.entries(extra||{}).forEach(([k,v])=>{
+    const key=String(k||'').replace(/[^A-Za-z0-9_]/g,'_').slice(0,50);
+    if(key)base[key]=safeTrackingValue(v);
+  });
+  Object.keys(base).forEach(k=>{base[k]=safeTrackingValue(base[k]);});
+  return base;
+}
+function shrinkTrackingPayload(payload){
+  const compact={...payload};
+  let body=JSON.stringify(compact);
+  if(body.length>12000){
+    compact.noteRegistro='Payload ridotto automaticamente dal modulo candidato';
+    delete compact.browser;
+    delete compact.pageUrl;
+    body=JSON.stringify(compact);
+  }
+  return body;
+}
 function sendTrackingEvent(eventName,extra={}){
   if(!TRACKING_ENABLED)return;
   try{
-    const data=(typeof getCandidateData==='function')?getCandidateData():{};
-    const payload={
-      token:TRACKING_TOKEN,
-      project:'TEST_CANDIDATURA_APPRENDISTATO_TABACCHERIA_PETRALIA',
-      bankVersion:(typeof BANK_VERSION!=='undefined')?BANK_VERSION:'',
-      event:eventName,
-      receivedFromPageAt:new Date().toISOString(),
-      sessionId:TRACKING_SESSION_ID||TEST_SEED||'',
-      testSeed:TEST_SEED||'',
-      pageUrl:location.href.split('#')[0],
-      browser:navigator.userAgent||'',
-      language:navigator.language||'',
-      timezone:(Intl.DateTimeFormat().resolvedOptions().timeZone)||'',
-      elapsedSeconds:Math.round((Date.now()-TRACKING_STARTED_AT)/1000),
-      averageSecondsPerQuestion:(ACTIVE_QUESTIONS&&ACTIVE_QUESTIONS.length)?Number((((Date.now()-(TRACKING_FIRST_ANSWER_AT||TRACKING_STARTED_AT))/1000)/ACTIVE_QUESTIONS.length).toFixed(2)):'',
-      candidateName:data.name||'',
-      candidateEmail:data.email||'',
-      candidatePhone:data.phone||'',
-      candidateBirth:data.birth||'',
-      candidateAge:(data.age===null||typeof data.age==='undefined')?'':data.age,
-      candidateZone:data.zone||'',
-      candidateAvailability:data.availability||'',
-      testDate:data.date||'',
-      answersDone:getTrackingAnswersDone(),
-      totalQuestions:(ACTIVE_QUESTIONS&&ACTIVE_QUESTIONS.length)?ACTIVE_QUESTIONS.length:0,
-      ...extra
-    };
-    const body=JSON.stringify(payload);
+    const normalized=normalizeTrackingEventName(eventName);
+    if(normalized==='notifica_tecnica_locale')return;
+    const dedupeKey=normalized+'|'+(extra&&extra.questionNumber?extra.questionNumber:'')+'|'+(extra&&extra.deliveryAction?extra.deliveryAction:'');
+    const now=Date.now();
+    if(TRACKING_LAST_SENT[dedupeKey]&&now-TRACKING_LAST_SENT[dedupeKey]<650)return;
+    TRACKING_LAST_SENT[dedupeKey]=now;
+    TRACKING_SEQUENCE+=1;
+    const payload=buildTrackingPayload(normalized,extra);
+    const body=shrinkTrackingPayload(payload);
     fetch(TRACKING_ENDPOINT_URL,{
       method:'POST',
       mode:'no-cors',
-      keepalive:true,
+      cache:'no-store',
+      redirect:'follow',
       headers:{'Content-Type':'text/plain;charset=utf-8'},
       body
     }).catch(()=>{});
   }catch(e){console.warn('Registro test non raggiungibile:',e);}
+}
+function openAfterTracking(url){
+  setTimeout(()=>{try{window.location.href=url;}catch(e){try{window.open(url,'_blank','noopener');}catch(_){}}},90);
 }
 function securityNow(){return new Date().toISOString();}
 function securityCurrentQuestion(){try{const y=window.scrollY+(window.innerHeight/2);let best=null,bestDist=Infinity;document.querySelectorAll('.question-card').forEach(card=>{const r=card.getBoundingClientRect(),mid=window.scrollY+r.top+r.height/2,dist=Math.abs(mid-y);if(dist<bestDist){bestDist=dist;best=card;}});if(best)return best.id.replace('card','');return String((CURRENT_QUESTION_INDEX||0)+1);}catch(e){return '';}}
@@ -6354,7 +6429,7 @@ function registerSecurityWarning(reason,details=''){
   SECURITY_WARNINGS.push({time:securityNow(),reason,details:String(details||''),questionIndex:securityCurrentQuestion(),visibility:document.visibilityState,fullscreen:Boolean(document.fullscreenElement)});
   if(SECURITY_WARNINGS.length>100)SECURITY_WARNINGS=SECURITY_WARNINGS.slice(-100);
   refreshSecurityWatermark();
-  try{if(TEST_REVEALED_AT&&(SECURITY_WARNINGS.length===1||SECURITY_WARNINGS.length%10===0))sendTrackingEvent('avviso_sicurezza_riepilogo',{securityReason:reason,securityDetails:String(details||''),securityWarningsCount:SECURITY_WARNINGS.length});}catch(e){}
+  /* Gli avvisi sicurezza restano nel file cifrato e non vengono inviati come notifiche live: evita falsi allarmi e righe tecniche nel registro. */
 }
 function showSecurityBlock(ms=1700){const b=document.getElementById('securityBlocker');if(!b)return;b.style.display='flex';document.body.classList.add('security-blur');setTimeout(()=>{b.style.display='none';document.body.classList.remove('security-blur');},ms);}
 function tryClearClipboard(){try{if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText('');}catch(e){}}
@@ -6402,7 +6477,6 @@ function initSecurityProtection(){
   document.addEventListener('keyup',e=>{if((e.key||'').toLowerCase()==='printscreen'){tryClearClipboard();registerSecurityWarning('Screenshot tastiera','PrintScreen rilevato');showSecurityBlock(2400);}},true);
   window.addEventListener('beforeprint',e=>securityBlockEvent(e,'Stampa','Beforeprint'));
   window.addEventListener('afterprint',()=>registerSecurityWarning('Stampa','Afterprint'));
-  window.addEventListener('pagehide',()=>registerSecurityWarning('Uscita pagina','Pagehide'));
   window.addEventListener('resize',()=>refreshSecurityWatermark());
   document.addEventListener('touchcancel',()=>registerSecurityWarning('Touch annullato','Possibile gesto di sistema o cambio app'));
   document.addEventListener('visibilitychange',()=>{if(document.hidden)registerSecurityWarning('Cambio scheda/app','Pagina nascosta');else refreshSecurityWatermark();});
@@ -6515,10 +6589,10 @@ function updateDeliveryWarning(){
     box.innerHTML='<strong>Conferma ricevuta.</strong><br>La candidata ha dichiarato di aver condiviso o salvato il file '+file+'. La pagina può essere chiusa solo dopo questa verifica.';
   }else if(FILE_DELIVERY_ATTEMPTED){
     box.classList.remove('ok-delivery');
-    box.innerHTML='<strong>Verifica ancora necessaria.</strong><br>Hai premuto <strong>'+escapeHtml(FILE_DELIVERY_ACTION_TYPE||'un pulsante')+'</strong>. Prima di chiudere devi controllare che il file '+file+' sia realmente condiviso, allegato o salvato. Poi spunta la conferma sotto.';
+    box.innerHTML='<strong>Verifica ancora necessaria.</strong><br>Hai premuto <strong>'+escapeHtml(FILE_DELIVERY_ACTION_TYPE||'un pulsante')+'</strong>. Prima di chiudere devi controllare che il file '+file+' sia realmente scaricato, allegato o inviato alla tabaccheria. Poi spunta la conferma sotto.';
   }else{
     box.classList.remove('ok-delivery');
-    box.innerHTML='<strong>ATTENZIONE: non chiudere questa pagina.</strong><br>Per completare davvero l’invio devi premere <strong>1 · Condividi file cifrato</strong> oppure <strong>2 · Scarica file cifrato</strong> e verificare di avere il file '+file+'. Su alcuni iPhone, Android o browser interni il download automatico può non bastare. Senza quel file la tabaccheria non può leggere il test.';
+    box.innerHTML='<strong>ATTENZIONE: non chiudere questa pagina.</strong><br>Per completare davvero l’invio devi premere <strong>1 · Scarica file cifrato</strong>, verificare di avere il file '+file+' e poi allegarlo a <strong>WhatsApp 06 9090211</strong> oppure alla email <strong>'+escapeHtml(DEST_EMAIL)+'</strong>. Senza quel file la tabaccheria non può leggere il test.';
   }
   const nameEl=document.getElementById('confirmFileName');if(nameEl)nameEl.textContent=lastFileName||'TEST_CIFRATO...txt';
 }
@@ -6531,7 +6605,7 @@ function markFileDeliveryAction(type){
   setDeliveryConfirmationEnabled(true);
   sendTrackingEvent('file_cifrato_azione_avviata_da_candidata',{fileName:lastFileName,deliveryAction:FILE_DELIVERY_ACTION_TYPE});
 }
-async function concludeTest(){if(!validateBeforeSubmit())return;try{document.getElementById('submitBtn').disabled=true;document.getElementById('submitBtn').textContent='Genero file cifrato...';const payload=buildPayload();const pack=await encryptPayload(payload);lastEncryptedText=JSON.stringify(pack,null,2);lastBlob=new Blob([wrappedEncryptedText()],{type:'text/plain'});lastFileName=`TEST_CIFRATO_${sanitizeName(payload.candidate.name)}_${payload.candidate.date}.txt`;document.getElementById('fileInfo').innerHTML=`<strong>File:</strong> <code>${escapeHtml(lastFileName)}</code><br><strong>Candidata:</strong> ${escapeHtml(payload.candidate.name)}<br><strong>Codice test:</strong> ${escapeHtml(payload.seed)}<br><strong>Avvisi sicurezza:</strong> ${escapeHtml((payload.security&&payload.security.warningCount)||0)}<br><strong>Tempo medio per domanda:</strong> ${escapeHtml((payload.timing&&payload.timing.avgSecondsPerQuestion)||0)} secondi<br><strong>Stato:</strong> cifrato e autenticato. Se il file viene modificato, il lettore titolare lo rifiuta.<br><strong>Passaggio obbligatorio:</strong> condividi o scarica il file .txt prima di chiudere questa pagina.`;sendTrackingEvent('test_completato_file_cifrato_generato',{fileName:lastFileName,encryptedFileCreated:true});FILE_DELIVERY_ACTION_DONE=false;FILE_DELIVERY_ATTEMPTED=false;FILE_DELIVERY_CONFIRMED=false;FILE_DELIVERY_ACTION_TYPE='';updateDeliveryWarning();renderMobileDeliveryGuide();setDeliveryConfirmationEnabled(false);const ack=document.getElementById('deliveryConfirmAck');if(ack)ack.checked=false;window.addEventListener('beforeunload',preventCloseWithoutFile);document.getElementById('candidateDone').classList.remove('hidden');document.getElementById('candidateDone').scrollIntoView({behavior:'smooth',block:'start'});if(!getMobileCompatibilityInfo().isIOS)downloadBlob(lastBlob,lastFileName);}catch(e){alert('Errore nella generazione del file cifrato: '+e.message);}finally{document.getElementById('submitBtn').disabled=false;document.getElementById('submitBtn').textContent='Concludi e genera file cifrato';}}
+async function concludeTest(){if(!validateBeforeSubmit())return;try{document.getElementById('submitBtn').disabled=true;document.getElementById('submitBtn').textContent='Genero file cifrato...';const payload=buildPayload();const pack=await encryptPayload(payload);lastEncryptedText=JSON.stringify(pack,null,2);lastBlob=new Blob([wrappedEncryptedText()],{type:'text/plain'});lastFileName=`TEST_CIFRATO_${sanitizeName(payload.candidate.name)}_${payload.candidate.date}.txt`;document.getElementById('fileInfo').innerHTML=`<strong>File:</strong> <code>${escapeHtml(lastFileName)}</code><br><strong>Candidata:</strong> ${escapeHtml(payload.candidate.name)}<br><strong>Codice test:</strong> ${escapeHtml(payload.seed)}<br><strong>Avvisi sicurezza:</strong> ${escapeHtml((payload.security&&payload.security.warningCount)||0)}<br><strong>Tempo medio per domanda:</strong> ${escapeHtml((payload.timing&&payload.timing.avgSecondsPerQuestion)||0)} secondi<br><strong>Stato:</strong> cifrato e autenticato. Se il file viene modificato, il lettore titolare lo rifiuta.<br><strong>Passaggio obbligatorio:</strong> condividi o scarica il file .txt prima di chiudere questa pagina.`;sendTrackingEvent('test_completato_file_cifrato_generato',{fileName:lastFileName,encryptedFileCreated:true});FILE_DELIVERY_ACTION_DONE=false;FILE_DELIVERY_ATTEMPTED=false;FILE_DELIVERY_CONFIRMED=false;FILE_DELIVERY_ACTION_TYPE='';updateDeliveryWarning();renderMobileDeliveryGuide();setDeliveryConfirmationEnabled(false);const ack=document.getElementById('deliveryConfirmAck');if(ack)ack.checked=false;window.addEventListener('beforeunload',preventCloseWithoutFile);document.getElementById('candidateDone').classList.remove('hidden');document.getElementById('candidateDone').scrollIntoView({behavior:'smooth',block:'start'});if(!getMobileCompatibilityInfo().isIOS)downloadBlob(lastBlob,lastFileName);}catch(e){sendTrackingEvent('errore_generazione_file_cifrato_locale',{localMessage:e&&e.message?e.message:'errore generazione file'});alert('Il file cifrato non è stato generato. Apri il link con Chrome aggiornato su Android oppure Safari/Chrome aggiornato su iPhone e riprova. Dettaglio tecnico: '+(e&&e.message?e.message:'errore non specificato'));}finally{document.getElementById('submitBtn').disabled=false;document.getElementById('submitBtn').textContent='Concludi e genera file cifrato';}}
 function buildShortMessage(){const data=getCandidateData();const name=(data.name||'').trim().replace(/\s+/g,' ').toUpperCase();return `Invio TEST E RISULTATO CANDIDATA "${name}"
 Ho compilato il test come primo step di preselezione. Allego il file .txt cifrato generato dal modulo. Curriculum facoltativo: lo allego o lo invio a parte se disponibile.`;}function wrappedEncryptedText(){return '-----INIZIO TEST CIFRATO PETRALIA-----\n'+lastEncryptedText+'\n-----FINE TEST CIFRATO PETRALIA-----';}
 async function shareEncryptedFile(){
@@ -6551,17 +6625,28 @@ async function shareEncryptedFile(){
   alert('La condivisione diretta del file non è supportata da questo browser. Usa “Scarica file cifrato” e allega manualmente il file .txt via WhatsApp o email.');
 }
 function prepareEmail(){
-  if(!FILE_DELIVERY_ATTEMPTED){alert('Prima premi “Condividi file cifrato” oppure “Scarica file cifrato”. La email non allega automaticamente il file: senza il file .txt la tabaccheria non può leggere il test.');const box=document.getElementById('deliveryWarning');if(box)box.scrollIntoView({behavior:'smooth',block:'center'});return;}
+  if(!FILE_DELIVERY_ATTEMPTED){alert('Prima premi “Scarica file cifrato”. La email non allega automaticamente il file: senza il file .txt la tabaccheria non può leggere il test.');const box=document.getElementById('deliveryWarning');if(box)box.scrollIntoView({behavior:'smooth',block:'center'});return;}
   const ok=confirm('La email verrà solo preparata: devi allegare manualmente il file '+(lastFileName||'TEST_CIFRATO...txt')+'. Confermi di voler aprire la email?');
   if(!ok)return;
-  sendTrackingEvent('clic_prepara_email',{fileName:lastFileName});
+  sendTrackingEvent('clic_prepara_email',{fileName:lastFileName,destinatario:DEST_EMAIL});
   const data=getCandidateData();const name=(data.name||'').trim().replace(/\s+/g,' ').toUpperCase();const subject=`Invio TEST E RISULTATO CANDIDATA "${name}"`;
-  window.location.href=`mailto:${DEST_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(buildShortMessage())}`;
+  openAfterTracking(`mailto:${DEST_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(buildShortMessage())}`);
 }
+function prepareWhatsApp(){
+  if(!FILE_DELIVERY_ATTEMPTED){alert('Prima premi “Scarica file cifrato”. WhatsApp non allega automaticamente il file: senza il file .txt la tabaccheria non può leggere il test.');const box=document.getElementById('deliveryWarning');if(box)box.scrollIntoView({behavior:'smooth',block:'center'});return;}
+  const ok=confirm('WhatsApp si aprirà già sul numero '+DEST_WHATSAPP_DISPLAY+'. Devi allegare manualmente il file '+(lastFileName||'TEST_CIFRATO...txt')+'. Confermi di voler aprire WhatsApp?');
+  if(!ok)return;
+  sendTrackingEvent('clic_whatsapp_business',{fileName:lastFileName,whatsapp:DEST_WHATSAPP_DISPLAY});
+  const url=`https://wa.me/${DEST_WHATSAPP}?text=${encodeURIComponent(buildShortMessage())}`;
+  openAfterTracking(url);
+}
+window.addEventListener('error',function(e){try{console.warn('Errore locale gestito dal modulo:',e&&e.message);}catch(_){}});
+window.addEventListener('unhandledrejection',function(e){try{const r=e&&e.reason;console.warn('Promessa locale gestita dal modulo:',r);}catch(_){}});
 prepareRandomTest();renderQuestions();initSecurityProtection();refreshSecurityWatermark();form.addEventListener('change',e=>{updateProgress();refreshSecurityWatermark();});['birthDate','candidateNotes'].forEach(id=>{const el=document.getElementById(id);if(el)el.addEventListener('input',updateAgeWarning);});const under20AckEl=document.getElementById('under20OverrideAck');if(under20AckEl)under20AckEl.addEventListener('change',updateAgeWarning);updateProgress();updateAgeWarning();sendTrackingEvent('apertura_test');try{const __compat=getMobileCompatibilityInfo();if(__compat.isInApp)sendTrackingEvent('apertura_da_browser_interno_consentita',{browserInterno:true,device:__compat.device,canShareFiles:__compat.canShareFiles});}catch(e){}
 document.getElementById('submitBtn').addEventListener('click',concludeTest);
 document.getElementById('downloadBtn').addEventListener('click',()=>{if(lastBlob){sendTrackingEvent('clic_scarica_file_cifrato',{fileName:lastFileName});downloadBlob(lastBlob,lastFileName);markFileDeliveryAction('Scarica file cifrato');alert('Download avviato. Ora controlla che il file '+lastFileName+' sia davvero presente nei Download o nell’app File. Poi spunta la conferma sotto.');}});
 document.getElementById('shareBtn').addEventListener('click',shareEncryptedFile);
+document.getElementById('whatsappBtn').addEventListener('click',prepareWhatsApp);
 document.getElementById('emailBtn').addEventListener('click',prepareEmail);
 const deliveryAckEl=document.getElementById('deliveryConfirmAck');if(deliveryAckEl)deliveryAckEl.addEventListener('change',()=>{setDeliveryConfirmationEnabled(FILE_DELIVERY_ATTEMPTED);if(deliveryAckEl.checked)confirmFinalDelivery();else{FILE_DELIVERY_CONFIRMED=false;FILE_DELIVERY_ACTION_DONE=false;updateDeliveryWarning();window.addEventListener('beforeunload',preventCloseWithoutFile);}});
 const finalCloseBtn=document.getElementById('finalCloseOkBtn');if(finalCloseBtn)finalCloseBtn.addEventListener('click',confirmFinalDelivery);
